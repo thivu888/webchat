@@ -1,6 +1,17 @@
 import { makeStyles} from '@mui/styles';
  
  const useStyle=makeStyles((theme)=>({
+
+
+    container:{
+        height:544,
+        overflowY:'scroll',
+        overflowX:'hidden',
+        '&::-webkit-scrollbar':{
+            width: 5,
+        },
+    },
+
     item_wraper:{
         width:'100%',
         height:68,

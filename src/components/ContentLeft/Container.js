@@ -4,11 +4,12 @@ import SearchIcon from '@mui/icons-material/Search';
 import PersonAddOutlinedIcon from '@mui/icons-material/PersonAddOutlined';
 import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined';
 import {InputBase, } from '@mui/material';
+import useStyle from "./style";
 
 const Index=()=>{
-    
+    const classes = useStyle()
     return(
-        <Box sx={{position:'relative',left:64}}>
+        <Box className={classes.container}>
             <Box sx={{position:'fixed', width:336,top:0,bottom:0,background:'#fff',borderRight:'1px solid #dbdbdb',cursor:'pointer'}}>
                 <Box sx={{width:'100%',padding:'20px 0 16px 0'}}>
                     <Box sx={{height:32,display:'flex',alignItems:'center',pl:2}}>

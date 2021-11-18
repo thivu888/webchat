@@ -23,6 +23,9 @@ const Container=styled('div')(({theme})=>({
     display:'flex',
     flexDirection:'column',
     alignItems:'center',
+    '&::-webkit-scrollbar':{
+      width: 5,
+    },
     '&>button':{
       width:64,
       height:64,

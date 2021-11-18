@@ -1,11 +1,12 @@
 import { Box } from '@mui/material';
 import ConversationItem from './ConversationItem'
+import useStyle from './style'
 const Index=()=>{
 
-
+    const classes = useStyle()
 
     return(
-            <Box sx={{height:544,overflowY:'scroll',overflowX:'hidden'}}>
+            <Box className={classes.container}>
                 <ConversationItem/>
                 <ConversationItem/>
                 

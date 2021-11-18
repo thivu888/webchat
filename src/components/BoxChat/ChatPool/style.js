@@ -7,7 +7,9 @@ const useStyle = makeStyles(() => ({
         flexDirection:'column',
         position:'relative',
         height:'84vh',
-        overflow:'scroll'
+        overflowY:'scroll',
+        overflowX:'hidden',
+        padding:'0 10px'
     },
     iconLoading: {
         margin:'0 auto',
