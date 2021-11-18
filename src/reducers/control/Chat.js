@@ -11,7 +11,6 @@ const initialState = {
     newestMessage: null,
     arrivedRawMessage: null,
     standbyMessage: '',
-    emoji: {},
     currentLastMessage: null,
     serverChain: [],
     clientChain: [],
@@ -47,7 +46,6 @@ const pure = (state = initialState, action) => {
                 isOpenTemplate: false,
                 serverChain: [],
                 clientChain: [],
-                loadingStatus: { flag: false, message: null },
                 hasLoadMore: true,
                 isTyping: false,
             });
@@ -61,8 +59,58 @@ const pure = (state = initialState, action) => {
             return Object.assign({}, state, {
                 you: { id: action.payload.id, conversationId: state.conversationId, data: action.payload.data },
             });
+
+        case ActionTypes.LOAD_CHAT_POOL:
+            console.log('LOAD_CHAT_POOL')
+
+            if (action.payload.data) {
+                const chain = [];
+                action.payload.data.concat().reverse().forEach(piece => {
+                    chain[piece.id] = piece;
+                });
+
+                const chainEntries = Object.entries(chain);
+                const newestMessage = chainEntries.length > 0 ? chainEntries[chainEntries.length - 1][1] : null;
+                const currentLastMessage =  action.payload.data.length === 0 ? null : action.payload.data[action.payload.data.length - 1];
+
+
+                return Object.assign({}, state, {
+                    serverChain: chain,
+                    clientChain: chain,
+                    newestMessage,
+                    hasLoadMore: false,
+                    currentLastMessage,
+                });
+            }
+            return state;
         
+        case ActionTypes.CONCAT_CHAT_POOL:
+            console.log('CONCAT_CHAT_POOL')
+
+            if (action.payload.data) {
+                const data = action.payload.data
+                const pawn = [];
+                const chain = state.clientChain;
+                const currentLastMessage = action.payload.data.length === 0 ? null : action.payload.data[action.payload.data.length - 1];
+                data.concat().reverse().forEach(piece => {
+                    pawn[piece.message_id] = piece;
+                });
+                Object.entries(chain).forEach(([key, value]) => {
+                    pawn[key] = value;
+                });
+                console.log(currentLastMessage)
+                return Object.assign({}, state, {
+                    clientChain: pawn,
+                    hasLoadMore: !!action.payload.data.length,
+                    currentLastMessage,
+                    hasNewMessageToScroll:false,
+                });
+            }
+
+            return state;
+
         case ActionTypes.PUSH_CHAT_POOL:
+            console.log('PUSH_CHAT_POOL')
             return Object.assign({}, state, {
                 clientChain: ((message) => {
                     const chain = state.clientChain;

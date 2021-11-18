@@ -16,3 +16,11 @@ export function changeWhoYouAre(payload) {
 export function pushChatPool(payload) {
     return { type: ActionTypes.PUSH_CHAT_POOL, payload }
 };
+
+export function loadChatPool(payload) {
+    return { type: ActionTypes.LOAD_CHAT_POOL, payload }
+};
+
+export function concatChatPool(payload) {
+    return { type: ActionTypes.CONCAT_CHAT_POOL, payload }
+};

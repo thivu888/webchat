@@ -7,5 +7,6 @@ export default keyMirror({
     CHANGE_WHO_YOU_ARE: null,
 
     PUSH_CHAT_POOL: null,
-
+    LOAD_CHAT_POOL: null,
+    CONCAT_CHAT_POOL: null,
 });

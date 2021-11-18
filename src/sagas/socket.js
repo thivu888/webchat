@@ -54,7 +54,6 @@ const send = (message) => new Promise((resolve => {
 }));
 
 export function* socketSendMessage(action) {
-    console.log(action.message)
     const conversationId = yield select(getConversationId);
     if (action.message && action.message.type === MessageTypes.READ) {
         const messageRead = {
@@ -66,6 +65,7 @@ export function* socketSendMessage(action) {
     }
     const message = createMessageSocket(action.message);
     message.roomId = conversationId;
+    console.log(message)
     yield put(pushChatPool({message: message }));
     yield call(send, message);
 }

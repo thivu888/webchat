@@ -16,9 +16,9 @@ const Container = styled('div')((props) => {
 
 const Index=(props)=>{
 
-    const {me,you,isOwn,content,isRead,value} = props
+    const {me,you,isOwn,content,isRead,value,id} = props
     return(<>
-            <Container isOwn>
+            <Container isOwn={isOwn} id={id}>
                 <Box>
                     {!props.isOwn &&
                         <Box>

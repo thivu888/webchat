@@ -1,17 +1,289 @@
-import React from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import { Box } from '@mui/system'
 import {useSelector} from 'react-redux'
 import { useDispatch } from 'react-redux'
 import moment from 'moment'
+import _ from 'lodash'
 import { MessageTypes } from '../../../constant/types'
-import { sendMessage } from '../../../actions/socket'
+import { sendMessage, } from '../../../actions/socket'
+import { concatChatPool } from '../../../actions/Chat'
+import CircularProgress from '@mui/material/CircularProgress';
 import Item from '../ChatItem/Container'
+import  useStyle from './style'
+import { Button } from '@mui/material'
 const Container = () => {
     
     const dispatch = useDispatch()
 
-    const {clientChain,me,you} = useSelector(state => state.chatControl)
+    const scroll = useRef(null)
 
+    const wraper = useRef(null)
+
+    const classes = useStyle()
+
+    const [hasLoadMore,sethasLoadMore] = useState(true)
+    const [loading,setLoading] = useState(false)
+
+    const {clientChain,me,you,hasNewMessageToScroll,conversationId,currentLastMessage} = useSelector(state => state.chatControl)
+
+    const handleOnScroll = (e) => {
+        e.preventDefault()
+        if(!hasLoadMore) {
+            return
+        }
+
+        if(wraper.current.scrollTop > 200) {
+            setLoading(false)
+            if(window.messageChainScrolling) {
+                clearTimeout(window.messageChainScrolling)
+            }
+            return
+        }
+
+        // if (!currentLastMessage) {
+        //     return;
+        // }
+
+        if(window.messageChainScrolling) {
+            clearTimeout(window.messageChainScrolling)
+        }
+
+        console.log('SET_TIME_OUT')
+        window.messageChainScrolling = setTimeout(() => {
+            if (!loading) {
+                setLoading(true)
+                window.loadMessage = setTimeout(() => {
+                    dispatch(concatChatPool({data:[{
+                    content: "dads"+ Math.floor(Math.random()*1000),
+                    message_id: 1637230563608+ new Date().getTime() + Math.floor(Math.random()*112000),
+                    roomId: null,
+                    type: "TEXT",
+                    uerId: "618cc38746a5c0b1260990e1",
+                },
+                {
+                    content: "dads"+ Math.floor(Math.random()*1000),
+                    message_id: 1637230563608+ new Date().getTime() + Math.floor(Math.random()*104200),
+                    roomId: null,
+                    type: "TEXT",
+                    uerId: "618cc38746a5c0b1260990e1",
+                },
+                {
+                    content: "dads"+ Math.floor(Math.random()*1000),
+                    message_id: 1637230563608+ new Date().getTime() + Math.floor(Math.random()*124000),
+                    roomId: null,
+                    type: "TEXT",
+                    uerId: "618cc38746a5c0b1260990e1",
+                },
+                {
+                    content: "dads"+ Math.floor(Math.random()*1000),
+                    message_id: 1637230563608+ new Date().getTime() + Math.floor(Math.random()*10010),
+                    roomId: null,
+                    type: "TEXT",
+                    uerId: "618cc38746a5c0b1260990e1",
+                },
+                {
+                    content: "dads"+ Math.floor(Math.random()*1000),
+                    message_id: 1637230563608+ new Date().getTime() + Math.floor(Math.random()*10500),
+                    roomId: null,
+                    type: "TEXT",
+                    uerId: "618cc38746a5c0b1260990e1",
+                },
+                {
+                    content: "dads"+ Math.floor(Math.random()*1000),
+                    message_id: 1637230563608+ new Date().getTime() + Math.floor(Math.random()*10010),
+                    roomId: null,
+                    type: "TEXT",
+                    uerId: "618cc38746a5c0b1260990e1",
+                },
+                {
+                    content: "dads"+ Math.floor(Math.random()*1000),
+                    message_id: 1637230563608 + new Date().getTime() + Math.floor(Math.random()*100430),
+                    roomId: null,
+                    type: "TEXT",
+                    uerId: "618cc38746a5c0b1260990e1",
+                },
+                {
+                    content: "dads"+ Math.floor(Math.random()*1000),
+                    message_id: 1637230563608+ new Date().getTime() + Math.floor(Math.random()*10030),
+                    roomId: null,
+                    type: "TEXT",
+                    uerId: "618cc38746a5c0b1260990e1",
+                },
+                {
+                    content: "dads"+ Math.floor(Math.random()*1000),
+                    message_id: 1637230563608+ new Date().getTime() + Math.floor(Math.random()*10030),
+                    roomId: null,
+                    type: "TEXT",
+                    uerId: "618cc38746a5c0b1260990e1",
+                },
+                {
+                    content: "dads"+ Math.floor(Math.random()*1000),
+                    message_id: 1637230563608+ new Date().getTime() + Math.floor(Math.random()*10030),
+                    roomId: null,
+                    type: "TEXT",
+                    uerId: "618cc38746a5c0b1260990e1",
+                },
+                {
+                    content: "dads"+ Math.floor(Math.random()*1000),
+                    message_id: 1637230563608+ new Date().getTime() + Math.floor(Math.random()*10030),
+                    roomId: null,
+                    type: "TEXT",
+                    uerId: "618cc38746a5c0b1260990e1",
+                },
+                {
+                    content: "dads"+ Math.floor(Math.random()*1000),
+                    message_id: 1637230563608+ new Date().getTime() + Math.floor(Math.random()*10030),
+                    roomId: null,
+                    type: "TEXT",
+                    uerId: "618cc38746a5c0b1260990e1",
+                },
+                {
+                    content: "dads"+ Math.floor(Math.random()*1000),
+                    message_id: 1637230563608+ new Date().getTime() + Math.floor(Math.random()*10030),
+                    roomId: null,
+                    type: "TEXT",
+                    uerId: "618cc38746a5c0b1260990e1",
+                },
+                {
+                    content: "dads"+ Math.floor(Math.random()*1000),
+                    message_id: 1637230563608+ new Date().getTime() + Math.floor(Math.random()*10030),
+                    roomId: null,
+                    type: "TEXT",
+                    uerId: "618cc38746a5c0b1260990e1",
+                },
+                {
+                    content: "dads"+ Math.floor(Math.random()*1000),
+                    message_id: 1637230563608+ new Date().getTime() + Math.floor(Math.random()*10030),
+                    roomId: null,
+                    type: "TEXT",
+                    uerId: "618cc38746a5c0b1260990e1",
+                },
+                {
+                    content: "dads"+ Math.floor(Math.random()*1000),
+                    message_id: 1637230563608+ new Date().getTime() + Math.floor(Math.random()*10030),
+                    roomId: null,
+                    type: "TEXT",
+                    uerId: "618cc38746a5c0b1260990e1",
+                },
+                {
+                    content: "dads"+ Math.floor(Math.random()*1000),
+                    message_id: 1637230563608+ new Date().getTime() + Math.floor(Math.random()*10030),
+                    roomId: null,
+                    type: "TEXT",
+                    uerId: "618cc38746a5c0b1260990e1",
+                },
+                {
+                    content: "dads"+ Math.floor(Math.random()*1000),
+                    message_id: 1637230563608+ new Date().getTime() + Math.floor(Math.random()*10030),
+                    roomId: null,
+                    type: "TEXT",
+                    uerId: "618cc38746a5c0b1260990e1",
+                },
+                {
+                    content: "dads"+ Math.floor(Math.random()*1000),
+                    message_id: 1637230563608+ new Date().getTime() + Math.floor(Math.random()*10030),
+                    roomId: null,
+                    type: "TEXT",
+                    uerId: "618cc38746a5c0b1260990e1",
+                },
+                {
+                    content: "dads"+ Math.floor(Math.random()*1000),
+                    message_id: 1637230563608+ new Date().getTime() + Math.floor(Math.random()*10030),
+                    roomId: null,
+                    type: "TEXT",
+                    uerId: "618cc38746a5c0b1260990e1",
+                },
+                {
+                    content: "dads"+ Math.floor(Math.random()*1000),
+                    message_id: 1637230563608+ new Date().getTime() + Math.floor(Math.random()*10030),
+                    roomId: null,
+                    type: "TEXT",
+                    uerId: "618cc38746a5c0b1260990e1",
+                },
+                {
+                    content: "dads"+ Math.floor(Math.random()*1000),
+                    message_id: 1637230563608+ new Date().getTime() + Math.floor(Math.random()*10030),
+                    roomId: null,
+                    type: "TEXT",
+                    uerId: "618cc38746a5c0b1260990e1",
+                },
+                {
+                    content: "dads"+ Math.floor(Math.random()*1000),
+                    message_id: 1637230563608+ new Date().getTime() + Math.floor(Math.random()*10030),
+                    roomId: null,
+                    type: "TEXT",
+                    uerId: "618cc38746a5c0b1260990e1",
+                },
+                {
+                    content: "dads"+ Math.floor(Math.random()*1000),
+                    message_id: 1637230563608+ new Date().getTime() + Math.floor(Math.random()*10030),
+                    roomId: null,
+                    type: "TEXT",
+                    uerId: "618cc38746a5c0b1260990e1",
+                },
+                {
+                    content: "dads"+ Math.floor(Math.random()*1000),
+                    message_id: 1637230563608+ new Date().getTime() + Math.floor(Math.random()*10030),
+                    roomId: null,
+                    type: "TEXT",
+                    uerId: "618cc38746a5c0b1260990e1",
+                },
+                {
+                    content: "dads"+ Math.floor(Math.random()*1000),
+                    message_id: 1637230563608+ new Date().getTime() + Math.floor(Math.random()*10030),
+                    roomId: null,
+                    type: "TEXT",
+                    uerId: "618cc38746a5c0b1260990e1",
+                },
+                {
+                    content: "dads"+ Math.floor(Math.random()*1000),
+                    message_id: 1637230563608+ new Date().getTime() + Math.floor(Math.random()*10030),
+                    roomId: null,
+                    type: "TEXT",
+                    uerId: "618cc38746a5c0b1260990e1",
+                },
+                {
+                    content: "dads"+ Math.floor(Math.random()*1000),
+                    message_id: 1637230563608+ new Date().getTime() + Math.floor(Math.random()*10030),
+                    roomId: null,
+                    type: "TEXT",
+                    uerId: "618cc38746a5c0b1260990e1",
+                },
+                {
+                    content: "dads"+ Math.floor(Math.random()*1000),
+                    message_id: 1637230563608+ new Date().getTime() + Math.floor(Math.random()*10030),
+                    roomId: null,
+                    type: "TEXT",
+                    uerId: "618cc38746a5c0b1260990e1",
+                }]}))
+                    setLoading(false)
+                    console.log(currentLastMessage)
+                    if(currentLastMessage){
+                        const elm = document.getElementById(currentLastMessage.message_id.toString());
+                        if (elm) {
+                            elm.scrollIntoView();
+                            elm.scrollTo({
+                                top: 50,
+                                behavior: 'smooth'
+                              })
+                        }
+                    }
+                }, 5000);
+                
+            }
+        }, 500);
+    }
+
+    const scrollToBottom = () => {
+		scroll.current.scrollIntoView({ behavior: "smooth" })
+	}
+
+    useEffect(() => {
+        if(hasNewMessageToScroll) {
+            scrollToBottom()
+        }
+    },[clientChain.length,clientChain,you])
+    
     const  handleReadMessage = () => {
         const now = moment().utc().valueOf();
         const newMessage = {
@@ -25,7 +297,7 @@ const Container = () => {
     const getMessages = (data) => {
         const listMessage = []
         let lastMessage = null
-        let isReadMessage = false
+        let isReadMessage = true
         Object.entries(data).forEach(([key, value]) => {
             lastMessage = value;
             const isOwn = value.userId === me._id
@@ -55,10 +327,11 @@ const Container = () => {
         }
         return listMessage
     }
-
     return (
-        <Box sx={{display:'flex',flexDirection:'column',position:'relative',height:'84vh',overflow:'scroll'}}>
-            { getMessages(clientChain) }
+        <Box id="scrollableDiv" className={classes.container} onScroll={handleOnScroll}  ref={wraper}>
+                {loading && <CircularProgress  className={classes.iconLoading}/>}
+                { getMessages(clientChain) }
+            <Box ref={scroll}/>
         </Box>
     )
 }
