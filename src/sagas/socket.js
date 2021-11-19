@@ -20,6 +20,9 @@ export const createMessageSocket = (message) => {
         type: message.type,
         content: message.content
     };
+    if(message.type === MessageTypes.FILE) {
+        serve.file_type = message.file_type
+    }
     return serve;
 };
 
@@ -65,7 +68,6 @@ export function* socketSendMessage(action) {
     }
     const message = createMessageSocket(action.message);
     message.roomId = conversationId;
-    console.log(message)
     yield put(pushChatPool({message: message }));
     yield call(send, message);
 }

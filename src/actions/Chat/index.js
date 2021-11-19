@@ -1,4 +1,4 @@
-/* Action typo constants, use keyMirror helper */
+
 import ActionTypes from "../../constant/action-types";
 
 export function initChat(payload) {
@@ -23,4 +23,12 @@ export function loadChatPool(payload) {
 
 export function concatChatPool(payload) {
     return { type: ActionTypes.CONCAT_CHAT_POOL, payload }
+};
+
+export function updateSendFile(payload) {
+    return { type: ActionTypes.UPDATE_SEND_FILE, payload }
+};
+
+export function updateViewFile(payload) {
+    return { type: ActionTypes.UPDATE_VIEW_FILE, payload }
 };

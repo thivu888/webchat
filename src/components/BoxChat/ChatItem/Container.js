@@ -1,22 +1,61 @@
 import { Box, styled } from '@mui/system'
 import { Avatar } from '@mui/material'
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Text from './Text/Container'
+import VideoItem from './Video'
+import ImageItem from './Image'
+import { MessageTypes, FileTypes } from '../../../constant/types'
+import useStyleListConversation from '../../ListConversation/style'
+import { DownLoad } from '../../../utils/download';
 const Container = styled('div')((props) => {
         const {isOwn} = props
         return({
             padding: '16px 0 16px 16px',
             alignSelf: `${isOwn ? 'flex-end' : 'flex-start'}`,
-            '&>div': {
+            '& > div': {
                 display:'flex',
-                alignItems:'flex-start'
-            }
+                alignItems:'flex-start',
+                alignItems:'center',
+                '& > svg': {
+                    marginRight:`${isOwn ? '12px' : '0px'}`,
+                    marginLeft:`${!isOwn ? '12px' : '0px'}`,
+                },
+                '&:hover':{
+                    '& > svg':{
+                        opacity:'1',
+                        visibility:'visible'
+                    }
+                },
+            },
+            
         })
     }   
 )
 
 const Index=(props)=>{
 
-    const {me,you,isOwn,content,isRead,value,id} = props
+    const classConversation = useStyleListConversation()
+    const {me,you,isOwn,content,isRead,type,id} = props
+
+    const getItem = ({isOwn,type,content,message}) => {
+        if(MessageTypes.TEXT === type ){
+            return <Text isOwn={isOwn} content={content}/>
+        } else if( MessageTypes.FILE === type) {
+            console.log(message.file_type)
+            if(message.file_type === FileTypes.VIDEO) {
+                return <VideoItem isOwn={isOwn} content={content}/>
+            } else if(message.file_type === FileTypes.IMAGE) {
+                return <ImageItem isOwn={isOwn} content={content}/>
+            }
+        }
+    }
+
+    const handleDownloadFile = (url) => {
+        DownLoad(url)
+    }
+
+
     return(<>
             <Container isOwn={isOwn} id={id}>
                 <Box>
@@ -25,7 +64,9 @@ const Index=(props)=>{
                             <Avatar src={you.avatar}/>
                         </Box>
                     }
-                    <Text isOwn={isOwn} content={content}/>
+                    {type === MessageTypes.FILE && isOwn ?  <FileDownloadIcon className={classConversation.icon_more} onClick={()=>handleDownloadFile(content)}/> : null}
+                    { getItem(props) }
+                    {type === MessageTypes.FILE && !isOwn ? <FileDownloadIcon className={classConversation.icon_more} onClick={()=>handleDownloadFile(content)}/> : null}
                 </Box>
             </Container>
         </>

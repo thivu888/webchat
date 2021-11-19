@@ -9,7 +9,7 @@ const useStyle = makeStyles(() => ({
         height:'84vh',
         overflowY:'scroll',
         overflowX:'hidden',
-        padding:'0 10px'
+        padding:'0 40px 0 20px'
     },
     iconLoading: {
         margin:'0 auto',

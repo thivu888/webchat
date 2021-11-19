@@ -24,6 +24,7 @@ const initialState = {
     isEndRecordingAudio: false,
     isCancelRecordingAudio: false,
     userMedia: null,
+    isViewFile: null,
 };
 
 const pure = (state = initialState, action) => {
@@ -125,6 +126,15 @@ const pure = (state = initialState, action) => {
                 hasNewMessageToScroll: true,
             });
 
+        case ActionTypes.UPDATE_SEND_FILE:
+            return Object.assign({}, state, {
+                isSendingFile: action.payload,
+            });
+        
+        case ActionTypes.UPDATE_VIEW_FILE:
+        return Object.assign({}, state, {
+            isViewFile: action.payload,
+        });
         default:
             return state;
     }

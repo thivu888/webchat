@@ -1,23 +1,14 @@
 import { makeStyles} from '@mui/styles';
 
 const useStyle = makeStyles(({theme})=>({
-    container:{
-        height:68,
-        padding:'0 16px',
-        background:'#fff',
-        display:'flex',
-        alignItems:'center',
-        width:'100%',
-        position:'relative',
-        borderBottom:'1px solid #dbdbdb',
-    },
+   
     IconWraper:{
         display:'flex',
         alignItems:'center',
         justifyContent:'space-around',
         width:150,
         position:'absolute',
-        right:'10px',
+        right:'20px',
         '&>div':{
             width:28,
             height:28,
@@ -30,6 +21,7 @@ const useStyle = makeStyles(({theme})=>({
     },
     avatarWraper:{
         padding:'10px 0',
+        marginLeft:20,
         '&>div':{
             width:48,
             height:48

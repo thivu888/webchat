@@ -1,11 +1,20 @@
 import { Box,Avatar, Typography } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { useDispatch } from 'react-redux';
+import { updateFocusRight } from '../../actions/Main';
 import useStyle from "./style"
 
 const Index=()=>{
     const classes=useStyle()
+
+    const dispatch = useDispatch()
+
+    const handleFocusRight = () => {
+        dispatch(updateFocusRight(true))
+    }
+
     return(
-        <Box className={classes.item_wraper}>
+        <Box className={classes.item_wraper} onClick = {handleFocusRight}>
             <Box className={classes.item_img_wraper}>
                 <Avatar sx={{width:48,height:48}}/>
             </Box>

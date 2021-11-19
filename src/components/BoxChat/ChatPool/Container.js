@@ -11,6 +11,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Item from '../ChatItem/Container'
 import  useStyle from './style'
 import { Button } from '@mui/material'
+import Loading from '../../Loading'
+import ViewFile from '../../ViewImage'
 const Container = () => {
     
     const dispatch = useDispatch()
@@ -24,25 +26,27 @@ const Container = () => {
     const [hasLoadMore,sethasLoadMore] = useState(true)
     const [loading,setLoading] = useState(false)
 
-    const {clientChain,me,you,hasNewMessageToScroll,conversationId,currentLastMessage} = useSelector(state => state.chatControl)
+    const {clientChain,me,you,hasNewMessageToScroll,conversationId,currentLastMessage,isSendingFile,isViewFile} = useSelector(state => state.chatControl)
 
     const handleOnScroll = (e) => {
-        e.preventDefault()
         if(!hasLoadMore) {
             return
         }
 
-        if(wraper.current.scrollTop > 200) {
+        if(wraper.current.scrollTop > 50) {
             setLoading(false)
             if(window.messageChainScrolling) {
                 clearTimeout(window.messageChainScrolling)
             }
+            if(window.messageChainScrolling) {
+                clearTimeout(window.loadMessage)
+            }
             return
         }
 
-        // if (!currentLastMessage) {
-        //     return;
-        // }
+        if (!currentLastMessage) {
+            return;
+        }
 
         if(window.messageChainScrolling) {
             clearTimeout(window.messageChainScrolling)
@@ -327,12 +331,17 @@ const Container = () => {
         }
         return listMessage
     }
-    return (
+    return (<>
+        {isSendingFile ? <Loading open = {isSendingFile} /> : null}
+        {isViewFile ? <ViewFile content = {isViewFile} open={!!isViewFile} /> : null}
         <Box id="scrollableDiv" className={classes.container} onScroll={handleOnScroll}  ref={wraper}>
                 {loading && <CircularProgress  className={classes.iconLoading}/>}
+
                 { getMessages(clientChain) }
-            <Box ref={scroll}/>
+
+                <Box ref={scroll}/>
         </Box>
+        </>
     )
 }
 

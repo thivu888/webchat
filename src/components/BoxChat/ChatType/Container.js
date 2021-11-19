@@ -1,14 +1,45 @@
 import React,{useState} from 'react'
 import { Box } from '@mui/system'
+import { styled } from '@mui/styles';
 import InputBase from '@mui/material/InputBase';
 import useStyle from './style';
 import { Typography } from '@mui/material';
 import {
     sendMessage,
 } from '../../../actions/socket';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { MessageTypes } from '../../../constant/types';
+import InputFile from './InputFile'
+
+const ContainerWraper = styled('div')((props) => ({
+        position:'fixed',
+        right:0,
+        left:`${props.isDesktop ? '401px' : '64px'}`,
+        bottom:0,
+        height:56,
+        background:'#fff',
+
+        '&>div':{
+            display:'flex',
+            alignItems:'center',
+            borderTop:'1px solid #bdbdbd',
+            padding:'8px 0',
+            height:'100%',
+            width:'100%',
+            '&>div':{
+                '&>svg:hover':{
+                    cursor:'pointer',
+                    borderRadius:'2px',
+                }
+            }
+        }
+}))
+
+
 const Container = () => {
+    
+    const {isDesktop,focusContentRight} = useSelector(state => state.main)
+   
     const dispatch = useDispatch()
 
     const classes = useStyle()
@@ -37,12 +68,9 @@ const Container = () => {
     }
     
     return (
-        <Box className={classes.container}>
+        <ContainerWraper isDesktop = {isDesktop} focusContentRight = {focusContentRight} >
                 <Box>
-                    <Box sx={{display:'flex',alignItems:'center',pb:1,pl:1}}>
-                        <Typography className={classes.IconCamera +" "+ classes.icon}></Typography>
-                        <Typography className={classes.iconPicture +" "+ classes.icon}></Typography>
-                    </Box>
+                    <InputFile/>
                     <Box className={classes.InputWraper }>
                         <InputBase fullWidth placeholder="Type ...." onChange={onChangeInput} value={state} onKeyPress={onKeyPress}/>
                         <Box className={classes.iconSmileWraper}>
@@ -58,7 +86,7 @@ const Container = () => {
                         </Box>
                     </Box>
                 </Box>
-        </Box>
+        </ContainerWraper>
     )
 }
 

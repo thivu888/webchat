@@ -9,4 +9,10 @@ export default keyMirror({
     PUSH_CHAT_POOL: null,
     LOAD_CHAT_POOL: null,
     CONCAT_CHAT_POOL: null,
+    UPDATE_SEND_FILE: null,
+    UPDATE_VIEW_FILE: null,
+
+
+    UPDATE_FOCUS_RIGHT: null,
+    UPDATE_ISDESKTOP: null,
 });

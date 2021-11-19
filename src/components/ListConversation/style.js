@@ -73,7 +73,8 @@ import { makeStyles} from '@mui/styles';
         color:'#72808e',
         opacity:'0',
         visibility:'hidden',
-        transition:'all 0.6s ease'
+        transition:'all 0.6s ease',
+        cursor:'pointer'
     }
 }))
 
