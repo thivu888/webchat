@@ -1,9 +1,9 @@
-import HeaderWaper from "../../ContentRight/Header";
+import HeaderWaper from "../ContentRight/Header";
 import React from 'react'
 import { Box } from "@mui/system";
 const Header = () => {
     return (
-       <HeaderWaper chat = {true} />
+       <HeaderWaper addFriend = {true} />
     )
 }
 

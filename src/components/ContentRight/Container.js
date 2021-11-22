@@ -1,23 +1,46 @@
 import Boxchat from '../BoxChat/Container'
 import { useSelector } from 'react-redux'
 import { styled } from '@mui/styles'
+import BoxAddFriend from '../BoxAddFriend'
 
 const Container = styled('div')((props) => ({
     position:'relative',
     background:'#fff',
-    left:`${props.isDesktop? '401px' : '64px'}`,
-    width:`calc(100vw - ${props.isDesktop? '401px' : '64px'})`, 
-    display :`${ props.focus ? 'block' : 'none'}`
+    left:401,
+    width:`calc(100vw - 401px)`, 
+    [props.theme.breakpoints.down('tablet')]: {
+        left:64,
+        width:`calc(100vw - 64px)`,
+        display :props =>{return `${props.focus ? 'block' : 'none'}`},
+        },
+    '&::-webkit-scrollbar':{
+        width: 8,
+        opacity: 0.8,
+        display: 'none',
+        },
+    '&:hover::-webkit-scrollbar':{
+        width: 8,
+        opacity: 0.8,
+        display: 'block',
+    },
+    '&::-webkit-scrollbar-track': {
+        backgroundColor: '#fff',
+    },
+    '&::-webkit-scrollbar-thumb': {
+    backgroundColor: '#fff',
+    height: '70%',
+    borderRadius: '10px',
+    }
 }))
 
 
 const Index=(props)=>{
-    
-    const {focusContentRight,isDesktop} = useSelector(state => state.main)
-    const {matches} = props
+    const {focusContentRight,targetContent} = useSelector(state => state.main)
     return(
-        <Container isDesktop={isDesktop} focus={focusContentRight} >
-            <Boxchat />
+        <Container focus={focusContentRight} >
+            {targetContent === "message" && <Boxchat/>}
+            {targetContent === "contacts" && <BoxAddFriend/>}
+            {/* {targetContent === "message" && <Boxchat/>} */}
         </Container>
     )
 }

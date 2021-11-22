@@ -1,38 +1,40 @@
 import { Box } from "@mui/system"
-import ListConversation from '../ListConversation/Container'
-
+import ListConversation from '../ListConversation'
+import ListContacts from "../ListContacts";
 import { styled } from "@mui/styles";
 import { useSelector } from 'react-redux'
 import Header from "./Header";
-const Container = styled('div')((props) =>({
+const Container = styled('div')((props) => {return ({
     position:'fixed',
         left:64,
-        width:`${ props.isDesktop ? '336px' : 'calc(100vw - 64px)'}`,
+        width:336,
         top:0,
         bottom:0,
         background:'#fff',
         borderRight:'1px solid #dbdbdb',
         cursor:'pointer',
-        display:`${props.subWidth && props.focus ? 'none' : 'block'}`,
-        '&::-webkit-scrollbar':{
-            width: 5,
+        display:'block',
+        [props.theme.breakpoints.down('tablet')]: {
+            width:`calc(100vw - 64px)`,
+            display :props =>{return `${props.focus ? 'none' : 'block'}`},
         },
-}))
+        '&::-webkit-scrollbar':{
+            width: '5px',
+        },
 
+})})
+ 
 
 
 const Index=(props)=>{
 
-    const {matches} = props
-
-    const {focusContentRight,isDesktop} = useSelector(state => state.main)
-
+    const {focusContentRight,targetContent} = useSelector(state => state.main)
     return(
-        <Container isDesktop={isDesktop} focus={focusContentRight} >
+        <Container focus={focusContentRight} >
                 <Header/>
-                <hr/>
                 <Box>
-                    <ListConversation/>
+                    {targetContent === "message" && <ListConversation/>}
+                    {targetContent === "contacts" && <ListContacts/>}
                 </Box>
         </Container>
     )

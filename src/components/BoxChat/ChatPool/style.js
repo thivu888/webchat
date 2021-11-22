@@ -9,7 +9,25 @@ const useStyle = makeStyles(() => ({
         height:'84vh',
         overflowY:'scroll',
         overflowX:'hidden',
-        padding:'0 40px 0 20px'
+        padding:'0 40px 0 20px',
+        '&::-webkit-scrollbar':{
+            width: 8,
+            opacity: 0.8,
+            display: 'none',
+            },
+        '&:hover::-webkit-scrollbar':{
+            width: 8,
+            opacity: 1,
+            display: 'block',
+        },
+        '&::-webkit-scrollbar-track': {
+            backgroundColor: '#fff',
+        },
+        '&::-webkit-scrollbar-thumb': {
+        backgroundColor: '#b9c0c7',
+        height: '10%',
+        borderRadius: '10px',
+        }
     },
     iconLoading: {
         margin:'0 auto',

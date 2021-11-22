@@ -3,6 +3,8 @@ import ActionTypes from '../../constant/action-types';
 const initialState = {
     focusContentRight : true,
     isDesktop : true,
+    targetContent: 'message',
+    targetContentRight: 'addfriend',
 }
 
 const pure = (state = initialState, action) => {
@@ -16,7 +18,16 @@ const pure = (state = initialState, action) => {
             return Object.assign({},state,{
                 isDesktop: action.payload,
             })
+        
+        case ActionTypes.UPDATE_TARGET_CONTENT:
+            return Object.assign({},state,{
+                targetContent: action.payload,
+            })
 
+        case ActionTypes.UPDATE_TARGET_CONTENT_RIGHT:
+            return Object.assign({},state,{
+                targetContentRight: action.payload,
+            })
         default:
             return state;
     }

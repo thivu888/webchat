@@ -15,4 +15,6 @@ export default keyMirror({
 
     UPDATE_FOCUS_RIGHT: null,
     UPDATE_ISDESKTOP: null,
+    UPDATE_TARGET_CONTENT: null,
+    UPDATE_TARGET_CONTENT_RIGHT: null,
 });

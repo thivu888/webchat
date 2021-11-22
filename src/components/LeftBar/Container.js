@@ -13,13 +13,15 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import useStyle from './style';
 import storage from '../../utils/storage'
 import authentication from '../../services/authentication';
+import { useDispatch } from 'react-redux';
+import { updateTargetContent,updateTargetContentRight } from '../../actions/Main';
 const Container=styled('div')(({theme})=>({
     position:'fixed',
     width:64,
     top:0,
     left:0,
     bottom:0,
-    backgroundColor:theme.palette.primary.dark,
+    backgroundColor:theme.palette.primary.main,
     display:'flex',
     flexDirection:'column',
     alignItems:'center',
@@ -32,10 +34,10 @@ const Container=styled('div')(({theme})=>({
       backgroundColor:'inherit',
       cursor:'pointer',
       '&:hover':{ 
-        backgroundColor:theme.palette.primary.light,
+        backgroundColor:"#ffffff40",
       },
       '&:focus':{
-        backgroundColor:theme.palette.primary.light,
+        backgroundColor:theme.palette.primary.dark,
       },
       '&>svg':{
         display:'block',
@@ -74,6 +76,9 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   }));
 
 const Index=()=>{
+
+    const dispatch = useDispatch()
+  
     const [anchorEl, setAnchorEl] =React.useState(null);
     const open = Boolean(anchorEl);
     const handleClickSetting=(event)=>{
@@ -87,6 +92,10 @@ const Index=()=>{
       return  console.log('redirect')
     }
 
+    const handleRedirectContent = (target) => {
+      dispatch( updateTargetContent(target) )
+    }
+
     const logOut = () => authentication.logOut()
 
     const user = storage.getUserInfo()
@@ -98,13 +107,13 @@ const Index=()=>{
             <StyledBadge sx={{mt:3}} overlap="circular" anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} variant="dot" onClick={handleRedirectInfoUser}>
                 <Avatar sx={{width:48,height:48}} src={user.avatar}/>
             </StyledBadge>
-            <Button sx={{mt:4}}>
+            <Button sx={{mt:4}} onClick = {() => handleRedirectContent("message")}>
                 <ChatIcon sx={{width:32,height:32,color:'white'}}/>
             </Button>
-            <Button>
+            <Button onClick = {() => handleRedirectContent("contacts")}>
                 <AssignmentIndOutlinedIcon sx={{width:32,height:32,color:'white'}}/>
             </Button>
-            <Button>
+            <Button onClick = {() => handleRedirectContent("notify","")}>
               <Badge badgeContent={4} color="secondary">
                   <NotificationsNoneOutlinedIcon sx={{width:32,height:32,color:'white'}}/>
               </Badge>

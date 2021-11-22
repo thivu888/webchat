@@ -4,7 +4,7 @@ import { makeStyles} from '@mui/styles';
 
 
     container:{
-        height:544,
+        height:'90vh',
         overflowY:'scroll',
         overflowX:'hidden',
         '&::-webkit-scrollbar':{

@@ -4,31 +4,7 @@ import iconPicture from '../../../static/images/icon-picture.svg'
 import iconSmile from '../../../static/images/icon-smile.svg'
 import iconMic from '../../../static/images/icon-mic.svg'
 import iconSend from '../../../static/images/icon-send-white.svg'
-import { margin } from '@mui/system';
 const useStyle = makeStyles(({theme})=>({
-    container:{
-        position:'fixed',
-        right:0,
-        left:401,
-        bottom:0,
-        height:56,
-        background:'#fff',
-
-        '&>div':{
-            display:'flex',
-            alignItems:'center',
-            borderTop:'1px solid #bdbdbd',
-            padding:'8px 0',
-            height:'100%',
-            width:'100%',
-            '&>div':{
-                '&>svg:hover':{
-                    cursor:'pointer',
-                    borderRadius:'2px',
-                }
-            }
-        }
-    },
     InputWraper:{
         height:'60%',
         width:'90%',

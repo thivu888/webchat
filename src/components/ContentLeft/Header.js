@@ -7,7 +7,7 @@ import {InputBase, } from '@mui/material';
 
 const Header = () => {
     return (
-        <Box sx={{width:'100%',padding:'20px 0 16px 0'}}>
+        <Box sx={{width:'100%',padding:'20px 0 16px 0',borderBottom:'1px solid #dbdbdb'}}>
                 <Box sx={{height:32,display:'flex',alignItems:'center',pl:2,justifyContent:'space-between'}}>
                     <Box sx={{background:'#e8eaef',borderRadius:6,height:'100%',width:'100%'}}>
                         <Box sx={{width:"100%",height:'100%',pl:1,display:'flex'}}>
