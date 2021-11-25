@@ -54,7 +54,7 @@ const Container = () => {
 
             dispatch(sendMessage({
                 content: state,
-                type: MessageTypes.TEXT
+                type: MessageTypes.MESSAGE
             }))
 
             setstate('')

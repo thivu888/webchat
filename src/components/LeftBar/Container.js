@@ -14,7 +14,7 @@ import useStyle from './style';
 import storage from '../../utils/storage'
 import authentication from '../../services/authentication';
 import { useDispatch } from 'react-redux';
-import { updateTargetContent,updateTargetContentRight } from '../../actions/Main';
+import { updateTargetContent,updateTargetContentRight, updateUserInfo } from '../../actions/Main';
 const Container=styled('div')(({theme})=>({
     position:'fixed',
     width:64,
@@ -77,6 +77,9 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 const Index=()=>{
 
+    const user = storage.getUserInfo()
+    const classes = useStyle()
+
     const dispatch = useDispatch()
   
     const [anchorEl, setAnchorEl] =React.useState(null);
@@ -96,10 +99,14 @@ const Index=()=>{
       dispatch( updateTargetContent(target) )
     }
 
+    const handleShowInfo = () => {
+      dispatch( updateUserInfo(user) )
+    }
+
+
     const logOut = () => authentication.logOut()
 
-    const user = storage.getUserInfo()
-    const classes = useStyle()
+    
     
 
     return(
@@ -130,7 +137,7 @@ const Index=()=>{
                 'aria-labelledby': 'setting',
               }}
             >
-              <MenuItem onClick={handleClose} sx={{fontSize:15}}>
+              <MenuItem onClick={handleClose} sx={{fontSize:15}} onClick={handleShowInfo}>
                 <AccountCircleOutlinedIcon className={classes.menu_item_icon}/>
                 <Typography className={classes.menu_item_text}>Tài khoản</Typography>
               </MenuItem>

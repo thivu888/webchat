@@ -17,4 +17,5 @@ export default keyMirror({
     UPDATE_ISDESKTOP: null,
     UPDATE_TARGET_CONTENT: null,
     UPDATE_TARGET_CONTENT_RIGHT: null,
+    UPDATE_USER_INFO: null,
 });

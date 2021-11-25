@@ -8,6 +8,7 @@ export const theme = createTheme({
         mobileplus: 600,
         tablet: 800,
         desktop: 1280,
+        desktopplus: 1380,
     },
   },
   palette: {

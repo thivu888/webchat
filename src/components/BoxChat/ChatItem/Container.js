@@ -39,15 +39,12 @@ const Index=(props)=>{
     const {me,you,isOwn,content,isRead,type,id} = props
 
     const getItem = ({isOwn,type,content,message}) => {
-        if(MessageTypes.TEXT === type ){
+        if(MessageTypes.MESSAGE === type ){
             return <Text isOwn={isOwn} content={content}/>
-        } else if( MessageTypes.FILE === type) {
-            console.log(message.file_type)
-            if(message.file_type === FileTypes.VIDEO) {
-                return <VideoItem isOwn={isOwn} content={content}/>
-            } else if(message.file_type === FileTypes.IMAGE) {
-                return <ImageItem isOwn={isOwn} content={content}/>
-            }
+        } else if( MessageTypes.VIDEO === type) {
+            return <VideoItem isOwn={isOwn} content={content}/>
+        } else if(MessageTypes.IMAGE === type) {
+            return <ImageItem isOwn={isOwn} content={content}/>
         }
     }
 

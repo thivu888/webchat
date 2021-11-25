@@ -8,7 +8,6 @@ import reducer from './reducers/index'
 import rootSaga from './sagas';
 import {theme} from './configTheme'
 import { ThemeProvider } from '@mui/system';
-
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
     reducer,
@@ -21,7 +20,7 @@ function App() {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <RouterFile/>
+          <RouterFile/>
       </ThemeProvider>
     </Provider>
   );

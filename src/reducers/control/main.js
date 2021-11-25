@@ -5,6 +5,7 @@ const initialState = {
     isDesktop : true,
     targetContent: 'message',
     targetContentRight: 'addfriend',
+    userInfo: null,
 }
 
 const pure = (state = initialState, action) => {
@@ -27,6 +28,11 @@ const pure = (state = initialState, action) => {
         case ActionTypes.UPDATE_TARGET_CONTENT_RIGHT:
             return Object.assign({},state,{
                 targetContentRight: action.payload,
+            })
+
+        case ActionTypes.UPDATE_USER_INFO:
+            return Object.assign({},state,{
+                userInfo: action.payload,
             })
         default:
             return state;

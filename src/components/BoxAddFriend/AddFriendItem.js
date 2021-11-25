@@ -8,7 +8,7 @@ import { Grid } from '@mui/material';
 const AddFriendItem = ({user}) => {
     return (
 
-        <Grid item mobile={12} mobileplus={6} tablet={6}  desktop={3}>
+        <Grid item mobile={12} mobileplus={6} tablet={6}  desktop={4} desktopplus={3}>
             <Card sx={{position:'relative', width: 250, height: 250,background:'#fff', display:'flex', flexDirection:'column',alignItems:'center', margin:'16px auto' }}>
                 <CancelOutlinedIcon sx={{position: 'absolute', top:6, right:6, color:'gray',zIndex:'1000',cursor:'pointer'}}/>
                 <Box>

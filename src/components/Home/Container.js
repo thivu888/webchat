@@ -5,6 +5,7 @@ import { updateIsDesktop } from "../../actions/Main";
 import LeftBar from '../LeftBar'
 import ContentLeft from '../ContentLeft'
 import ContentRight from '../ContentRight'
+import ProfileUser from '../../components/profile'
 import storage from "../../utils/storage"
 const Home=()=>{
     const dispatch = useDispatch()
@@ -22,6 +23,7 @@ const Home=()=>{
             <LeftBar />
             <ContentLeft />
             <ContentRight />
+            <ProfileUser/>
         </Box>
     )
 }

@@ -20,9 +20,6 @@ export const createMessageSocket = (message) => {
         type: message.type,
         content: message.content
     };
-    if(message.type === MessageTypes.FILE) {
-        serve.file_type = message.file_type
-    }
     return serve;
 };
 

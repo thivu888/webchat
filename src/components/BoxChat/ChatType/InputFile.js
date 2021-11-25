@@ -18,10 +18,10 @@ const InputFile = () => {
         const targetFile = event.target.files[0];
 
         if(targetFile && ((/^image\/[a-z0-9]/).test(targetFile.type))) {
-            handleSendFile(targetFile, FileTypes.IMAGE)
+            handleSendFile(targetFile, MessageTypes.IMAGE)
         }
         else if(targetFile && ((/^video\/[a-z0-9]/).test(targetFile.type))) {
-            handleSendFile(targetFile, FileTypes.VIDEO)
+            handleSendFile(targetFile, MessageTypes.VIDEO)
         }
         else {
            alert('File chưa được hỗ trợ')
@@ -34,9 +34,8 @@ const InputFile = () => {
         setTimeout(async () => {
             const fileUpload  = await mediaService.uploadFile(file)
             const message = {
-                type: MessageTypes.FILE,
+                type: file_type,
                 content: fileUpload.url,
-                file_type
             }
 
             dispatch( updateSendFile(false) )

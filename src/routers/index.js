@@ -20,7 +20,6 @@ function App() {
           <PrivateRoute path="/verify" component={Verify}/>
           <PrivateRoute path="/" component={Home}/>
         </Switch>
-        
       </Suspense>
     </Router>
     </>
