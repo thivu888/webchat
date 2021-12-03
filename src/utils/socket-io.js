@@ -4,7 +4,7 @@ const connectSocket = () => {
     if (window.socket) {
         return window.socket;
     }
-    window.socket = io.connect('https://chat-app-server-hero.herokuapp.com/api/v1');
+    window.socket = io.connect('https://chat-app-server-hero.herokuapp.com');
 
     return window.socket;
 };

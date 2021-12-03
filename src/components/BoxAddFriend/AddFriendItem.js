@@ -2,7 +2,7 @@ import React from 'react'
 import { Box } from '@mui/system'
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
-import { Avatar, Button, CardActionArea, CardActions } from '@mui/material';
+import { Avatar, Button } from '@mui/material';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import { Grid } from '@mui/material';
 const AddFriendItem = ({user}) => {

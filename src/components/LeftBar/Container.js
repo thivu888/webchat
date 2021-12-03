@@ -14,7 +14,7 @@ import useStyle from './style';
 import storage from '../../utils/storage'
 import authentication from '../../services/authentication';
 import { useDispatch } from 'react-redux';
-import { updateTargetContent,updateTargetContentRight, updateUserInfo } from '../../actions/Main';
+import { updateTargetContent, updateUserInfo,updateTargetContentRight } from '../../actions/Main';
 const Container=styled('div')(({theme})=>({
     position:'fixed',
     width:64,
@@ -95,8 +95,9 @@ const Index=()=>{
       return  console.log('redirect')
     }
 
-    const handleRedirectContent = (target) => {
+    const handleRedirectContent = (target,content) => {
       dispatch( updateTargetContent(target) )
+      dispatch( updateTargetContentRight(content))
     }
 
     const handleShowInfo = () => {
@@ -114,10 +115,10 @@ const Index=()=>{
             <StyledBadge sx={{mt:3}} overlap="circular" anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} variant="dot" onClick={handleRedirectInfoUser}>
                 <Avatar sx={{width:48,height:48}} src={user.avatar}/>
             </StyledBadge>
-            <Button sx={{mt:4}} onClick = {() => handleRedirectContent("message")}>
+            <Button sx={{mt:4}} onClick = {() => handleRedirectContent("message"," ")}>
                 <ChatIcon sx={{width:32,height:32,color:'white'}}/>
             </Button>
-            <Button onClick = {() => handleRedirectContent("contacts")}>
+            <Button onClick = {() => { handleRedirectContent("contacts","addfriend"); } }>
                 <AssignmentIndOutlinedIcon sx={{width:32,height:32,color:'white'}}/>
             </Button>
             <Button onClick = {() => handleRedirectContent("notify","")}>

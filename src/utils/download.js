@@ -1,21 +1,24 @@
 
 
-export const DownLoad = (url) =>{
+export const DownLoad = (url,name) =>{
     const link = document.createElement('a')
     link.href = url;
-    const randomNumber = Math.floor(Math.random()*123456).toString()
-    link.download = "file" + randomNumber
+    link.download = name
     link.click()
 }
 
-const GetUrlImg = async (url) => {
+export const GetUrlImg = async (url) => {
 
     const image = await fetch(url);
-   
+    let name = await image.url.split('/')
+    console.log(name)
+    name = image.url.split('_')
+    delete name[0]
+    name = name.join("")
+    name = name.replace(/%20/g, "_")
     const imageBlog = await image.blob()
 
     const imageURL = URL.createObjectURL(imageBlog)
-
-    DownLoad(imageURL)
+    DownLoad(imageURL,name)
 
 };

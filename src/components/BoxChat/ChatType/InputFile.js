@@ -6,7 +6,7 @@ import { sendMessage } from '../../../actions/socket';
 import { updateSendFile } from '../../../actions/Chat';
 import useStyle from './style';
 import mediaService from '../../../services/media';
-import { FileTypes, MessageTypes } from '../../../constant/types';
+import { MessageTypes } from '../../../constant/types';
 
 const InputFile = () => {
 
@@ -30,9 +30,8 @@ const InputFile = () => {
 
     const handleSendFile = async (file,file_type) => {
         dispatch( updateSendFile(true) )
-
-        setTimeout(async () => {
             const fileUpload  = await mediaService.uploadFile(file)
+            console.log(fileUpload)
             const message = {
                 type: file_type,
                 content: fileUpload.url,
@@ -41,10 +40,6 @@ const InputFile = () => {
             dispatch( updateSendFile(false) )
     
             dispatch(sendMessage(message))
-
-        }, 5000);
-       
-
     }
 
     return (

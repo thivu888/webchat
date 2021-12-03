@@ -32,3 +32,23 @@ export function updateSendFile(payload) {
 export function updateViewFile(payload) {
     return { type: ActionTypes.UPDATE_VIEW_FILE, payload }
 };
+
+export function updateConversations(payload) {
+    return { type: ActionTypes.UPDATE_CONVERSATIONS, payload }
+};
+
+export function updateConversationId(payload) {
+    return { type: ActionTypes.UPDATE_CONVERSATIONId, payload }
+};
+
+export function updateAvatarsConverSation(payload) {
+    return { type: ActionTypes.UPDATE_AVATARS, payload }
+};
+
+export function updateNameConverSation(payload) {
+    return { type: ActionTypes.UPDATE_NAME, payload }
+};
+
+export function updateTime(payload) {
+    return { type: ActionTypes.UPDATE_TIME, payload }
+};

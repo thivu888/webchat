@@ -1,6 +1,6 @@
 import { Box } from "@mui/system"
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateIsDesktop } from "../../actions/Main";
 import LeftBar from '../LeftBar'
 import ContentLeft from '../ContentLeft'
@@ -11,7 +11,6 @@ const Home=()=>{
     const dispatch = useDispatch()
     const user = storage.getUserInfo()
     const verify = storage.getVerify()
-
     const matches = useMediaQuery('(min-width:800px)');
     dispatch( updateIsDesktop(matches))
     if(! user.verify && !verify){

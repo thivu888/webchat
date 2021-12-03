@@ -1,21 +1,43 @@
 import { Avatar, Typography } from '@mui/material'
 import { Box } from '@mui/system'
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import avatarground from '../../static/images/avatarground.png'
 import avatarContacts from '../../static/images/avataraddfriend.png'
 import useStyle from '../ListConversation/style'
 import { ContactsItem } from './ContactsItem'
 import { updateTargetContentRight } from '../../actions/Main';
 import { useDispatch } from 'react-redux';
+import UserService from '../../services/user'
 
 const Container = () => {
 
     const classes = useStyle()
     const dispatch = useDispatch()
 
+    const [listUser,setListUser] = useState([])
+    const [loading,setLoading] = useState(false)
+
+    useEffect(() => {
+        handleCallAPI()
+    }, [])
+
+    const handleCallAPI =async () => {
+        setLoading(true)
+        UserService.getAllUsers().then(res => {
+            setLoading(false)
+            setListUser([...res.users])
+        }).catch(e=>console.log(e))
+    }
+
+    const getItem = () =>{
+        let list = []
+        list = listUser.map((item)=><ContactsItem key={item._id} id={item._id} user={item}/>)
+        return list
+    }
+
     const handleRedirectContent = (targetContentRight) => {
         dispatch( updateTargetContentRight(targetContentRight) )
-      }
+    }
 
     return (
         <Box className = {classes.container} >
@@ -39,27 +61,7 @@ const Container = () => {
                 </Box>
             </Box>
             <Box>
-                <ContactsItem/>
-                <ContactsItem/>
-                <ContactsItem/>
-                <ContactsItem/>
-                <ContactsItem/>
-                <ContactsItem/>
-                <ContactsItem/>
-                <ContactsItem/>
-                <ContactsItem/>
-                <ContactsItem/>
-                <ContactsItem/>
-                <ContactsItem/>
-                <ContactsItem/>
-                <ContactsItem/>
-                <ContactsItem/>
-                <ContactsItem/>
-                <ContactsItem/>
-                <ContactsItem/>
-                <ContactsItem/>
-                <ContactsItem/>
-                <ContactsItem/>
+                {getItem()}
             </Box>
         </Box>
     )

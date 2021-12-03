@@ -11,7 +11,7 @@ const Popup = (props) => {
 
     return (
         <Backdrop sx={{ zIndex: (theme) => theme.zIndex.drawer + 1}} open={!!userInfo} >
-            <Box sx={{width:360,height:600,background:'#fff',borderRadius:3,p:1}} >
+            <Box sx={{width:360,height:615,background:'#fff',borderRadius:3,p:1}} >
                 {props.children}
             </Box>
         </Backdrop>

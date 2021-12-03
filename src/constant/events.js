@@ -1,6 +1,6 @@
 export const SocketEvents = {
     CONNECT: "connect",
-    NEW_MESSAGE: "chat",
+    NEW_MESSAGE: "sendMessage",
     TYPING: "typing",
     MDS: "message_status",
     READ: "read_message",

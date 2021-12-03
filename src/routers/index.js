@@ -8,6 +8,7 @@ import PrivateRoute from './PrivateRoute'
 import PageLoader from './PageLoader'
 import Socket from '../components/Common/Socket'
 import { Suspense } from "react";
+
 function App() {
   return (
     <>

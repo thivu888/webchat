@@ -1,14 +1,25 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import AuthService from '../../services/authentication';
+import UserService from '../../services/user';
 import storage from '../../utils/storage';
-import { changeWhoIAm } from '../../actions/Chat';
+import { changeWhoIAm, updateConversations,pushChatPool } from '../../actions/Chat';
 import history from '../../utils/history';
-
+import connectSocket from '../../utils/socket-io';
+import _ from "lodash"
+let conversationIdCurrent = "";
+let HandleUpdateConversationsS = null;
 const  Socket = (props) => {
     useEffect(()=>{
         reloadData()
+
+        handleUpdateConversations()
+        HandleUpdateConversationsS = _.debounce(() => handleUpdateConversations(),500);
     },[])
+
+    useEffect(()=>{
+        conversationIdCurrent = props.conversationId
+    },[props.conversationId])
    
 const reloadData = () => {
 
@@ -19,14 +30,42 @@ const reloadData = () => {
             AuthService.getUserInfo(user._id).then(response => {
                 storage.setUserInfo(response.data)
                 props.changeWhoIAm({ id: response.data._id, data: response.data });
-                // connectSocket();
+                connectsocket();
             });
         })
-        // this.handleGetNewMessage();
     } else {
         handleRedirectLogin();
     }
 };
+
+const handleUpdateConversations = async () => {
+    const user = storage.getUserInfo(); 
+    UserService.getListConverSations(user._id)
+        .then(responseConversation => {
+           props.updateConversations(responseConversation)
+        });
+};
+
+const connectsocket = () =>{
+    const currentUser = storage.getUserInfo();
+    props.changeWhoIAm({ id: currentUser._id, data: currentUser });
+  
+    const socket = connectSocket();
+    socket.emit('JOIN_ROOM',currentUser._id);
+
+    socket.on('getMessage',data => {
+        handleUpdateConversations();
+        if(data.roomId === conversationIdCurrent ) {
+            console.log("Repush")
+            props.pushChatPool(data)
+        }
+    })
+
+    socket.on('resSendMessage',data => {
+        console.log("Relaod")
+        // HandleUpdateConversationsS();
+    })
+}
 
 const handleRedirectLogin = () => {
     history.push('/login')
@@ -40,13 +79,13 @@ const mapStateToProps = (state) => ({
     me: state.chatControl.me,
     you: state.chatControl.you,
     clientChain: state.chatControl.clientChain,
-    filterConversation: state.chatControl.filterConversation,
-    arrivedRawMessage: state.chatControl.arrivedRawMessage,
-    pendingFileMessage: state.chatControl.pendingFileMessage,
+    conversationId: state.chatControl.conversationId,
 });
 
 const mapDispatchToProps = (dispatch) => ({
     changeWhoIAm: payload => dispatch(changeWhoIAm(payload)),
+    updateConversations: payload => dispatch(updateConversations(payload)),
+    pushChatPool:payload => dispatch(pushChatPool({message:payload})),
 });
 
 

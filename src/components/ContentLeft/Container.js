@@ -29,6 +29,10 @@ const Container = styled('div')((props) => {return ({
 const Index=(props)=>{
 
     const {focusContentRight,targetContent} = useSelector(state => state.main)
+
+    let body = null;
+
+
     return(
         <Container focus={focusContentRight} >
                 <Header/>

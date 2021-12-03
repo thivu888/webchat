@@ -6,12 +6,13 @@ import SearchIcon from '@mui/icons-material/Search';
 import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
 import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Avatar,Typography } from "@mui/material"
+import { Avatar,Typography,AvatarGroup } from "@mui/material"
 import { useDispatch, useSelector } from 'react-redux';
 import { updateFocusRight } from '../../../actions/Main';
 import useStyle from './style';
 import avatarAddFriend from '../../../static/images/avataraddfriend.png'
 import avatar_Group from '../../../static/images/avatarground.png'
+import moment from 'moment'
 export const ContainerWraper = styled('div')((props) =>{return({
         height:68,
         background:'#fff',
@@ -37,8 +38,7 @@ const Container = (props) => {
         dispatch( updateFocusRight(false) )
     }
 
-    const {chat, addFriend,user} = props
-    
+    const {chat, addFriend,user,avatars,name,updatedAt} = props
     return (
         <ContainerWraper focus={focusContentRight} >
                 {
@@ -68,13 +68,22 @@ const Container = (props) => {
                 {
                 chat && 
                 (<>
-                <Box className={classes.avatarWraper}>
-                    <Avatar/>
-                </Box>
+                {
+                    avatars ? (
+                        <AvatarGroup max={2}>
+                            {avatars.map(item => <Avatar src={item}/>)}
+                        </AvatarGroup>
+                    ) : (
+                    <Box className={classes.avatarWraper}>
+                            <Avatar/>
+                    </Box>
+                    )
+                }
+                
                 <Box sx={{ml:2}}>
                     <Box className={classes.info}>
-                        <Typography className={classes.name}>ZaloPay</Typography>
-                        <Typography className={classes.timeAgo}>Truy cập 14 phút trước</Typography>
+                        <Typography className={classes.name}>{name}</Typography>
+                        <Typography className={classes.timeAgo}>{moment(updatedAt).fromNow()}</Typography>
                     </Box>
                 </Box>
                 <Box className={classes.IconWraper}>

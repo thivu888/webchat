@@ -18,4 +18,9 @@ export default keyMirror({
     UPDATE_TARGET_CONTENT: null,
     UPDATE_TARGET_CONTENT_RIGHT: null,
     UPDATE_USER_INFO: null,
+    UPDATE_CONVERSATIONS: null,
+    UPDATE_CONVERSATIONId: null,
+    UPDATE_AVATARS: null,
+    UPDATE_NAME: null,
+    UPDATE_TIME: null,
 });

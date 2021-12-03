@@ -40,7 +40,6 @@ const Index=(props)=>{
         <Container focus={focusContentRight} >
             {targetContent === "message" && <Boxchat/>}
             {targetContent === "contacts" && <BoxAddFriend/>}
-            {/* {targetContent === "message" && <Boxchat/>} */}
         </Container>
     )
 }

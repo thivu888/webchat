@@ -11,14 +11,20 @@ import authenService from '../../services/authentication';
 import useStyle from './style'
 import validateEmail from '../../constant/validateEmail'
 import validateTelephone from '../../constant/validateTelephone'
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
 import Loading from '../Loading';
+import { DesktopDatePicker, LocalizationProvider } from '@mui/lab';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
 function Index({register}) {
     const classes =useStyle()
+
     const [dataForm,setDataForm]=useState({
         email:'',
         telephone:'',
         password:'',
         confirmpassword:'',
+        date: new Date(),
         error:[]
     })
     const [type,setType]=useState('telephone')
@@ -32,6 +38,7 @@ function Index({register}) {
     };
 
     const canBeOpen = open && Boolean(anchorEl);
+
     const id = canBeOpen ? 'transition-popper' : undefined;
 
     const onChangeHandle=(e)=>{
@@ -87,11 +94,15 @@ function Index({register}) {
         }
     }
 
+    const handleChangeDate = (e) =>{
+        setDataForm({...dataForm,dataOfBirth:e.getTime()})
+    }
+
     const handleSubmit=(e)=>{
         if(register){
             if(dataForm.error.length===0){
             setLoading(true)
-                authenService.register({email:dataForm.email,password:dataForm.password})
+                authenService.register({...dataForm})
                 .then(()=> setLoading(false)).catch(()=> setLoading(false))
                 return;
             }
@@ -122,8 +133,29 @@ function Index({register}) {
             error:[]
         })
     }
+    console.log(dataForm)
     return (
             <Box className={classes.content} >
+                {register && (
+                    <>
+                        <Box>
+                            <Button sx={{outline:'none',border:'none',pr:4}} size="small" variant='outlined' ><PersonOutlineIcon sx={{mt:2}}/></Button>
+                            <TextField onKeyPress={handleOnPressKey} sx={{width:'100%',ml:1}} name="username" label="Username" variant="standard" required value={dataForm.username}  onChange={onChangeHandle}/>
+                        </Box>
+                        <Box>
+                            <Button sx={{outline:'none',border:'none',pr:4}} size="small" variant='outlined' ><DateRangeOutlinedIcon sx={{mt:2}}/></Button>
+                            <LocalizationProvider dateAdapter={AdapterDateFns} >
+                                <DesktopDatePicker
+                                value = {dataForm.dataOfBirth}
+                                inputFormat="dd/MM/yyyy"
+                                renderInput={(params) => <TextField {...params} />}
+                                name = "date"
+                                onChange={handleChangeDate}
+                                />
+                             </LocalizationProvider>
+                        </Box>
+                    </>
+                )}
                 <Box >
                     <Button onClick={handleClick} sx={{outline:'none',border:'none',mt:2}} size="small" variant='outlined' endIcon={<ArrowDropDownIcon />}>{type==='email'?<EmailOutlinedIcon />:<PhoneIphoneOutlinedIcon/>}</Button>
                     <Popper className={classes.transition_popper} id={id} open={open} anchorEl={anchorEl} transition>

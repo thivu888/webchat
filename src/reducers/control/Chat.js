@@ -2,21 +2,20 @@ import ActionTypes from '../../constant/action-types';
 
 
 const initialState = {
-    socket: null,
-    isSocketNewMessageListenersLoadedFully: false,
     me: { id: null, data: {} },
-    you: { id: null, conversationId: null, data: {} },
+    yous: {},
+    avatars:[],
+    updatedAt:Date.now(),
+    name: null,
     pendingFileMessage: null,
     hasNewMessageToScroll: false,
     newestMessage: null,
-    arrivedRawMessage: null,
-    standbyMessage: '',
     currentLastMessage: null,
     serverChain: [],
     clientChain: [],
     isTyping: false,
     hasLoadMore: true,
-    listConversation: [],
+    listConversations: [],
     conversationId: null,
     isSendingFile: false,
     isOpenRecordAudio: false,
@@ -31,24 +30,28 @@ const pure = (state = initialState, action) => {
     switch (action.type) {
         case ActionTypes.INIT_CHAT:
             return Object.assign({}, state, {
+                me: { id: null, data: {} },
+                yous: {},
+                avatars:[],
+                updatedAt:Date.now(),
+                name: null,
                 pendingFileMessage: null,
-                standbyMessage: '',
-                you: { id: null, conversationId: null, data: {} },
-                imageBox: {
-                    isOpened: false,
-                    message: null,
-                },
-                isHeaderMenuOpened: false,
-                isFooterPlusMenuOpened: false,
-                isFooterEmoticonMenuOpened: false,
-                isFooterKeyBoardOpened: true,
-                isGiftPoolOpened: false,
-                isOpenGalleryHistory: false,
-                isOpenTemplate: false,
+                hasNewMessageToScroll: false,
+                newestMessage: null,
+                currentLastMessage: null,
                 serverChain: [],
                 clientChain: [],
-                hasLoadMore: true,
                 isTyping: false,
+                hasLoadMore: true,
+                listConversations: [],
+                conversationId: null,
+                isSendingFile: false,
+                isOpenRecordAudio: false,
+                isStartRecordingAudio: false,
+                isEndRecordingAudio: false,
+                isCancelRecordingAudio: false,
+                userMedia: null,
+                isViewFile: null,
             });
 
         case ActionTypes.CHANGE_WHO_I_AM:
@@ -57,17 +60,19 @@ const pure = (state = initialState, action) => {
             });
 
         case ActionTypes.CHANGE_WHO_YOU_ARE:
+            const newYou = {}
+            action.payload.forEach(item => {
+                    newYou[item._id] = item
+            })
             return Object.assign({}, state, {
-                you: { id: action.payload.id, conversationId: state.conversationId, data: action.payload.data },
+                yous: newYou,
             });
 
         case ActionTypes.LOAD_CHAT_POOL:
-            console.log('LOAD_CHAT_POOL')
-
             if (action.payload.data) {
                 const chain = [];
                 action.payload.data.concat().reverse().forEach(piece => {
-                    chain[piece.id] = piece;
+                    chain[piece._id] = piece;
                 });
 
                 const chainEntries = Object.entries(chain);
@@ -81,12 +86,12 @@ const pure = (state = initialState, action) => {
                     newestMessage,
                     hasLoadMore: false,
                     currentLastMessage,
+                    hasNewMessageToScroll:true,
                 });
             }
             return state;
         
         case ActionTypes.CONCAT_CHAT_POOL:
-            console.log('CONCAT_CHAT_POOL')
 
             if (action.payload.data) {
                 const data = action.payload.data
@@ -94,12 +99,11 @@ const pure = (state = initialState, action) => {
                 const chain = state.clientChain;
                 const currentLastMessage = action.payload.data.length === 0 ? null : action.payload.data[action.payload.data.length - 1];
                 data.concat().reverse().forEach(piece => {
-                    pawn[piece.message_id] = piece;
+                    pawn[piece._id] = piece;
                 });
                 Object.entries(chain).forEach(([key, value]) => {
                     pawn[key] = value;
                 });
-                console.log(currentLastMessage)
                 return Object.assign({}, state, {
                     clientChain: pawn,
                     hasLoadMore: !!action.payload.data.length,
@@ -111,12 +115,11 @@ const pure = (state = initialState, action) => {
             return state;
 
         case ActionTypes.PUSH_CHAT_POOL:
-            console.log('PUSH_CHAT_POOL')
             return Object.assign({}, state, {
                 clientChain: ((message) => {
                     const chain = state.clientChain;
                     const pawn = [];
-                    chain[message.message_id] = message;
+                    chain[message._id] = message;
                     Object.entries(chain).forEach(([key, value]) => {
                         pawn[key] = value;
                     });
@@ -132,9 +135,36 @@ const pure = (state = initialState, action) => {
             });
         
         case ActionTypes.UPDATE_VIEW_FILE:
-        return Object.assign({}, state, {
-            isViewFile: action.payload,
-        });
+            return Object.assign({}, state, {
+                isViewFile: action.payload,
+            });
+
+        case ActionTypes.UPDATE_CONVERSATIONS:
+            return Object.assign({}, state, {
+                listConversations: action.payload,
+            });
+
+        case ActionTypes.UPDATE_CONVERSATIONId:
+            return Object.assign({}, state, {
+                conversationId: action.payload,
+            });
+
+        case ActionTypes.UPDATE_AVATARS:
+            return Object.assign({}, state, {
+                avatars: action.payload,
+            });
+
+        case ActionTypes.UPDATE_NAME:
+            return Object.assign({}, state, {
+                name: action.payload,
+            });
+
+        case ActionTypes.UPDATE_TIME:
+            return Object.assign({}, state, {
+                updatedAt: action.payload,
+            });
+        
+        
         default:
             return state;
     }

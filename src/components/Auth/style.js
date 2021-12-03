@@ -8,7 +8,7 @@ import { makeStyles,withStyles} from '@mui/styles';
      },
     wraper: (props)=>({
         width:360,
-        height:400,
+        minHeight:400,
         marginLeft:'auto',
         marginRight:'auto',
         background:'#fff',

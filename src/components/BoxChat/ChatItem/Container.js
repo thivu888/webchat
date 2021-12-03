@@ -7,7 +7,7 @@ import VideoItem from './Video'
 import ImageItem from './Image'
 import { MessageTypes, FileTypes } from '../../../constant/types'
 import useStyleListConversation from '../../ListConversation/style'
-import { DownLoad } from '../../../utils/download';
+import { DownLoad, GetUrlImg } from '../../../utils/download';
 const Container = styled('div')((props) => {
         const {isOwn} = props
         return({
@@ -36,7 +36,7 @@ const Container = styled('div')((props) => {
 const Index=(props)=>{
 
     const classConversation = useStyleListConversation()
-    const {me,you,isOwn,content,isRead,type,id} = props
+    const {me,you,isOwn,content,isRead,type,id,avatar} = props
 
     const getItem = ({isOwn,type,content,message}) => {
         if(MessageTypes.MESSAGE === type ){
@@ -49,7 +49,7 @@ const Index=(props)=>{
     }
 
     const handleDownloadFile = (url) => {
-        DownLoad(url)
+        GetUrlImg(url)
     }
 
 
@@ -58,12 +58,12 @@ const Index=(props)=>{
                 <Box>
                     {!props.isOwn &&
                         <Box>
-                            <Avatar src={you.avatar}/>
+                            <Avatar src={avatar}/>
                         </Box>
                     }
-                    {type === MessageTypes.FILE && isOwn ?  <FileDownloadIcon className={classConversation.icon_more} onClick={()=>handleDownloadFile(content)}/> : null}
+                    {type !== MessageTypes.MESSAGE && isOwn ?  <FileDownloadIcon className={classConversation.icon_more} onClick={()=>handleDownloadFile(content)}/> : null}
                     { getItem(props) }
-                    {type === MessageTypes.FILE && !isOwn ? <FileDownloadIcon className={classConversation.icon_more} onClick={()=>handleDownloadFile(content)}/> : null}
+                    {type !== MessageTypes.MESSAGE && !isOwn ? <FileDownloadIcon className={classConversation.icon_more} onClick={()=>handleDownloadFile(content)}/> : null}
                 </Box>
             </Container>
         </>
