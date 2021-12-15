@@ -67,6 +67,8 @@ const Component = () => {
               insertMode: 'append',
               width: '180px',
               height: '150px',
+              video:true,
+              audio: true
             },
             style: {
                 buttonDisplayMode: 'on',
@@ -88,6 +90,8 @@ const Component = () => {
                 element: 'subscriber' ,
                 options: {
                   insertMode: 'append',
+                  video:true,
+                  audio: true
                 },
                 style: {
                     buttonDisplayMode: 'on',
