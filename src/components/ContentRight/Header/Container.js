@@ -97,7 +97,7 @@ const Container = (props) => {
                         <LocalPhoneOutlinedIcon/>
                     </Box>
                     <Box>
-                        <VideocamOutlinedIcon/>
+                        <VideocamOutlinedIcon onClick = {() => window.open('/call','name','width=1200,height=800','left:auto')}/>
                     </Box>
                 </Box>
                 </>

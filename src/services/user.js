@@ -8,6 +8,10 @@ const UserService = {
         return HttpRequest.get('/users').then(res=>res)
     },
 
+    async findUsers (page = 0,limit = 10,search = ' ') {
+        return HttpRequest.get(`/users/${page}/${limit}?search=${search}`).then(res=>res)
+    },
+
     async UpdateUser (id,data) {
         return HttpRequest.put(`/users/${id}`,data).then(res => {
            if(res.success) {
@@ -23,7 +27,8 @@ const UserService = {
 
     async getUsersInRoom(id) {
         return HttpRequest.get(`/participants/participants-of-room/${id}`);
-    }
+    },
+
 
 };
 

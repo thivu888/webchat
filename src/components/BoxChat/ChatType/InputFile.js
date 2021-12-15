@@ -47,7 +47,7 @@ const InputFile = () => {
             <label htmlFor="ic-camera">
                 <Typography className={classes.IconCamera +" "+ classes.icon}></Typography>
             </label>
-            <InputBase sx={{display:'none'}} type="file" id="ic-camera" onChange={handleOnChangeFile} inputProps={{accept:".jpg,.jpeg,.png,video/*"}} />
+            <InputBase sx={{display:'none'}}  type="file" id="ic-camera" onChange={handleOnChangeFile} inputProps={{accept:".jpg,.jpeg,.png,video/*",multiple:true}} />
 
             <label htmlFor="ic-img">
                 <Typography className={classes.iconPicture +" "+ classes.icon}></Typography>

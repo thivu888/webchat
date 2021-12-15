@@ -1,0 +1,63 @@
+body, html {
+    background-color: gray;
+    height: 100%;
+}
+
+#videos {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#publisher {
+    position: absolute;
+    z-index: 1000;
+    left:10px;
+    bottom:10px;
+}
+
+.main-layout {
+    max-height: 100vh;
+    overflow: hidden;
+    background: white;
+}
+
+.CallContainer {
+    position: absolute !important;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+
+.CallContainer .OT_subscriber:hover .OT_edge-bar-item.OT_mode-auto { opacity: 0;}
+.normalView .OTSubscriberContainer,
+.reverseView .OTPublisherContainer,
+.ringing .OTPublisherContainer,
+.connect .OTPublisherContainer {
+    position: absolute !important;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 10000;
+    width: unset !important;
+    height: unset !important;
+    margin: auto !important;
+    border-radius: 1px;
+}
+
+.VideoContainer {
+    position: fixed !important;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 10000;
+    width: unset !important;
+    height: unset !important;
+    margin: auto !important;
+    border-radius: 1px;
+}

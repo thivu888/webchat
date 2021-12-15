@@ -26,7 +26,6 @@ const pure = (state = initialState, action) => {
             })
 
         case ActionTypes.UPDATE_TARGET_CONTENT_RIGHT:
-            console.log(action.payload)
             return Object.assign({},state,{
                 targetContentRight: action.payload,
             })
