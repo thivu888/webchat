@@ -20,3 +20,11 @@ export function updateTargetContentRight(payload) {
 export function updateUserInfo(payload) {
     return { type: ActionTypes.UPDATE_USER_INFO, payload }
 };
+
+export function updateShowAddGroup(payload) {
+    return { type: ActionTypes.UPDATE_SHOW_ADD_GROUP, payload }
+};
+
+export function updateShowAddFriend(payload) {
+    return { type: ActionTypes.UPDATE_SHOW_ADD_FRIEND, payload }
+};

@@ -27,6 +27,7 @@ const Container = () => {
     const [hasLoadMore,sethasLoadMore] = useState(true)
 
     const [loading,setLoading] = useState(false)
+    const {sessionId,token} =  useSelector(state => state.tokbox)
 
     const {clientChain,me,yous,hasNewMessageToScroll,conversationId,currentLastMessage,isSendingFile,isViewFile} = useSelector(state => state.chatControl)
 
@@ -113,7 +114,6 @@ const Container = () => {
 
     const handleCallAPI = async (page = 0,limit = 20) => {
      const {data} = await MessageService.getMessageHistory(conversationId,page,limit);
-     console.log(data)
         return data
     }
 

@@ -8,7 +8,6 @@ const Index=()=>{
 
     const {listConversations} = useSelector(state => state.chatControl)
     const getListconverSations = () => {
-
         const list = listConversations.map(item => <ConversationItem key={item._id} id={item._id} value ={item}/>)
 
         return list

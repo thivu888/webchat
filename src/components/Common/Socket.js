@@ -4,6 +4,7 @@ import AuthService from '../../services/authentication';
 import UserService from '../../services/user';
 import storage from '../../utils/storage';
 import { changeWhoIAm, updateConversations,pushChatPool } from '../../actions/Chat';
+import {tranferCallData, setShowIncomming} from '../../actions/call';
 import history from '../../utils/history';
 import connectSocket from '../../utils/socket-io';
 import _ from "lodash"
@@ -40,14 +41,10 @@ const reloadData = () => {
 
 const handleUpdateConversations = async () => {
     const user = storage.getUserInfo(); 
-    console.log(user)
-
     UserService.getListConverSations(user._id)
         .then(responseConversation => {
-            console.log(888)
            props.updateConversations(responseConversation)
         }).catch(error => {
-            console.log('responseConversation')
             console.log(error)
         })
 };
@@ -62,13 +59,32 @@ const connectsocket = () =>{
     socket.on('getMessage',data => {
         handleUpdateConversations();
         if(data.roomId === conversationIdCurrent ) {
-            console.log("Repush")
             props.pushChatPool(data)
         }
     })
 
     socket.on('resSendMessage',data => {
-        console.log("Relaod")
+        // HandleUpdateConversationsS();
+    })
+
+    socket.on('call',data => {
+    const user = storage.getUserInfo();
+
+        if(data.data.userId._id === user._id){
+            props.tranferCallData({
+                sessionId: data.sessionId,
+                token: data.token,
+            })
+        }else{
+            props.setShowIncomming({
+                    sessionId: data.sessionId,
+                    token: data.token,
+                })
+        }
+        // window.history.pushState({
+        //     sessionId: data.sessionId,
+        //     token: data.token,
+        // }, 'callPage', '/call');
         // HandleUpdateConversationsS();
     })
 }
@@ -92,6 +108,8 @@ const mapDispatchToProps = (dispatch) => ({
     changeWhoIAm: payload => dispatch(changeWhoIAm(payload)),
     updateConversations: payload => dispatch(updateConversations(payload)),
     pushChatPool:payload => dispatch(pushChatPool({message:payload})),
+    tranferCallData:payload => dispatch(tranferCallData(payload)),
+    setShowIncomming:payload => dispatch(setShowIncomming(payload)),
 });
 
 

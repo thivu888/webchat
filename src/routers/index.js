@@ -17,11 +17,11 @@ function App() {
     <Router>
       <Suspense fallback={<PageLoader/>}>
         <Switch>
-          <PublicRoute path="/login" component={Login}/>
-          <PublicRoute path="/register" component={Register}/>
-          <PrivateRoute path="/verify" component={Verify}/>
-          <PrivateRoute path="/call" component={BoxChatCall}/>
-          <PrivateRoute path="/" component={Home}/>
+          <PrivateRoute exact  path="/call" component={BoxChatCall}/>
+          <PublicRoute exact  path="/login" component={Login}/>
+          <PublicRoute exact  path="/register" component={Register}/>
+          <PrivateRoute exact  path="/verify" component={Verify}/>
+          <PrivateRoute exact  path="/" component={Home}/>
         </Switch>
       </Suspense>
     </Router>

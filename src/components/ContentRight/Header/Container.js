@@ -13,6 +13,8 @@ import useStyle from './style';
 import avatarAddFriend from '../../../static/images/avataraddfriend.png'
 import avatar_Group from '../../../static/images/avatarground.png'
 import moment from 'moment'
+import history from '../../../utils/history'
+import { Link } from 'react-router-dom';
 export const ContainerWraper = styled('div')((props) =>{return({
         height:68,
         background:'#fff',
@@ -29,7 +31,6 @@ export const ContainerWraper = styled('div')((props) =>{return({
 
 const Container = (props) => {
     const classes = useStyle()  
-
     const {isDesktop,focusContentRight,targetContentRight} = useSelector(state => state.main)
 
     const dispatch = useDispatch()
@@ -38,7 +39,27 @@ const Container = (props) => {
         dispatch( updateFocusRight(false) )
     }
 
-    const {chat, addFriend,user,avatars,name,updatedAt} = props
+    const {chat, addFriend,user,avatars,name,updatedAt,data} = props
+
+    const onHandleRequestCall = () => {
+        window.socket.emit('call',{
+            _id: Date.now() + Math.round(Math.random()*10000001),
+            userId:{
+                _id: data.me.data._id,
+                username: data.me.data.username,
+                avatar: data.me.data.avatar,
+            } ,
+            roomId: data.conversationId,
+            content: 'đang gọi',
+            type: 'call',
+            createdAt: Date.now(),
+            updatedAt: Date.now(),
+            userIds: Object.keys(data.yous),
+            roomAvatar: avatars,
+            roomName: name
+        })
+    }
+
     return (
         <ContainerWraper focus={focusContentRight} >
                 {
@@ -91,13 +112,18 @@ const Container = (props) => {
                         <GroupAddOutlinedIcon/>
                     </Box>
                     <Box>
-                        <SearchIcon/>
+
+                        <SearchIcon onClick={() => console.log('/verify')}/>
                     </Box>
                     <Box>
-                        <LocalPhoneOutlinedIcon/>
+                        <Link to={`/call`}>
+                            <LocalPhoneOutlinedIcon onClick ={onHandleRequestCall}/>
+                        </Link>
                     </Box>
                     <Box>
-                        <VideocamOutlinedIcon onClick = {() => window.open('/call','name','width=1200,height=800','left:auto')}/>
+                        <Link to={`/call`}>
+                             <VideocamOutlinedIcon onClick = {() => onHandleRequestCall()}/>
+                        </Link>
                     </Box>
                 </Box>
                 </>

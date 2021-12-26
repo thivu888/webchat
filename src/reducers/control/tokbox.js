@@ -4,9 +4,10 @@ const initialState = {
     video: false,
     audio: false,
     swtichCamera: false,
-    isShowIncomingCall: false,
+    isShowIncomingCall: null,
+    isShowRinging:null,
     sessionId: "",
-    tokenId: "",
+    token: "",
 };
 
 const tokbox = (state = initialState, action) => {
@@ -16,7 +17,12 @@ const tokbox = (state = initialState, action) => {
                 isShowIncomingCall: action.payload
                 }
             );
-
+            
+        case ActionTypes.SET_SHOW_RINGING:
+            return Object.assign({}, state,{
+                isShowRinging: action.payload
+                }
+            );
         case ActionTypes.SET_AUDIO:
             return Object.assign({}, state,{audio: action.payload});
 
@@ -24,6 +30,7 @@ const tokbox = (state = initialState, action) => {
             return Object.assign({}, state,{video: action.payload});
 
         case ActionTypes.SET_DATA_CALL:
+            console.log(action.payload)
                 return Object.assign({}, state,{...action.payload});
 
         default:

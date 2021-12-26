@@ -1,35 +1,25 @@
-import {
-    JOIN_CALL_REQUEST,
-    MAKE_CALL_REQUEST,
-    TRANFER_CALL_DATA,
-    END_CALL_REQUEST,
-} from "../constants/action_constant";
+import ActionTypes from '../constant/action-types';
 
-export function tranferCallData(message) {
+
+export function tranferCallData(payload) {
     return {
-        type: TRANFER_CALL_DATA,
-        message,
+        type: ActionTypes.SET_DATA_CALL,
+        payload,
     };
 }
 
-export function makeCallRequest(message) {
+export function setShowIncomming(payload) {
     return {
-        type: MAKE_CALL_REQUEST,
-        message,
+        type: ActionTypes.SET_SHOW_INCOMING,
+        payload,
     };
 }
 
-export function joinCallRequest(message) {
+export function setShowRinging(payload) {
     return {
-        type: JOIN_CALL_REQUEST,
-        message,
+        type: ActionTypes.SET_SHOW_RINGING,
+        payload,
     };
 }
 
-export function endCallRequest(message) {
-    return {
-        type: END_CALL_REQUEST,
-        message,
-    };
-}
 

@@ -64,7 +64,7 @@ const Index=(props)=>{
 
     return(<>
             <Container isOwn={isOwn} id={id}>
-                <Box sx={{ maxWidth: 400, display: 'flex', flexWrap: 'wrap', flexDirection: 'row-reverse', justifyConten: 'start'}}>
+                <Box sx={{ maxWidth: 400, display: 'flex', flexWrap: 'wrap', justifyConten: 'start'}}>
                     {!props.isOwn &&
                         <Box>
                             <Avatar src={avatar}/>

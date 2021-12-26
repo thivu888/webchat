@@ -1,4 +1,4 @@
-import {Box,TextField,Button,Link} from '@mui/material'
+import { Box, TextField, Button, Link } from '@mui/material'
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import PhoneIphoneOutlinedIcon from '@mui/icons-material/PhoneIphoneOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -16,201 +16,179 @@ import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
 import Loading from '../Loading';
 import { DesktopDatePicker, LocalizationProvider } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
-function Index({register}) {
-    const classes =useStyle()
+function Index({ register }) {
+    const classes = useStyle()
 
-    const [dataForm,setDataForm]=useState({
-        email:'',
-        phone:'',
-        password:'',
+    const [dataForm, setDataForm] = useState({
+        email: '',
+        phone: '',
+        password: '',
         username: '',
-        confirmpassword:'',
+        confirmpassword: '',
         dataOfBirth: new Date(),
-        error:[]
+        error: []
     })
-    const [type,setType]=useState('telephone')
+    const [type, setType] = useState('telephone')
     const [open, setOpen] = useState(false);
-    const [anchorEl, setAnchorEl] =useState(null);
-    const [loading,setLoading]=useState(false)
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
-
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-        setOpen((previousOpen) => !previousOpen);
-    };
 
     const canBeOpen = open && Boolean(anchorEl);
 
     const id = canBeOpen ? 'transition-popper' : undefined;
 
-    const onChangeHandle=(e)=>{
-        let name=e.target.name
-        let value=e.target.value
-        if(name==='email'){
-            let check=validateEmail.test(value)
-            let error=[...dataForm.error]
-            if(!check){
-                check={
-                    type:'email',
-                    message:'Sai định dạng email!!!',
+    const onChangeHandle = (e) => {
+        let name = e.target.name
+        let value = e.target.value
+        if (name === 'email') {
+            let check = validateEmail.test(value)
+            let error = [...dataForm.error]
+            if (!check) {
+                check = {
+                    type: 'email',
+                    message: 'Sai định dạng email!!!',
                 }
                 error.push(check)
-                setDataForm({...dataForm,[name]:value,error})
-            }else{
-                error=error.filter(er=>er.type!=='email')
-                setDataForm({...dataForm,[name]:value,error})
+                setDataForm({ ...dataForm, [name]: value, error })
+            } else {
+                error = error.filter(er => er.type !== 'email')
+                setDataForm({ ...dataForm, [name]: value, error })
             }
-        }else if(name==='phone'){
-            let check=validateTelephone.test(value)
-            let error=[...dataForm.error]
-            if(!check){
-                check={
-                    type:'phone',
-                    message:'Số điện thoại không đúng!!!',
+        } else if (name === 'phone') {
+            let check = validateTelephone.test(value)
+            let error = [...dataForm.error]
+            if (!check) {
+                check = {
+                    type: 'phone',
+                    message: 'Số điện thoại không đúng!!!',
                 }
                 error.push(check)
-                setDataForm({...dataForm,[name]:value,error})
-            }else{
-                error=error.filter(er=>er.type!=='phone')
-                setDataForm({...dataForm,[name]:value,error})
+                setDataForm({ ...dataForm, [name]: value, error })
+            } else {
+                error = error.filter(er => er.type !== 'phone')
+                setDataForm({ ...dataForm, [name]: value, error })
             }
-        }else if(name==='confirmpassword'||(name==='password'&&dataForm.confirmpassword)){
-            let check=dataForm.password===value
-            if(name==='password'){
-                check=dataForm.confirmpassword===value
+        } else if (name === 'confirmpassword' || (name === 'password' && dataForm.confirmpassword)) {
+            let check = dataForm.password === value
+            if (name === 'password') {
+                check = dataForm.confirmpassword === value
             }
-            let error=[...dataForm.error]
-            if(!check){
-                check={
-                    type:'confirmpassword',
-                    message:'Mật khẩu không khớp!!!',
+            let error = [...dataForm.error]
+            if (!check) {
+                check = {
+                    type: 'confirmpassword',
+                    message: 'Mật khẩu không khớp!!!',
                 }
                 error.push(check)
-                setDataForm({...dataForm,[name]:value,error})
-            }else{
-                error=error.filter(er=>er.type!=='confirmpassword')
-                setDataForm({...dataForm,[name]:value,error})
+                setDataForm({ ...dataForm, [name]: value, error })
+            } else {
+                error = error.filter(er => er.type !== 'confirmpassword')
+                setDataForm({ ...dataForm, [name]: value, error })
             }
-        }else{
-            setDataForm({...dataForm,[name]:value})
+        } else {
+            setDataForm({ ...dataForm, [name]: value })
         }
     }
 
-    const handleChangeDate = (e) =>{
-        setDataForm({...dataForm,dataOfBirth:e.getTime()})
+    const handleChangeDate = (e) => {
+        setDataForm({ ...dataForm, dataOfBirth: e.getTime() })
     }
 
-    const handleSubmit=(e)=>{
-        if(register){
-            if(dataForm.error.length===0){
-            setLoading(true)
-                authenService.register({...dataForm})
-                .then(()=> setLoading(false))
-                .catch(()=> {
-                    setLoading(false)
-                })
+    const handleSubmit = (e) => {
+        if (register) {
+            if (dataForm.error.length === 0) {
+                setLoading(true)
+                authenService.register({ ...dataForm })
+                    .then(() => setLoading(false))
+                    .catch(() => {
+                        setLoading(false)
+                    })
                 return;
             }
             return
-        }else{
-            if(dataForm.error.length===0){
+        } else {
+            if (dataForm.error.length === 0) {
                 setLoading(true)
-                authenService.loginUser(dataForm.email,dataForm.password)
-                .then((e)=> {
-                    setLoading(false)
-                })
-                .catch(()=> {
-                    setLoading(false)
-                })
+                authenService.loginUser(dataForm.phone, dataForm.password)
+                    .then((e) => {
+                        setLoading(false)
+                    })
+                    .catch(() => {
+                        setLoading(false)
+                    })
                 return;
             }
         }
 
     }
 
-    const handleOnPressKey = (event)=>{
-        if(event.keyCode === 13 || event.which === 13) {
+    const handleOnPressKey = (event) => {
+        if (event.keyCode === 13 || event.which === 13) {
             handleSubmit()
         }
     }
 
-    const resetDataForm=()=>{
+    const resetDataForm = () => {
         setDataForm({
-            email:'',
-            phone:'',
-            password:'',
-            username:'',
-            confirmpassword:'',
-            error:[]
+            email: '',
+            phone: '',
+            password: '',
+            username: '',
+            confirmpassword: '',
+            error: []
         })
     }
     return (
-            <Box className={classes.content} >
-                {register && (
-                    <>
-                        <Box>
-                            <Button sx={{outline:'none',border:'none',pr:4}} size="small" variant='outlined' ><PersonOutlineIcon sx={{mt:2}}/></Button>
-                            <TextField onKeyPress={handleOnPressKey} sx={{width:'100%',ml:1}} name="username" label="Username" variant="standard" required value={dataForm.username}  onChange={onChangeHandle}/>
-                        </Box>
-                        <Box>
-                            <Button sx={{outline:'none',border:'none',pr:4}} size="small" variant='outlined' ><DateRangeOutlinedIcon sx={{mt:2}}/></Button>
-                            <LocalizationProvider dateAdapter={AdapterDateFns} >
-                                <DesktopDatePicker
-                                value = {dataForm.dataOfBirth}
+        <Box className={classes.content} >
+            {register && (
+                <>
+                    <Box>
+                        <Button sx={{ outline: 'none', border: 'none', pr: 1 }} size="small" variant='outlined' ><PersonOutlineIcon sx={{ mt: 2 }} /></Button>
+                        <TextField onKeyPress={handleOnPressKey} sx={{ width: '100%', ml: 1 }} name="username" label="Username" variant="standard" required value={dataForm.username} onChange={onChangeHandle} />
+                    </Box>
+                    <Box>
+                        <Button sx={{ outline: 'none', border: 'none', pr: 1 }} size="small" variant='outlined' ><DateRangeOutlinedIcon sx={{ mt: 2 }} /></Button>
+                        <LocalizationProvider dateAdapter={AdapterDateFns} >
+                            <DesktopDatePicker
+                                value={dataForm.dataOfBirth}
                                 inputFormat="dd/MM/yyyy"
                                 renderInput={(params) => <TextField {...params} />}
-                                name = "date"
+                                name="date"
                                 onChange={handleChangeDate}
-                                />
-                             </LocalizationProvider>
-                        </Box>
-                    </>
-                )}
-                <Box >
-                    <Button onClick={handleClick} sx={{outline:'none',border:'none',mt:2}} size="small" variant='outlined' endIcon={<ArrowDropDownIcon />}>{type==='email'?<EmailOutlinedIcon />:<PhoneIphoneOutlinedIcon/>}</Button>
-                    <Popper className={classes.transition_popper} id={id} open={open} anchorEl={anchorEl} transition>
-                        {({ TransitionProps }) => (
-                        <Fade {...TransitionProps} timeout={350}>
-                            <Box>
-                                <Box>
-                                    <EmailOutlinedIcon onClick={()=>{setType('email');setOpen(false);resetDataForm()}}/>
-                                    <PhoneIphoneOutlinedIcon onClick={()=>{setType('phone');setOpen(false);resetDataForm()}} />
-                                </Box>
-                            </Box>
-                        </Fade>
-                        )}
-                    </Popper>
-                    {type==="email"?
-                        <TextField onKeyPress={handleOnPressKey} error={!!dataForm.error.find(eror=>eror.type=='email')} helperText={dataForm.error.find(er=>er.type=='email')?.message} sx={{width:'100%',ml:1}} name="email" label="Email" variant="standard" required value={dataForm.email}  onChange={onChangeHandle}/>
-                        :
-                        <TextField onKeyPress={handleOnPressKey} error={!!dataForm.error.find(eror=>eror.type=='phone')} helperText={dataForm.error.find(er=>er.type=='phone')?.message} sx={{width:'100%',ml:1}} name="phone" label="phone" variant="standard" required value={dataForm.phone}  onChange={onChangeHandle}/>
-                    }
-                </Box>
-                <Box >
-                    <Button sx={{outline:'none',border:'none',pr:4}} size="small" variant='outlined' ><LockOutlinedIcon sx={{mt:2}}/></Button>
-                    <TextField onKeyPress={handleOnPressKey} sx={{width:'100%',ml:1}} type="password" name="password" label="Password" variant="standard" value={dataForm.password} onChange={onChangeHandle} />
-                </Box>
-                {register&&
-                <Box >
-                    <Button sx={{outline:'none',border:'none',pr:4}} size="small" variant='outlined' ><LockOutlinedIcon sx={{mt:2}}/></Button>
-                    <TextField  onKeyPress={handleOnPressKey} sx={{width:'100%',ml:1}} error={!!dataForm.error.find(eror=>eror.type=='confirmpassword')} helperText={dataForm.error.find(er=>er.type=='confirmpassword')?.message} type="password" name="confirmpassword" label="confirmpassword" variant="standard" required value={dataForm.confirmpassword} onChange={onChangeHandle} />
-                </Box>
-                }
-                {
-                   error && ( register ? 'Đăng kí thất bại' : 'Đăng nhập thất bại' )
-                }
-                <Box sx={{mt:2}}>
-                    <LoadingButton sx={{mx:'auto',width:'50%'}} variant="contained" loading={!true} loadingPosition="end" onClick={handleSubmit}>{register?"Đăng kí":"Đăng nhập"}</LoadingButton>
-                </Box>
-               {!register&&
-               <Box >
-                    <Link sx={{mt:3,mx:'auto'}}>Quên mật khẩu?</Link>
-                </Box>
-                }
-                {loading&&<Loading open={loading}/>}
+                            />
+                        </LocalizationProvider>
+                    </Box>
+                </>
+            )}
+            <Box >
+                <Button sx={{ outline: 'none', border: 'none', mt: 2,  }} size="small" variant='outlined'> <PhoneIphoneOutlinedIcon /></Button>
+                <TextField onKeyPress={handleOnPressKey} error={!!dataForm.error.find(eror => eror.type == 'phone')} helperText={dataForm.error.find(er => er.type == 'phone')?.message} sx={{ width: '100%', ml: 1 }} name="phone" label="phone" variant="standard" required value={dataForm.phone} onChange={onChangeHandle} />
             </Box>
+            <Box >
+                <Button sx={{ outline: 'none', border: 'none', pr: 1 }} size="small" variant='outlined' ><LockOutlinedIcon sx={{ mt: 2 }} /></Button>
+                <TextField onKeyPress={handleOnPressKey} sx={{ width: '100%', ml: 1 }} type="password" name="password" label="Password" variant="standard" value={dataForm.password} onChange={onChangeHandle} />
+            </Box>
+            {register &&
+                <Box >
+                    <Button sx={{ outline: 'none', border: 'none', pr: 1 }} size="small" variant='outlined' ><LockOutlinedIcon sx={{ mt: 2 }} /></Button>
+                    <TextField onKeyPress={handleOnPressKey} sx={{ width: '100%', ml: 1 }} error={!!dataForm.error.find(eror => eror.type == 'confirmpassword')} helperText={dataForm.error.find(er => er.type == 'confirmpassword')?.message} type="password" name="confirmpassword" label="confirmpassword" variant="standard" required value={dataForm.confirmpassword} onChange={onChangeHandle} />
+                </Box>
+            }
+            {
+                error && (register ? 'Đăng kí thất bại' : 'Đăng nhập thất bại')
+            }
+            <Box sx={{ mt: 2 }}>
+                <LoadingButton sx={{ mx: 'auto', width: '50%' }} variant="contained" loading={!true} loadingPosition="end" onClick={handleSubmit}>{register ? "Đăng kí" : "Đăng nhập"}</LoadingButton>
+            </Box>
+            {!register &&
+                <Box >
+                    <Link sx={{ mt: 3, mx: 'auto' }}>Quên mật khẩu?</Link>
+                </Box>
+            }
+            {loading && <Loading open={loading} />}
+        </Box>
     );
-  }
-  
-  export default Index;
-  
+}
+
+export default Index;

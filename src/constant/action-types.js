@@ -23,9 +23,12 @@ export default keyMirror({
     UPDATE_AVATARS: null,
     UPDATE_NAME: null,
     UPDATE_TIME: null,
+    UPDATE_SHOW_ADD_GROUP: null,
+    UPDATE_SHOW_ADD_FRIEND: null,
 
     SET_SHOW_INCOMING: null,
     SET_AUDIO: null,
     SET_VIDEO: null,
     SET_DATA_CALL: null,
+    SET_SHOW_RINGING: null,
 });

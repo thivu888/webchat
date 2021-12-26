@@ -1,9 +1,13 @@
 import { Box } from "@mui/system"
+import { useState} from 'react'
 import ListConversation from '../ListConversation'
 import ListContacts from "../ListContacts";
 import { styled } from "@mui/styles";
 import { useSelector } from 'react-redux'
 import Header from "./Header";
+import useStyle from '../ListConversation/style'
+import { ContactsItem } from "../ListContacts/ContactsItem";
+
 const Container = styled('div')((props) => {return ({
     position:'fixed',
         left:64,
@@ -27,19 +31,35 @@ const Container = styled('div')((props) => {return ({
 
 
 const Index=(props)=>{
+    const classes=useStyle()
 
     const {focusContentRight,targetContent} = useSelector(state => state.main)
 
     let body = null;
 
+    const [finding,setFinding] = useState(false)
+    const [listUser, setListUser] = useState([])
+    const getItem = () =>{
+        let list = []
+        list = listUser.map((item)=><ContactsItem key={item._id} id={item._id} user={item}/>)
+        return list
+    }
 
     return(
         <Container focus={focusContentRight} >
-                <Header/>
-                <Box>
-                    {targetContent === "message" && <ListConversation/>}
-                    {targetContent === "contacts" && <ListContacts/>}
-                </Box>
+                <Header setFinding={setFinding} finding={finding} setListUser={setListUser} />
+                {
+                    finding ? (
+                        <Box className = {classes.container}>
+                            {getItem()}
+                        </Box>
+                    ):
+                    <Box>
+                        {targetContent === "message" && <ListConversation/>}
+                        {targetContent === "contacts" && <ListContacts/>}
+                    </Box>
+                }
+                
         </Container>
     )
 }

@@ -31,7 +31,6 @@ const Index=(props)=>{
     }
 
     const getContent = (content) =>{
-        console.log(value)
         const me = storage.getUserInfo()
         if(value.type === 'image') {
             if(me._id == value.sender._id) {

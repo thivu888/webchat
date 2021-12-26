@@ -3,6 +3,7 @@ import Popup from 'react-popup';
 
 import storage from './storage';
 import { disconnectSocket } from './socket-io';
+// baseURL: 'https://chat-app-server-hero.herokuapp.com/api/v1',
 
 const http = axios.create({
     method: 'post', // default
@@ -26,7 +27,7 @@ http.interceptors.response.use((response) => {
         storage.destroy();
         localStorage.clear();
         disconnectSocket();
-       window.location.reload();
+    //    window.location.reload();
     }   
     return Promise.reject(errors); // eslint-disable-line
 });

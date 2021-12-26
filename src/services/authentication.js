@@ -21,18 +21,19 @@ const login = async(data) => {
 export default {
     async register(data) {
         return HttpRequest.post(`/users`, data).then(response => {
-            console.log(response)
             const user  = {...response.user, ...data};
             window.token = response.token;
             storage.setToken(response.token);
             window.location.href='/'
             storage.setUserInfo(new User(response.user))
             return response;
+        }).catch(err => {
+            console.log(err)
         });
     },
 
    async loginUser(userLogin, password,) {
-            return await login({ email: userLogin, password,});
+            return await login({ phone: userLogin, password,});
     },
 
     getUserInfo(id) {

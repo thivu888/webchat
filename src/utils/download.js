@@ -11,7 +11,6 @@ export const GetUrlImg = async (url) => {
 
     const image = await fetch(url);
     let name = await image.url.split('/')
-    console.log(name)
     name = image.url.split('_')
     delete name[0]
     name = name.join("")

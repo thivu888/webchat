@@ -22,7 +22,6 @@ const UserService = {
     },
 
     async getListConverSations (id,page = 0,limit = 20) {
-        console.log(123)
         return HttpRequest.get(`/messages/users/${id}/${page}/${limit}`)
     },
 

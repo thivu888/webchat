@@ -7,13 +7,16 @@ import ContentLeft from '../ContentLeft'
 import ContentRight from '../ContentRight'
 import ProfileUser from '../../components/profile'
 import storage from "../../utils/storage"
+import CallRinging from '../UIringingcall'
+import PopupAddfriend from '../PopupAddfriend'
+import PopupAddGroup from '../PopupAddGroup'
 const Home=()=>{
     const dispatch = useDispatch()
+    const {isShowIncomingCall } = useSelector(state => state.tokbox)
+    const {showFindAddFriend, showFindAddGroup } = useSelector(state => state.main)
     const user = storage.getUserInfo()
     const verify = storage.getVerify()
-    const matches = useMediaQuery('(min-width:800px)');
-    dispatch( updateIsDesktop(matches))
-    if(! user.verify && !verify){
+    if(! verify){
         window.location.href='/verify'
         return 
     }
@@ -23,6 +26,9 @@ const Home=()=>{
             <ContentLeft />
             <ContentRight />
             <ProfileUser/>
+            {showFindAddFriend && <PopupAddfriend/>}
+            {showFindAddGroup && <PopupAddGroup/>}
+            {isShowIncomingCall && <CallRinging data={isShowIncomingCall}/>}
         </Box>
     )
 }

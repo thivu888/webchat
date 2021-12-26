@@ -9,8 +9,8 @@ import { updateTargetContentRight } from '../../actions/Main';
 import { useDispatch } from 'react-redux';
 import UserService from '../../services/user'
 
-const Container = () => {
-
+const Container = (props) => {
+    
     const classes = useStyle()
     const dispatch = useDispatch()
 

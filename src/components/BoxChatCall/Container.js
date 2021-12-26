@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { styled } from '@mui/system';
 import useOpenTok from 'react-use-opentok';
+import {useSelector} from 'react-redux'
 import CallFooter from './CallFooter'
 import "./style.css"
-var apiKey = "47367041";
-var sessionId = "2_MX40NzM2NzA0MX5-MTYzOTc2NzY3MjE3OX5KWmxWYU9FUWFTRTZpK2RkT005bUtnSHF-fg";
-var token = "T1==cGFydG5lcl9pZD00NzM2NzA0MSZzaWc9NjVhODU3ZDEzMmFiNjU5ZDQxOTg4Mjc2OWVhYTkwMjI5MTUzYmZmZjpzZXNzaW9uX2lkPTJfTVg0ME56TTJOekEwTVg1LU1UWXpPVGMyTnpZM01qRTNPWDVLV214V1lVOUZVV0ZUUlRacEsyUmtUMDA1YlV0blNIRi1mZyZjcmVhdGVfdGltZT0xNjM5NzY3NzE0Jm5vbmNlPTAuNjU4MjAxNjgxMTEyMDQxMiZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNjQyMzU5NzE0JmNvbm5lY3Rpb25fZGF0YT1hJmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9";
+var apiKey = "47402891";
 
 const SubscriberComponent = styled('div')((props) => {
   const {number, gridColSize, gridRowSize} = props
@@ -29,18 +28,17 @@ const Component = () => {
   const [gridRowSize  , setGridRowSize ] = useState(1);
 
   const [mainStream, setMainStream] = useState(null)
-
+  const {sessionId,token} =  useSelector(state => state.tokbox)
   const { isSessionConnected, session, streams, subscribers, publisher,} = opentokProps;
 
   const {initSessionAndConnect, publish, subscribe, unpublish} = opentokMethods;
-
   useEffect(() => {
     initSessionAndConnect({
       apiKey,
       sessionId,
       token,
     });
-  }, []);
+  }, [sessionId,token]);
 
   useEffect(() => {
     if(session && isSessionConnected) {
@@ -132,7 +130,6 @@ const Component = () => {
   }
 
   const onScreenClick = (value) => {
-    console.log(publisher)
     if(publisher.publisher || publisher.publishershare) {
       if(value) {
         publish({
@@ -168,6 +165,7 @@ const Component = () => {
     publisher.publisher.publishVideo(value)
   }
   return(
+    sessionId && token &&
       <div className="VideoContainer">
             <div id="publisher">
             </div>
