@@ -27,11 +27,13 @@ function Login() {
   const logOut = () => AuthenService.logOut()
 
   useEffect(() => {
-    const user = storage.getUserInfo();
-    if (user.phone) {
-      onSignInSubmit()
+  const user = storage.getUserInfo();
+  AuthenService.getUserInfo(user._id).then(data => {
+    if (data.data.phone) {
+      onSignInSubmit(data.data.phone)
     }
-  }, [])
+  })
+  },[])
 
   const configureCaptcha = () => {
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
@@ -40,18 +42,15 @@ function Login() {
         size: "invisible",
         callback: (response) => {
           // reCAPTCHA solved, allow signInWithPhoneNumber.
-          this.onSignInSubmit();
+         onSignInSubmit();
         },
         defaultCountry: "VN"
       }
     );
   };
 
-  const onSignInSubmit = (e) => {
-    e?.preventDefault();
+  const onSignInSubmit = (phone) => {
     configureCaptcha();
-    const user = storage.getUserInfo()
-    const phone = user.phone || user.telephone
     const phoneNumber = "+84" + phone;
     const appVerifier = window.recaptchaVerifier;
     firebase
@@ -71,8 +70,7 @@ function Login() {
       });
   };
 
-  const onSubmitOTP = (e) => {
-    e?.preventDefault();
+  const onSubmitOTP = (phone) => {
     const code = otp;
     window.confirmationResult
       .confirm(code)

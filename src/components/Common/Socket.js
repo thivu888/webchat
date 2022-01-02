@@ -74,11 +74,13 @@ const connectsocket = () =>{
             props.tranferCallData({
                 sessionId: data.sessionId,
                 token: data.token,
+                data:data
             })
         }else{
             props.setShowIncomming({
                     sessionId: data.sessionId,
                     token: data.token,
+                    data:data
                 })
         }
         // window.history.pushState({

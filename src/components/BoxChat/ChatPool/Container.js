@@ -14,6 +14,7 @@ import { Button } from '@mui/material'
 import Loading from '../../Loading'
 import ViewFile from '../../ViewImage'
 import MessageService from '../../../services/message'
+let pagecurrent = 0
 const Container = () => {
     
     const dispatch = useDispatch()
@@ -58,7 +59,8 @@ const Container = () => {
         window.messageChainScrolling = setTimeout(() => {
             if (!loading) {
                 setLoading(true)
-                handleCallAPI(0,20).then(data => {
+                pagecurrent +=1;
+                handleCallAPI(pagecurrent,20).then(data => {
                     dispatch(concatChatPool({data:data}))
                     setLoading(false)
                     if(currentLastMessage){
@@ -112,8 +114,8 @@ const Container = () => {
         dispatch(sendMessage(newMessage));
     };
 
-    const handleCallAPI = async (page = 0,limit = 20) => {
-     const {data} = await MessageService.getMessageHistory(conversationId,page,limit);
+    const handleCallAPI = async (pagecurrent,limit = 20) => {
+     const {data} = await MessageService.getMessageHistory(conversationId,pagecurrent,limit);
         return data
     }
 

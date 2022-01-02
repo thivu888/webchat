@@ -10,6 +10,9 @@ const login = async(data) => {
         window.token = response.token;
         storage.setToken(response.token);
         storage.setUserInfo(new User(response.user))
+        console.log(response)
+
+        console.log(new User(response.user))
         window.location.href='/'
         return response;
     }catch(err){
