@@ -51,7 +51,8 @@ function Login() {
     e?.preventDefault();
     configureCaptcha();
     const user = storage.getUserInfo()
-    const phoneNumber = "+84" + user.phone;
+    const phone = user.phone || user.telephone
+    const phoneNumber = "+84" + phone;
     const appVerifier = window.recaptchaVerifier;
     firebase
       .auth()
