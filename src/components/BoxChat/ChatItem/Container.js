@@ -8,6 +8,7 @@ import ImageItem from './Image'
 import { MessageTypes, FileTypes } from '../../../constant/types'
 import useStyleListConversation from '../../ListConversation/style'
 import { DownLoad, GetUrlImg } from '../../../utils/download';
+import CallEndIcon from '@mui/icons-material/CallEnd';
 const Container = styled('div')((props) => {
         const {isOwn} = props
         return({
@@ -54,6 +55,8 @@ const Index=(props)=>{
                     <ImageItem isOwn={isOwn} content={content}/>
                 { !isOwn ? <FileDownloadIcon className={classConversation.icon_more} onClick={()=>handleDownloadFile(content)}/> : null}
             </>))
+        } else if(MessageTypes.CALL === type) {
+            return  <Text isOwn={isOwn} content={<CallEndIcon/>}/>
         }
     }
 
@@ -64,7 +67,7 @@ const Index=(props)=>{
 
     return(<>
             <Container isOwn={isOwn} id={id}>
-                <Box sx={{ maxWidth: 400, display: 'flex', flexWrap: 'wrap', justifyConten: 'start'}}>
+                <Box sx={{ maxWidth: 400, display: 'flex', flexWrap: 'wrap', justifyConten: 'start',}}>
                     {!props.isOwn &&
                         <Box>
                             <Avatar src={avatar}/>

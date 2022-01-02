@@ -15,7 +15,7 @@ const Container = (props) => {
 
 
     return (
-        <Box className={classes.container} sx={{ boxShadow: 3}}>
+        <Box className={classes.container} sx={{ boxShadow: 3, ml: 1}}>
             <Image src={props.content} onClick={handleViewImg} />
         </Box>
     )
