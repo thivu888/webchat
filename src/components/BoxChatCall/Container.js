@@ -5,7 +5,8 @@ import {useSelector} from 'react-redux'
 import CallFooter from './CallFooter'
 import "./style.css"
 var apiKey = "47402891";
-
+const SESSION_ID = '2_MX40NzQwMjg5MX5-MTYzOTQwNzUwNjg0MH55bzI5cnJxTjVkSmEzSjdlTktKaWlqN0p-fg';
+const TOKEN = 'T1==cGFydG5lcl9pZD00NzQwMjg5MSZzaWc9ZjhiNGQwNzc0ZDllZWUyNGY2MmNkMDdmNTlkZDcwNjU3NjM2MjYzMTpzZXNzaW9uX2lkPTJfTVg0ME56UXdNamc1TVg1LU1UWXpPVFF3TnpVd05qZzBNSDU1YnpJNWNuSnhUalZrU21FelNqZGxUa3RLYVdscU4wcC1mZyZjcmVhdGVfdGltZT0xNjM5NDA3NTI3Jm5vbmNlPTAuOTI2NzUwNDQyNDk0NjcwNCZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNjQxOTk5NTI1JmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9';
 const SubscriberComponent = styled('div')((props) => {
   const {number, gridColSize, gridRowSize} = props
   return ({
@@ -35,10 +36,10 @@ const Component = () => {
   useEffect(() => {
     initSessionAndConnect({
       apiKey,
-      sessionId,
-      token,
+      sessionId:SESSION_ID,
+      token:TOKEN,
     });
-  }, [sessionId,token]);
+  }, [SESSION_ID,TOKEN]);
 
   useEffect(() => {
     if(session && isSessionConnected) {
@@ -165,7 +166,7 @@ const Component = () => {
     publisher.publisher.publishVideo(value)
   }
   return(
-    sessionId && token &&
+    SESSION_ID && TOKEN &&
       <div className="VideoContainer">
             <div id="publisher">
             </div>

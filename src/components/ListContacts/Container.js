@@ -8,6 +8,7 @@ import { ContactsItem } from './ContactsItem'
 import { updateTargetContentRight } from '../../actions/Main';
 import { useDispatch } from 'react-redux';
 import UserService from '../../services/user'
+import storage from '../../utils/storage';
 
 const Container = (props) => {
     
@@ -30,8 +31,10 @@ const Container = (props) => {
     }
 
     const getItem = () =>{
+        const user = storage.getUserInfo();
         let list = []
-        list = listUser.map((item)=><ContactsItem key={item._id} id={item._id} user={item}/>)
+        list = listUser.filter(item => item._id != user._id )
+        list = list.map((item)=><ContactsItem key={item._id} id={item._id} user={item}/>)
         return list
     }
 

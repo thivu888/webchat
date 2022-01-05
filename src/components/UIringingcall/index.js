@@ -31,17 +31,21 @@ export default function AlertDialogSlide({ data }) {
     }))
   }
 
+  const handleReject = () => {
+    window.socket.emit('endcall',data)
+  }
+
   return (
     <Backdrop sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }} open={true} >
       <Box sx={{ width: 470, height: 655, position: 'relative', backgroundImage: `url(${data?.data.data.roomAvatar[0]})`, backgroundPosition: 'center center', backgroundSize: 'cover' }}>
         <Box sx={{ position: 'absolute', bottom: 120, left: '50%', transform: 'translateX(-50%)', zIndex: (theme) => theme.zIndex.drawer + 2 }}>
           <p style={{ fontWeight: 900, fontSize: 20, color: '#000' }}>{data?.data.data.roomName}</p>
         </Box>
-        <Box sx={{ display: 'flex', width: '60%', justifyContent: 'space-around', position: 'absolute', bottom: 50, left: '50%', transform: 'translateX(-50%)' }}>
+        <Box sx={{ display: 'flex', width: '60%', justifyContent: 'space-around', position: 'absolute', bottom: 50, left: '50%', transform: 'translateX(-50%)' }} onClick={handleAccept}>
           <Box sx={{ width: 60, height: 60, background: '#3fcc35', borderRadius: '50%', textAlign: 'center', position: 'relative', cursor: 'pointer' }}>
-            <LocalPhoneIcon sx={{ position: 'absolute', top: 17, right: 17, fill: '#fff', fontWeight: 'bold' }} onClick={handleAccept} />
+            <LocalPhoneIcon sx={{ position: 'absolute', top: 17, right: 17, fill: '#fff', fontWeight: 'bold' }}  />
           </Box>
-          <Box sx={{ width: 60, height: 60, background: 'red', borderRadius: '50%', textAlign: 'center', position: 'relative', cursor: 'pointer' }}>
+          <Box sx={{ width: 60, height: 60, background: 'red', borderRadius: '50%', textAlign: 'center', position: 'relative', cursor: 'pointer'}} onClick={handleReject}>
             <PhoneDisabledIcon sx={{ position: 'absolute', top: 17, right: 17, fill: '#fff', fontWeight: 'bold' }} />
           </Box >
         </Box>

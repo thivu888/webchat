@@ -1,13 +1,27 @@
 import {Box,Typography} from '@mui/material'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import useStyle from './style'
 import Loading from '../Loading'
 import QRCode from 'react-qr-code';
 import CircularProgress from '@mui/material/CircularProgress';
+import connectSocket from '../../utils/socket-io';
+import storage from '../../utils/storage';
 function Login() {
     const [loading,setLoading]=useState(false)
     const [value,setValue]=useState('p')
     const classes =useStyle()
+    useEffect(() => {
+        const socket =  connectSocket()
+          socket.emit('getQRCODE')
+          socket.on('getQRCODE', data=>{
+              setValue(data.qrcode)
+          })
+          socket.on('sCanQRCODE', data=>{
+              storage.setUserInfo(data.user.data)
+              storage.setToken(data.user.token)
+              window.location.reload()
+          })
+      },[])
     return (
             <Box className={classes.content_qr}>
                 <Box className={classes.qr_img}>

@@ -16,10 +16,10 @@ const Home=()=>{
     const {showFindAddFriend, showFindAddGroup } = useSelector(state => state.main)
     const user = storage.getUserInfo()
     const verify = storage.getVerify()
-    if(! verify){
-        window.location.href='/verify'
-        return 
-    }
+    // if(! verify){
+    //     window.location.href='/verify'
+    //     return 
+    // }
     return(
         <Box sx={{display:'flex'}}>
             <LeftBar />
