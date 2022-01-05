@@ -50,7 +50,6 @@ function Login() {
   };
 
   const onSignInSubmit = (phone) => {
-    console.log(phone)
     configureCaptcha();
     const phoneNumber = "+84" + phone;
     const appVerifier = window.recaptchaVerifier;

@@ -27,8 +27,6 @@ import Loading from '../Loading'
 import { Backdrop } from '@mui/material'
 import AddFriendItem from './AddFriendItem'
 import _ from "lodash"
-import ReactTagInput from "@pathofdev/react-tag-input";
-import "@pathofdev/react-tag-input/build/index.css";
 import { updateconversation } from '../../actions/socket'
 const ContainerWraper = styled(Popup)((theme) => ({
 
