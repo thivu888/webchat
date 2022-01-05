@@ -71,6 +71,7 @@ const connectsocket = () =>{
     const user = storage.getUserInfo();
 
         if(data.data.userId._id === user._id){
+            console.log('data minh')
             props.tranferCallData({
                 sessionId: data.sessionId,
                 token: data.token,
