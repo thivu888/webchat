@@ -1,0 +1,14 @@
+.InputFields {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.css-153eyq5-MuiModal-root-MuiDialog-root .MuiDialogContent-root {
+  padding: 0;
+}
+
+.css-1nepf2y-MuiPaper-root-MuiDialog-paper {
+  width: 360px;
+  height: 395px;
+}

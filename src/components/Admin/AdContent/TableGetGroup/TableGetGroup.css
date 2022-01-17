@@ -1,0 +1,40 @@
+table {
+  border-collapse: collapse;
+  height:  calc(100vh - 255px);
+  /* width: calc(100vw - 180px); */
+  width: 98%;
+}
+table, th, td {
+  border-bottom: 0.5px solid black;
+  white-space: nowrap;
+} 
+th, td {
+  padding: 5px;
+}
+table thead th {
+  text-align: left;
+}
+
+.table.tableUsers tbody tr:nth-child(odd) {
+  background-color: rgb(247, 244, 244);
+}
+
+.table.tableUsers tbody tr:hover {
+  background-color: rgb(230, 208, 245);
+}
+
+th {
+  background-color: #DF73FF ;
+  color: aliceblue;
+  height: 50px;
+  top: -1px;
+}
+
+tr {
+  width: 100%;
+  z-index: 9;
+}
+
+.btnInList:hover {
+  border: 0px;
+}
