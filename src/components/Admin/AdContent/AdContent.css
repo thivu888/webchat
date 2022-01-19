@@ -71,7 +71,7 @@ input {
 }
 
 .adminRefresh {
-  background-image: url('https://cdn-icons-png.flaticon.com/512/1053/1053169.png');
+  background-image: url(../../../static/adminIcon/reload.png);
   background-repeat: no-repeat;
   background-size: cover;
   width: 28px;

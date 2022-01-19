@@ -1,14 +1,21 @@
 import { useState } from 'react'
+import authentication from '../../../services/authentication';
+
+// import {useHistory} from "react-router-dom"
+
 import AdContent from '../AdContent/AdContent';
 import './AdMenu.css'
 
 
 function AdMenu({menuSelected, setMenuSelected}) {
-  console.log("--Menu")
-  // const [content, setContent] = useState('user');
+  // const history = useHistory();
+  // console.log("--Menu")
   function handleHomeClick() {
     console.log("handle home click")
+    window.location.href = "http://localhost:3000/";
   }
+  // const directToHome =() => console.log("welcome Home!");
+
   function handleUserClick() {
       setMenuSelected(1);
     }
@@ -17,6 +24,7 @@ function AdMenu({menuSelected, setMenuSelected}) {
   }
   function handleLogoutClick() {
     console.log("handle logout click")
+    authentication.logOut()
   }
 
 
