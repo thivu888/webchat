@@ -36,7 +36,7 @@ export default function GetUser({deleteState, setDeleteState, createState, setCr
           {/* <th>Avatar</th> */}
           <th style={{width: '250px'}}>Tên người dùng</th>
           <th >Quyền</th>
-          <th style={{width: '250px'}}>Email</th>
+          <th style={{width: '250px'}}>ID</th>
           <th style={{width: '150px'}}>Số điện thoại</th>
           <th style={{width: '150px'}}>Xác minh</th>
           {/* <th style={{width: '150px'}}>isOnline</th> */}
@@ -57,7 +57,7 @@ export default function GetUser({deleteState, setDeleteState, createState, setCr
               </td> */}
               <td>{item.username}</td>
               <td>{(item.role)=="admin"?<AdminPanelSettingsIcon/>: <PersonOutlineIcon/>}</td>
-              <td>{item.email}</td>
+              <td>{item._id}</td>
               <td>{item.phone}</td>
               <td>{item.verify? <VerifiedUserIcon/>: <CloseIcon/>}</td>
               {/* <td>{item.isOnline? 'Yes': 'No'}</td> */}

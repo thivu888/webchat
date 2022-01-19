@@ -42,16 +42,16 @@
 }
 
 .adminItem .home {
-  background-image:url('https://findicons.com/files/icons/1579/devine/256/home.png');
+  background-image:url(../../../static/adminIcon/home.png);
 }
 .adminItem .user {
-  background-image:url('https://icon-library.com/images/google-user-icon/google-user-icon-15.jpg');
+  background-image:url(../../../static/adminIcon/google-user-icon-15.jpg);
 }
 .adminItem .group {
-  background-image:url('https://icon-library.com/images/groups-icon-png/groups-icon-png-7.jpg');
+  background-image:url(../../../static/adminIcon/groups-icon-png-7.jpg);
 }
 .adminItem .logoutIcon {
-  background-image:url('https://iconsplace.com/wp-content/uploads/_icons/ff00ff/256/png/logout-icon-5-256.png');
+  background-image:url(../../../static/adminIcon/logout-icon-5-256.png);
 }
 .adminMenu .logout{
  border-top: 1px solid black;
