@@ -1,16 +1,23 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import './TableGetGroup.css'
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+import Button from '@mui/material/Button';
 import DeleteButton from "./DeleteButton";
 import EditButton from "./EditButton";
 import BlockButton from "./BlockButton";
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import CloseIcon from '@mui/icons-material/Close';
 import UnBlockButton from "./unBlockButton";
+import './TableGetGroup.css'
 
 
 export default function GetGroup({deleteState, setDeleteState}) {
   const [groupsList, setGroupsList] = useState([]);
+  const [backDrop, setBackDrop] = useState(true);
+  const handleCloseBackDrop = () => {
+    setBackDrop(false);
+  };
   
   useEffect(() => { 
     const getGroup = async () => {
@@ -20,6 +27,8 @@ export default function GetGroup({deleteState, setDeleteState}) {
         console.log(groups.data.data);
         const allGroups = groups.data.data;
         setGroupsList(allGroups);
+        setBackDrop(false)
+
       };
       getGroup();
     }, []);
@@ -52,6 +61,17 @@ export default function GetGroup({deleteState, setDeleteState}) {
   console.log("---getGroup")
 
   return (
+    <>
+    <div>
+      {/* <Button onClick={handleToggle}>Show backdrop</Button> */}
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={backDrop}
+        onClick={handleCloseBackDrop}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    </div>
     
     <table className="table tableUsers">
       <thead>              
@@ -99,5 +119,6 @@ export default function GetGroup({deleteState, setDeleteState}) {
         
       </tbody>
     </table>
+    </>
   );
 }
