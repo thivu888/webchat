@@ -9,6 +9,10 @@
 }
 
 .css-1nepf2y-MuiPaper-root-MuiDialog-paper {
-  width: 360px;
-  height: 395px;
+  width: 400px;
+  height: 440px;
+}
+
+.css-dmmspl-MuiFormGroup-root {
+  padding: 0 20px;
 }

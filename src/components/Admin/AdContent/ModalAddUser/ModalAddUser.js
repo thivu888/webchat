@@ -59,15 +59,19 @@ export default function ModalAddUser({createState, setCreateState}) {
   const [ passwordNewUser, setPasswordNewUser] = React.useState('');
   const [ confirmPassword, setConfirmPassword] = React.useState('');
   const [inforNewUser, setInforNewUser] = React.useState({});
+  const [role, setRole] = React.useState('user')
+  const [verified, setVerified] = React.useState(true)
+
   useEffect(() => {
     setInforNewUser({
       "phone": phoneNewUser,
       "password": passwordNewUser,
       "username": nameNewUser,
-      "verify": true
+      "role": role,
+      "verify": verified
     });
 
-  },[nameNewUser, phoneNewUser, passwordNewUser])
+  },[nameNewUser, phoneNewUser, passwordNewUser, role, verified])
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -78,6 +82,8 @@ export default function ModalAddUser({createState, setCreateState}) {
     setPasswordNewUser("")
     setConfirmPassword("")
     setInforNewUser({});
+    setRole("user")
+    setVerified(true)
     setOpen(false);
   };
   const handleCloseAfterSubmit = () => {
@@ -127,11 +133,13 @@ export default function ModalAddUser({createState, setCreateState}) {
                 phoneNewUser={phoneNewUser} setPhoneNewUser={setPhoneNewUser}
                 passwordNewUser={passwordNewUser} setPasswordNewUser={setPasswordNewUser}
                 confirmPassword={confirmPassword} setConfirmPassword={setConfirmPassword}
+                role={role} setRole={setRole}
+                verified={verified} setVerified={setVerified}
               />
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleCloseAfterSubmit}>
-            CREATE
+            TẠO MỚI
           </Button>
         </DialogActions>
       </BootstrapDialog>
