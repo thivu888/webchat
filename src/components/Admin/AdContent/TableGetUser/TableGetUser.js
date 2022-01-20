@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import './TableGetUser.css'
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+import Button from '@mui/material/Button';
 import DeleteButton from "./DeleteButton";
 import EditButton from "./EditButton";
 import BlockButton from "./BlockButton";
@@ -9,9 +11,18 @@ import CloseIcon from '@mui/icons-material/Close';
 import UnBlockButton from "./unBlockButton";
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import './TableGetUser.css'
 
 export default function GetUser({deleteState, setDeleteState, createState, setCreateState}) {
   const [usersList, setUsersList] = useState([]);
+  const [backDrop, setBackDrop] = useState(true);
+  const handleCloseBackDrop = () => {
+    setBackDrop(false);
+  };
+  // const handleToggleBackDrop = () => {
+  //   setBackDrop(!backDrop);
+  // };
+
   useEffect(() => { 
     const getUser = async () => {
       const users = await axios.get(
@@ -20,6 +31,7 @@ export default function GetUser({deleteState, setDeleteState, createState, setCr
       console.log(users);
       const allUsers = users.data.users;
       setUsersList(allUsers);
+      setBackDrop(false)
     };
     getUser();
   }, [deleteState, createState]);
@@ -28,7 +40,18 @@ export default function GetUser({deleteState, setDeleteState, createState, setCr
 
 
   return (
-    
+    <>
+    <div>
+      {/* <Button onClick={handleToggle}>Show backdrop</Button> */}
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={backDrop}
+        onClick={handleCloseBackDrop}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    </div>
+
     <table className="table tableUsers">
       <thead>              
         <tr style={{position: 'sticky', top: '0px'}}>
@@ -77,5 +100,7 @@ export default function GetUser({deleteState, setDeleteState, createState, setCr
         
       </tbody>
     </table>
+
+    </>
   );
 }
