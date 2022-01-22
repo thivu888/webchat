@@ -24,15 +24,17 @@ const Admin=()=>{
         window.location.href='/'
         return 
     }
-    console.log("-Container")
     return(
         <>
             <div >
                 <AdHeading/>
             </div>
             <div style={{display: 'flex', width: '100vw', height:'calc(100vh - 80px)'}}>
-                <AdMenu menuSelected={menuSelected} setMenuSelected={setMenuSelected}/>
-                <AdContent menuSelected={menuSelected}/>
+                <AdMenu menuSelected={menuSelected} setMenuSelected={setMenuSelected}
+                    
+                />
+                <AdContent menuSelected={menuSelected}
+                />
             </div>
         </>
     )

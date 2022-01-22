@@ -1,6 +1,5 @@
 import './AdHeading.css'
 function AdHeading() {
-  console.log("--Heading")
   return(
     <>
     <header className='adminHeading'>
