@@ -13,9 +13,13 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import './TableGetUser.css'
 
-export default function GetUser({deleteState, setDeleteState, createState, setCreateState}) {
+export default function GetUser({deleteState, setDeleteState, createState, setCreateState, 
+  editState, setEditState, blockState, setBlockState, reFreshState, backDrop, setBackDrop,
+  searchState, setSearchState
+}) {
+
   const [usersList, setUsersList] = useState([]);
-  const [backDrop, setBackDrop] = useState(true);
+  // const [backDrop, setBackDrop] = useState(true);
   const handleCloseBackDrop = () => {
     setBackDrop(false);
   };
@@ -34,8 +38,7 @@ export default function GetUser({deleteState, setDeleteState, createState, setCr
       setBackDrop(false)
     };
     getUser();
-  }, [deleteState, createState]);
-  console.log("---getUser")
+  }, [deleteState, createState, editState, blockState, reFreshState]);
 
 
 
@@ -55,23 +58,41 @@ export default function GetUser({deleteState, setDeleteState, createState, setCr
     <table className="table tableUsers">
       <thead>              
         <tr style={{position: 'sticky', top: '0px'}}>
-          <th style={{width: '20px'}}>STT</th>
+          <th 
+            // style={{width: '20px'}}
+          >STT</th>
           {/* <th>Avatar</th> */}
-          <th style={{width: '250px'}}>Tên người dùng</th>
+          <th 
+            // style={{width: '250px'}}
+          >Tên người dùng</th>
           <th >Quyền</th>
-          <th style={{width: '250px'}}>ID</th>
-          <th style={{width: '150px'}}>Số điện thoại</th>
-          <th style={{width: '150px'}}>Xác minh</th>
-          {/* <th style={{width: '150px'}}>isOnline</th> */}
-          <th style={{width: '150px'}}>Chặn</th>
+          <th 
+            // style={{width: '250px'}}
+          >ID</th>
+          <th 
+            // style={{width: '150px'}}
+          >Số điện thoại</th>
+          <th 
+            // style={{width: '150px'}}
+          >Xác minh</th>
+          <th 
+            // style={{width: '150px'}}
+          >Chặn</th>
           <th >Xoá</th>
-          <th >Sửa</th>
+          {/* <th >Chi tiết</th> */}
         </tr>
       </thead>
       <tbody>
-        {usersList.map((item, index) => {
+        {usersList.filter((val)=>{
+            if(searchState == ""){
+              return val
+            } else if (val.username.toLowerCase().includes(searchState.toLowerCase())
+            || val.phone.toLowerCase().includes(searchState.toLowerCase())) {
+              return val
+            }
+        }).map((item, index) => {
           return (
-            <tr key ={index}>
+            <tr key ={index} style={{height: '50px !important'}}>
               <td>{index+1}</td>
               {/* <td>
                 <div className="adminAvatarList"
@@ -84,14 +105,14 @@ export default function GetUser({deleteState, setDeleteState, createState, setCr
               <td>{item.phone}</td>
               <td>{item.verify? <VerifiedUserIcon/>: <CloseIcon/>}</td>
               {/* <td>{item.isOnline? 'Yes': 'No'}</td> */}
-              <td>{item.isBlock? <UnBlockButton/>: <BlockButton/>}</td>
+              <td><BlockButton isBlock={item.isBlock} _id={item._id} blockState={blockState} setBlockState={setBlockState}/></td>
               {/* <td>
                 <div>
                 <BlockButton/>
                 </div>
               </td> */}
               <td><DeleteButton deleteState={deleteState} setDeleteState={setDeleteState} _id={item._id} /></td>
-              <td><EditButton/></td>
+              {/* <td><EditButton _id={item._id} editState={editState} setEditState={setEditState} /></td> */}
             </tr>
           )}
         )}

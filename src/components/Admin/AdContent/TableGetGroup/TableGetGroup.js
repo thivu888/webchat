@@ -73,13 +73,18 @@ export default function GetGroup({deleteState, setDeleteState}) {
       </Backdrop>
     </div>
     
+
+    {/* style={{width: '250px'}}
+style={{width: '250px'}} */}
     <table className="table tableUsers">
       <thead>              
         <tr style={{position: 'sticky', top: '0px'}}>
-          <th style={{width: '20px'}}>STT</th>
+          <th 
+            // style={{width: '20px'}}
+          >STT</th>
           {/* <th>Avatar</th> */}
-          <th style={{width: '250px'}}>ID nhóm</th>
-          <th style={{width: '250px'}}>Tạo bởi</th>
+          <th >ID nhóm</th>
+          <th >Tạo bởi</th>
           {/* <th style={{width: '150px'}}>Số điện thoại</th> */}
           {/* <th style={{width: '150px'}}>Xác minh</th> */}
           {/* <th style={{width: '150px'}}>isOnline</th> */}
