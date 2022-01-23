@@ -26,8 +26,9 @@ export default function GetUser({deleteState, setDeleteState, createState, setCr
   // const handleToggleBackDrop = () => {
   //   setBackDrop(!backDrop);
   // };
-
+  
   useEffect(() => { 
+    setBackDrop(true)
     const getUser = async () => {
       const users = await axios.get(
         "https://chat-app-server-hero.herokuapp.com/api/v1/users"
