@@ -61,8 +61,10 @@ export default function ModalAddUser({createState, setCreateState}) {
   const [inforNewUser, setInforNewUser] = React.useState({});
   const [role, setRole] = React.useState('user')
   const [verified, setVerified] = React.useState(true)
+  const regExp = /^(0[35789][0-9]{8}|1[89]00[0-9]{4})$/;
 
   useEffect(() => {
+
     setInforNewUser({
       "phone": phoneNewUser,
       "password": passwordNewUser,
@@ -77,18 +79,33 @@ export default function ModalAddUser({createState, setCreateState}) {
     setOpen(true);
   };
   const handleClose = () => {
-    setNameNewUser("")
-    setPhoneNewUser("")
-    setPasswordNewUser("")
-    setConfirmPassword("")
-    setInforNewUser({});
-    setRole("user")
-    setVerified(true)
+    const reset = ()=>{
+      const resetName= () => (setNameNewUser(""))
+      const resetPhone= ()=> (setPhoneNewUser(""))
+      const resetPass= ()=> (setPasswordNewUser(""))
+      const resetCpass = ()=> (setConfirmPassword(""))
+      const resetRole = () => (setRole("user"))
+      const resetVerified = () => (setVerified(true))
+      const resetInfor = ()=> (setInforNewUser({}))
+      resetName()
+      resetPhone()
+      resetPass()
+      resetCpass()
+      resetRole()
+      resetVerified()
+      resetInfor()
+    }
+    reset()
     setOpen(false);
   };
   const handleCloseAfterSubmit = () => {
-    if(!nameNewUser && !phoneNewUser && !passwordNewUser && !confirmPassword) {
+
+    if(nameNewUser=="" ||  phoneNewUser=="" || passwordNewUser=="" || confirmPassword=="") {
       alert("Không được để trống các trường!")
+    }else if(!regExp.test(phoneNewUser)){
+      alert('SĐT không hợp lệ!');
+    }else if(passwordNewUser.length<=6){
+      alert("Mật khẩu cần dài hơn 6 ký tự!")
     }else if(passwordNewUser !==confirmPassword){
       alert("Mật khẩu không thống nhất! Xin hãy nhập lại!")
     }else {
@@ -103,8 +120,8 @@ export default function ModalAddUser({createState, setCreateState}) {
         console.log("đã tạo mới user")
         setInforNewUser({});
         setCreateState(!createState)
-        console.log()
-        setOpen(false);
+        handleClose()
+        // setOpen(false);
 
       };
       createUser();
@@ -113,7 +130,7 @@ export default function ModalAddUser({createState, setCreateState}) {
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button variant="outlined" onClick={()=>handleClickOpen()}>
         Thêm người dùng
       </Button>
       <BootstrapDialog

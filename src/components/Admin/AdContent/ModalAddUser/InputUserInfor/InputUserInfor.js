@@ -17,15 +17,17 @@ function InputUserInfor({open, nameNewUser, setNameNewUser,
   const handleChangeAdmin = (event) => {
       console.log("Là quản trị viên: ",event.target.checked);
       // setChecked(event.target.checked);
+      const setRoleNew = () =>(setRole("admin"))
       if(event.target.checked) {
-            setRole("admin")
+            setRoleNew()
       }
   };
   const handleChangeVerified = (event) => {
       console.log('Đã xác minh: ',event.target.checked);
       // setChecked(event.target.checked);
+      const setVerifiedNew = () =>(setVerified(false))
       if(!event.target.checked) {
-            setVerified(false)
+            setVerifiedNew()
       }
   };
 
@@ -40,17 +42,18 @@ function InputUserInfor({open, nameNewUser, setNameNewUser,
                         />
                   {/* <TextField id="standard-basic-email" label="Email" variant="standard" /> */}
                   <TextField id="standard-basic-phone" 
-                        label="Phone" variant="standard" required={true} 
+                        label="Phone" variant="standard" 
+                        type="text" required={true} 
                         onChange={(e) => setPhoneNewUser(e.target.value)}
                         />
                   <TextField id="standard-basic-password" 
                         label="Password" variant="standard" 
-                        type="password" required={true} 
+                        type="text" required={true} 
                         onChange={(e) => setPasswordNewUser(e.target.value)}
                         />
                   <TextField id="standard-basic-confirmpassword" 
                         label="Confirm Password" variant="standard" 
-                        type="password" required={true} 
+                        type="text" required={true} 
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         />
             </div>
@@ -58,12 +61,12 @@ function InputUserInfor({open, nameNewUser, setNameNewUser,
                   <FormControlLabel
                   control={<Switch />}
                   label="Là quản trị viên"
-                  onChange={handleChangeAdmin}
+                  onChange={(e)=>setRole( e.target.checked? "admin": "user")}
                   />
                   <FormControlLabel
                   control={<Switch defaultChecked />}
                   label="Đã xác minh"
-                  onChange={handleChangeVerified}
+                  onChange={(e)=>setVerified( e.target.checked? !e.target.checked: e.target.checked)}
                   />
             </FormGroup> 
       </>

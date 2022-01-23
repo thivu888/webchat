@@ -54,7 +54,7 @@ function AdContent({menuSelected}) {
                   />
         </div>
         <div className='adminFooter'>
-            <div>Hiển thị 1-10 người dùng</div>
+            {/* <div>Hiển thị 1-10 người dùng</div>
             <div className='adminPage'>
                 <div className='adminStage first'>FIRST</div>
                 <div className='adminStage previous'>Previous</div>
@@ -64,7 +64,7 @@ function AdContent({menuSelected}) {
                 <div className='adminStage next'>Next</div>
                 <div className='adminStage end'>END</div>
             </div>
-            <div>10 người dùng/trang</div>
+            <div>10 người dùng/trang</div> */}
         </div>
       </div> : 
 //xxxxxxxxxxxxxxxxxxx
@@ -87,7 +87,7 @@ function AdContent({menuSelected}) {
               <TableGetGroup deleteState={deleteState} setDeleteState={setDeleteState}/>
         </div>
         <div className='adminFooter'>
-            <div>Hiển thị 1-10 nhóm</div>
+            {/* <div>Hiển thị 1-10 nhóm</div>
             <div className='adminPage'>
                 <div className='adminStage first'>FIRST</div>
                 <div className='adminStage previous'>Previous</div>
@@ -97,7 +97,7 @@ function AdContent({menuSelected}) {
                 <div className='adminStage next'>Next</div>
                 <div className='adminStage end'>END</div>
             </div>
-            <div>10 nhóm/trang</div>
+            <div>10 nhóm/trang</div> */}
         </div>
       </div>
     }
