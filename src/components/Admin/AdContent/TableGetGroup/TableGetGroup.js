@@ -58,7 +58,7 @@ export default function GetGroup({deleteState, setDeleteState}) {
   //     );
   //     return(CreatorInfor.data.data.username)
   // }
-  console.log("---getGroup")
+  // console.log("---getGroup")
 
   return (
     <>
