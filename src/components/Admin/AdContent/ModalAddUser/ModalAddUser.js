@@ -51,7 +51,7 @@ BootstrapDialogTitle.propTypes = {
   children: PropTypes.node,
   onClose: PropTypes.func.isRequired
 };
-
+var dummyData = [];
 export default function ModalAddUser({createState, setCreateState}) {
   const [open, setOpen] = React.useState(false);
   const [ nameNewUser, setNameNewUser] = React.useState('');
@@ -62,7 +62,7 @@ export default function ModalAddUser({createState, setCreateState}) {
   const [role, setRole] = React.useState('user')
   const [verified, setVerified] = React.useState(true)
   const regExp = /^(0[35789][0-9]{8}|1[89]00[0-9]{4})$/;
-
+  
   useEffect(() => {
 
     setInforNewUser({
@@ -77,6 +77,16 @@ export default function ModalAddUser({createState, setCreateState}) {
 
   const handleClickOpen = () => {
     setOpen(true);
+    const getUser = async () => {
+      const users = await axios.get(
+        "https://chat-app-server-hero.herokuapp.com/api/v1/users"
+      );
+      users.data.users.map((item) => {
+        dummyData.push(item.phone.toString())
+      });
+      console.log("dummy users",dummyData );
+    };
+    getUser();
   };
   const handleClose = () => {
     const reset = ()=>{
@@ -99,11 +109,14 @@ export default function ModalAddUser({createState, setCreateState}) {
     setOpen(false);
   };
   const handleCloseAfterSubmit = () => {
-
+    console.log(typeof(phoneNewUser), phoneNewUser)
+    console.log (dummyData.includes(phoneNewUser), dummyData)
     if(nameNewUser=="" ||  phoneNewUser=="" || passwordNewUser=="" || confirmPassword=="") {
       alert("Không được để trống các trường!")
     }else if(!regExp.test(phoneNewUser)){
       alert('SĐT không hợp lệ!');
+    }else if(dummyData.includes(phoneNewUser)){
+      alert("Số điện thoại đã tồn tại trong hệ thống!")
     }else if(passwordNewUser.length<=6){
       alert("Mật khẩu cần dài hơn 6 ký tự!")
     }else if(passwordNewUser !==confirmPassword){
