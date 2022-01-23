@@ -14,6 +14,7 @@ function AdContent({menuSelected}) {
   const [searchState, setSearchState] = useState('')
 
 
+  // console.log("Backdrop content",backDrop)
   const handleRefreshData= function() {
     console.log('Refresh Data ')
     setBackDrop(!backDrop)

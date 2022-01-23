@@ -84,7 +84,7 @@ export default function ModalAddUser({createState, setCreateState}) {
       users.data.users.map((item) => {
         dummyData.push(item.phone.toString())
       });
-      console.log("dummy users",dummyData );
+      // console.log("dummy users",dummyData );
     };
     getUser();
   };
