@@ -1,0 +1,19 @@
+{
+  "gitlens.advanced.messages": {
+      "suppressGitMissingWarning": true
+  },
+  "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+  },
+  "eslint.validate": [
+      "javascript",
+      "typescript"
+  ],
+  "json.maxItemsComputed": 50000,
+  "eslint.alwaysShowStatus": true,
+  "eslint.codeActionsOnSave.mode": "problems",
+  "eslint.format.enable": true,
+  "eslint.workingDirectories": [
+  
+  ]
+}

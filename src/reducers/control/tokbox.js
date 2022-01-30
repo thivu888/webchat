@@ -30,9 +30,18 @@ const tokbox = (state = initialState, action) => {
             return Object.assign({}, state,{video: action.payload});
 
         case ActionTypes.SET_DATA_CALL:
-            console.log(action.payload)
                 return Object.assign({}, state,{...action.payload});
 
+        case ActionTypes.RESET_DATA_CALL:
+                return Object.assign({}, state,{
+                    video: false,
+                    audio: false,
+                    swtichCamera: false,
+                    isShowIncomingCall: null,
+                    isShowRinging:null,
+                    sessionId: "",
+                    token: "",
+                });
         default:
             return state;
     }

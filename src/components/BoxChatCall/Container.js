@@ -32,8 +32,6 @@ const Component = () => {
 
   const [mainStream, setMainStream] = useState(null);
   const { sessionId, token } = useSelector((state) => state.tokbox);
-  console.log(sessionId);
-  console.log(token);
   const { isSessionConnected, session, streams, subscribers, publisher } =
     opentokProps;
 
@@ -46,7 +44,9 @@ const Component = () => {
       token: token,
     });
   }, [sessionId, token]);
-
+  console.log(subscribers);
+  console.log(publisher);
+  console.log(streams);
   useEffect(() => {
     if (session && isSessionConnected) {
       publish({
@@ -189,9 +189,6 @@ const Component = () => {
             onMicClick={onMicClick}
             onVideoClick={onVideoClick}
             onScreenClick={onScreenClick}
-            show={() => {
-              console.log(session.getPublisherForStream(streams[0]));
-            }}
           />
         </div>
       </div>

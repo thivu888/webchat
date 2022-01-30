@@ -22,4 +22,9 @@ export function setShowRinging(payload) {
     };
 }
 
-
+export function resetDataCall(payload) {
+    return {
+        type: ActionTypes.RESET_DATA_CALL,
+        payload,
+    };
+}

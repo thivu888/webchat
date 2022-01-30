@@ -70,6 +70,12 @@ import { makeStyles} from '@mui/styles';
         visibility:'hidden',
         transition:'all 0.6s ease',
         cursor:'pointer'
+    },
+    nameWraper:{
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        width: '130px',
     }
 }))
 

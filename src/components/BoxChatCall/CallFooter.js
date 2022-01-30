@@ -6,6 +6,9 @@ import VideocamOffOutlinedIcon from '@mui/icons-material/VideocamOffOutlined';
 import DesktopWindowsOutlinedIcon from '@mui/icons-material/DesktopWindowsOutlined';
 import DesktopAccessDisabledIcon from '@mui/icons-material/DesktopAccessDisabled';
 import ReactTooltip from "react-tooltip";
+import PhoneDisabledOutlinedIcon from '@mui/icons-material/PhoneDisabledOutlined';
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
 import "./MeetingFooter.css";
 const CallFooter = (props) => {
   const [streamState, setStreamState] = useState({
@@ -46,6 +49,12 @@ const CallFooter = (props) => {
   useEffect(() => {
     props.onVideoClick(streamState.video);
   }, [streamState.video]);
+
+  const endCall = () => {
+    if(window.socket) {
+      window.socket.emit('EndCall');
+    }
+  }
   return (
     <div className="meeting-footer">
       <div
@@ -69,7 +78,12 @@ const CallFooter = (props) => {
       >
        { streamState.screen ? <DesktopWindowsOutlinedIcon/> : <DesktopAccessDisabledIcon/>}
       </div>
-      <button onClick ={()=>props.show()}>show</button>
+      <div
+        className="meeting-icons active"
+        onClick={endCall}
+      >
+       <PhoneDisabledOutlinedIcon/> 
+      </div>
       <ReactTooltip />
     </div>
   );

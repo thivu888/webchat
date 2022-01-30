@@ -31,4 +31,5 @@ export default keyMirror({
     SET_VIDEO: null,
     SET_DATA_CALL: null,
     SET_SHOW_RINGING: null,
+    RESET_DATA_CALL: null,
 });

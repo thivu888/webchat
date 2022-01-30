@@ -54,7 +54,7 @@ const Index=(props)=>{
             </Box>
             <Box className={classes.item_content_wraper}>
                 <Box sx={{display:'flex', justifyContent: 'space-between'}}>
-                    <Typography >{name}</Typography>
+                    <Typography className={classes.nameWraper} >{name}</Typography>
                     <Typography className={classes.time_wraper} sx={{fontSize:14}}>{moment(updatedAt).fromNow()}</Typography>
 
                 </Box>
