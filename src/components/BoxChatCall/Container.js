@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { styled } from "@mui/system";
 import useOpenTok from "react-use-opentok";
 import { useSelector } from "react-redux";
@@ -29,7 +29,6 @@ const Component = () => {
   const [numberSubscribe, setNumberSubscriber] = useState(0);
   const [gridColSize, setGridColSize] = useState(1);
   const [gridRowSize, setGridRowSize] = useState(1);
-
   const [mainStream, setMainStream] = useState(null);
   const { sessionId, token } = useSelector((state) => state.tokbox);
   const { isSessionConnected, session, streams, subscribers, publisher } =
@@ -44,9 +43,6 @@ const Component = () => {
       token: token,
     });
   }, [sessionId, token]);
-  console.log(subscribers);
-  console.log(publisher);
-  console.log(streams);
   useEffect(() => {
     if (session && isSessionConnected) {
       publish({
@@ -82,7 +78,9 @@ const Component = () => {
       });
 
       session.on("streamDestroyed", (event) => {
-        console.log(event);
+        if (streams.length < 2 || subscribers.length < 1) {
+          window.socket.emit("Endcall");
+        }
       });
     }
   }, [session]);
@@ -90,11 +88,14 @@ const Component = () => {
   useEffect(() => {
     const list = subscribers.filter((subscriber) => subscriber.id !== null);
     setNumberSubscriber(list.length);
-    streams.forEach((stream) => {
-      if (stream.videoType === "screen") {
-        setMainStream(stream);
+    for (let i = 0; i < streams.length; i++) {
+      if (streams[i].videoType === "screen") {
+        setMainStream(streams[i]);
+        return;
       }
-    });
+    }
+    setMainStream(null);
+    return;
   }, [subscribers, streams]);
 
   useEffect(() => {
@@ -143,7 +144,7 @@ const Component = () => {
             videoSource: "screen",
           },
         });
-        unpublish({ name: "publisher" });
+        // unpublish({ name: "publisher" });
       } else {
         publish({
           name: "publisher",
@@ -156,7 +157,7 @@ const Component = () => {
         }).catch((ex) => {
           console.log(ex);
         });
-        unpublish({ name: "publishershare" });
+        // unpublish({ name: "publishershare" });
       }
     }
   };
@@ -164,18 +165,40 @@ const Component = () => {
   const onVideoClick = (value) => {
     if (publisher.publisher) publisher.publisher.publishVideo(value);
   };
+
+  useEffect(() => {
+    if (mainStream) {
+      subscribe({
+        name: mainStream.streamId,
+        stream: mainStream,
+        element: "mainstream",
+        options: {
+          insertMode: "append",
+          video: true,
+          audio: true,
+        },
+      });
+    }
+  }, [mainStream]);
   return (
     sessionId &&
     token && (
       <div className="VideoContainer">
-        <div id="publisher"></div>
-        <SubscriberComponent
-          number={numberSubscribe}
-          gridColSize={gridColSize}
-          gridRowSize={gridRowSize}
-          id="subscriber"
-        />
-        {mainStream && <div id="share"></div>}
+        <div id="publisher" style={{ width: "180px", height: "135px" }}></div>
+        {!mainStream && (
+          <SubscriberComponent
+            number={numberSubscribe}
+            gridColSize={gridColSize}
+            gridRowSize={gridRowSize}
+            id="subscriber"
+          />
+        )}
+        {mainStream && (
+          <div
+            style={{ width: "100%", height: " calc( 100vh - 60px )" }}
+            id="mainstream"
+          />
+        )}
         <div
           style={{
             position: "fixed",

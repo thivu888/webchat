@@ -19,13 +19,13 @@ const Home = () => {
     (state) => state.main
   );
   const user = storage.getUserInfo();
-  useEffect(() => {
-    AuthenService.getUserInfo(user._id).then((data) => {
-      if (!data.data.verify) {
-        window.location.href = "/verify";
-      }
-    });
-  }, []);
+  //   useEffect(() => {
+  //     AuthenService.getUserInfo(user._id).then((data) => {
+  //       if (!data.data.verify) {
+  //         window.location.href = "/verify";
+  //       }
+  //     });
+  //   }, []);
 
   return (
     <Box sx={{ display: "flex" }}>
