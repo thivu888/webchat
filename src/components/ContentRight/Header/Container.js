@@ -8,7 +8,7 @@ import VideocamOutlinedIcon from "@mui/icons-material/VideocamOutlined";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Avatar, Typography, AvatarGroup, useMediaQuery } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { updateFocusRight } from "../../../actions/Main";
+import { updateFocusRight, updateUserInfo } from "../../../actions/Main";
 import useStyle from "./style";
 import avatarAddFriend from "../../../static/images/avataraddfriend.png";
 import avatar_Group from "../../../static/images/avatarground.png";
@@ -16,6 +16,8 @@ import { Theme } from "@mui/material/styles";
 import moment from "moment";
 import history from "../../../utils/history";
 import { Link } from "react-router-dom";
+import authentication from "../../../services/authentication";
+import User from "../../../entities/User";
 export const ContainerWraper = styled("div")((props) => {
   return {
     height: 68,
@@ -80,6 +82,14 @@ const Container = (props) => {
         alert(" Không tìm thấy thiết bị");
       });
   };
+
+  const handleShowInfo = async (id) => {
+    await authentication
+      .getUserInfo(id)
+      .then((res) => new User(res.data))
+      .then((user) => dispatch(updateUserInfo(user)));
+  };
+
   return (
     <ContainerWraper focus={focusContentRight}>
       {!isDesktop && focusContentRight && (
@@ -104,7 +114,7 @@ const Container = (props) => {
           </Typography>
         </>
       )}
-      {addFriend && targetContentRight === "group" && (
+      {/* {addFriend && targetContentRight === "group" && (
         <>
           <Box className={classes.avatarWraper}>
             <Avatar src={avatar_Group} />
@@ -116,12 +126,12 @@ const Container = (props) => {
             Danh sách nhóm
           </Typography>
         </>
-      )}
+      )} */}
 
       {chat && (
         <>
           {avatars ? (
-            <AvatarGroup max={2}>
+            <AvatarGroup max={2} sx={{ ml: 1 }}>
               {avatars.map((item) => (
                 <Avatar src={item} />
               ))}
@@ -131,7 +141,6 @@ const Container = (props) => {
               <Avatar />
             </Box>
           )}
-
           <Box sx={{ ml: 2 }}>
             <Box className={classes.info}>
               <Typography className={classes.name}>{name}</Typography>
@@ -141,17 +150,6 @@ const Container = (props) => {
             </Box>
           </Box>
           <Box className={classes.IconWraper}>
-            <Box>
-              <GroupAddOutlinedIcon />
-            </Box>
-            <Box>
-              <SearchIcon onClick={() => console.log("/verify")} />
-            </Box>
-            <Link to="/call">
-              <Box>
-                <LocalPhoneOutlinedIcon onClick={onHandleRequestCall} />
-              </Box>
-            </Link>
             <Link to="/call">
               <Box>
                 <VideocamOutlinedIcon onClick={() => onHandleRequestCall()} />

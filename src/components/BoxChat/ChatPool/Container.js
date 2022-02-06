@@ -6,14 +6,19 @@ import moment from "moment";
 import _ from "lodash";
 import { MessageTypes } from "../../../constant/types";
 import { sendMessage } from "../../../actions/socket";
-import { concatChatPool, loadChatPool } from "../../../actions/Chat";
+import {
+  concatChatPool,
+  loadChatPool,
+  updateConversations,
+} from "../../../actions/Chat";
 import CircularProgress from "@mui/material/CircularProgress";
 import Item from "../ChatItem/Container";
 import useStyle from "./style";
-import { Button } from "@mui/material";
 import Loading from "../../Loading";
 import ViewFile from "../../ViewImage";
 import MessageService from "../../../services/message";
+import storage from "../../../utils/storage";
+import UserService from "../../../services/user";
 let pagecurrent = 0;
 const Container = () => {
   const dispatch = useDispatch();
@@ -131,11 +136,22 @@ const Container = () => {
     return data;
   };
 
+  const handleUpdateConversations = async () => {
+    const user = storage.getUserInfo();
+    UserService.getListConverSations(user._id)
+      .then((responseConversation) => {
+        dispatch(updateConversations(responseConversation));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const getMessages = (data) => {
     const listMessage = [];
     let lastMessage = null;
     let isReadMessage = true;
-    Object.entries(data).forEach(([key, value]) => {
+    Object.entries(data).forEach(([key, value], index) => {
       lastMessage = value;
       const isOwn = value.userId._id === me.data._id;
       const avatar = value.userId.avatar;
@@ -158,6 +174,18 @@ const Container = () => {
         />
       );
       listMessage.push(item);
+      if (index === Object.entries(data).length - 1) {
+        if (
+          !!value?.readBy?.find((reader) => reader._id === me.id) ||
+          value.userId._id === me.id
+        ) {
+          console.log("");
+        } else {
+          MessageService.updateMessage(value._id, {
+            readBy: [...(value?.readBy || []), me.id],
+          });
+        }
+      }
     });
 
     // if (!isReadMessage && lastMessage ) {

@@ -20,7 +20,7 @@ import _ from "lodash";
 import audioMessager from "../../static/audio/audiomessager.ogg";
 import audioCall from "../../static/audio/audioCall.ogg";
 let conversationIdCurrent = "";
-let HandleUpdateConversationsS = null;
+export let HandleUpdateConversationsS = null;
 const Socket = (props) => {
   const audioMessRef = useRef();
   const audioCallRef = useRef();
@@ -74,7 +74,7 @@ const Socket = (props) => {
     socket.emit("JOIN_ROOM", currentUser._id);
 
     socket.on("getMessage", (data) => {
-      handleUpdateConversations();
+      HandleUpdateConversationsS();
       if (data.roomId === conversationIdCurrent) {
         audioMessRef.current && audioMessRef.current.play();
         props.pushChatPool(data);
