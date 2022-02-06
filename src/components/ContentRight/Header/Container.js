@@ -6,12 +6,13 @@ import SearchIcon from "@mui/icons-material/Search";
 import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
 import VideocamOutlinedIcon from "@mui/icons-material/VideocamOutlined";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { Avatar, Typography, AvatarGroup } from "@mui/material";
+import { Avatar, Typography, AvatarGroup, useMediaQuery } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { updateFocusRight } from "../../../actions/Main";
 import useStyle from "./style";
 import avatarAddFriend from "../../../static/images/avataraddfriend.png";
 import avatar_Group from "../../../static/images/avatarground.png";
+import { Theme } from "@mui/material/styles";
 import moment from "moment";
 import history from "../../../utils/history";
 import { Link } from "react-router-dom";
@@ -35,7 +36,9 @@ export const ContainerWraper = styled("div")((props) => {
 
 const Container = (props) => {
   const classes = useStyle();
-  const { isDesktop, focusContentRight, targetContentRight } = useSelector(
+  const isDesktop = useMediaQuery("(min-width:800px)");
+
+  const { focusContentRight, targetContentRight } = useSelector(
     (state) => state.main
   );
 
@@ -43,6 +46,10 @@ const Container = (props) => {
 
   const handleCloseConversation = () => {
     dispatch(updateFocusRight(false));
+  };
+
+  const handleOpenFocusRight = () => {
+    dispatch(updateFocusRight(true));
   };
 
   const { chat, addFriend, user, avatars, name, updatedAt, data } = props;
@@ -73,7 +80,6 @@ const Container = (props) => {
         alert(" Không tìm thấy thiết bị");
       });
   };
-
   return (
     <ContainerWraper focus={focusContentRight}>
       {!isDesktop && focusContentRight && (
@@ -90,7 +96,10 @@ const Container = (props) => {
           <Box className={classes.avatarWraper}>
             <Avatar src={avatarAddFriend} />
           </Box>
-          <Typography sx={{ fontSize: 24, fontWeight: 600, ml: 2 }}>
+          <Typography
+            sx={{ fontSize: 24, fontWeight: 600, ml: 2 }}
+            onClick={handleOpenFocusRight}
+          >
             Danh sách kết bạn
           </Typography>
         </>
@@ -100,7 +109,10 @@ const Container = (props) => {
           <Box className={classes.avatarWraper}>
             <Avatar src={avatar_Group} />
           </Box>
-          <Typography sx={{ fontSize: 24, fontWeight: 600, ml: 2 }}>
+          <Typography
+            sx={{ fontSize: 24, fontWeight: 600, ml: 2 }}
+            onClick={handleOpenFocusRight}
+          >
             Danh sách nhóm
           </Typography>
         </>
