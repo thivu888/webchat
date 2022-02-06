@@ -48,12 +48,12 @@ function AdMenu({menuSelected, setMenuSelected}) {
             <div className='adminItemContent'>NGƯỜI DÙNG</div>
           </div>
 
-          <div className={`adminItem group ${menuSelected === 2 ? 'active' : ''}` }
+          {/* <div className={`adminItem group ${menuSelected === 2 ? 'active' : ''}` }
             onClick={handleGroupClick}
           >
             <div className='adminItemIcon group'></div>
             <div className='adminItemContent'>NHÓM</div>
-          </div>
+          </div> */}
       </div>  
 
       <div className='adminItem logout'

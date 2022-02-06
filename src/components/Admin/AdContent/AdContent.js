@@ -69,25 +69,25 @@ function AdContent({menuSelected}) {
         </div>
       </div> : 
 //xxxxxxxxxxxxxxxxxxx
-      <div className= 'adminContent'>
-        <div className='adminTopContent'>
-          <div className='adminNameTable'>Danh sách nhóm</div>
-          <div className='adminAddUser Modal'>THÊM NHÓM</div>
-        </div>
-        <div className='adminSecondContent'>
-          <div className='adminSearch'>
-            <form>
-              <label>
-                <input type="text" name="name" placeholder='Tên nhóm'/>
-              </label>
-            </form>
-          </div>
-          <div className='adminRefresh'></div>
-        </div>
-        <div className='adminTableList'>
-              <TableGetGroup deleteState={deleteState} setDeleteState={setDeleteState}/>
-        </div>
-        <div className='adminFooter'>
+      // <div className= 'adminContent'>
+      //   <div className='adminTopContent'>
+      //     <div className='adminNameTable'>Danh sách nhóm</div>
+      //     <div className='adminAddUser Modal'>THÊM NHÓM</div>
+      //   </div>
+      //   <div className='adminSecondContent'>
+      //     <div className='adminSearch'>
+      //       <form>
+      //         <label>
+      //           <input type="text" name="name" placeholder='Tên nhóm'/>
+      //         </label>
+      //       </form>
+      //     </div>
+      //     <div className='adminRefresh'></div>
+      //   </div>
+      //   <div className='adminTableList'>
+      //         <TableGetGroup deleteState={deleteState} setDeleteState={setDeleteState}/>
+      //   </div>
+      //   <div className='adminFooter'>
             {/* <div>Hiển thị 1-10 nhóm</div>
             <div className='adminPage'>
                 <div className='adminStage first'>FIRST</div>
@@ -99,8 +99,8 @@ function AdContent({menuSelected}) {
                 <div className='adminStage end'>END</div>
             </div>
             <div>10 nhóm/trang</div> */}
-        </div>
-      </div>
+      //   </div>
+      // </div>
     }
     </>
 
