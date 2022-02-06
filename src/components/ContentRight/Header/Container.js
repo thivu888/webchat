@@ -80,6 +80,7 @@ const Container = (props) => {
       .catch((er) => {
         console.log(er);
         alert(" Không tìm thấy thiết bị");
+        history.back();
       });
   };
 
