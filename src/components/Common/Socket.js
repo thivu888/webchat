@@ -74,9 +74,12 @@ const Socket = (props) => {
     socket.emit("JOIN_ROOM", currentUser._id);
 
     socket.on("getMessage", (data) => {
+      const user = storage.getUserInfo();
+      if (user._id !== data.userId._id) {
+        audioMessRef.current && audioMessRef.current.play();
+      }
       HandleUpdateConversationsS();
       if (data.roomId === conversationIdCurrent) {
-        audioMessRef.current && audioMessRef.current.play();
         props.pushChatPool(data);
       }
     });

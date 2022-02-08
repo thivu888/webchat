@@ -15,7 +15,9 @@ const Index = () => {
         id={item._id}
         isRead={
           item.sender._id === user._id ||
-          !!item.readBy.find((reader) => reader._id === user._id)
+          !!item?.readBy?.find(
+            (reader) => reader?._id === user._id || reader === user.id
+          )
         }
         value={item}
       />

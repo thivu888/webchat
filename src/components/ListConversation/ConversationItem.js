@@ -1,17 +1,19 @@
 import { Box, Avatar, Typography } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 // import TimeAgo from 'react-time-ago'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateFocusRight, updateTargetContentRight } from "../../actions/Main";
 import useStyle from "./style";
 import storage from "../../utils/storage";
 import { updateconversation } from "../../actions/socket";
+import { updateConversations } from "../../actions/Chat";
 import moment from "moment";
 import clsx from "clsx";
 const Index = (props) => {
   const { value, isRead } = props;
   const { avatar, name, content, updatedAt } = value;
-
+  const { listConversations } = useSelector((state) => state.chatControl);
+  const user = storage.getUserInfo();
   const classes = useStyle();
 
   const dispatch = useDispatch();
@@ -24,6 +26,20 @@ const Index = (props) => {
         name: name,
         updatedAt,
       })
+    );
+    dispatch(
+      updateConversations(
+        listConversations.map((conv) => {
+          if (conv._id === value._id) {
+            const newConv = {
+              ...conv,
+              readby: [...(conv.readby || []), user._id],
+            };
+            return newConv;
+          }
+          return conv;
+        })
+      )
     );
     dispatch(updateFocusRight(true));
     dispatch(updateTargetContentRight("message"));

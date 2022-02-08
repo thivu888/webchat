@@ -9,6 +9,7 @@ import { sendMessage } from "../../../actions/socket";
 import {
   concatChatPool,
   loadChatPool,
+  pushChatPool,
   updateConversations,
 } from "../../../actions/Chat";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -146,7 +147,6 @@ const Container = () => {
         console.log(error);
       });
   };
-
   const getMessages = (data) => {
     const listMessage = [];
     let lastMessage = null;
@@ -176,14 +176,28 @@ const Container = () => {
       listMessage.push(item);
       if (index === Object.entries(data).length - 1) {
         if (
-          !!value?.readBy?.find((reader) => reader._id === me.id) ||
-          value.userId._id === me.id
+          !value?.readBy?.find(
+            (reader) => reader?._id === me.id || reader === me.id
+          ) &&
+          value.userId._id !== me.id
         ) {
-          console.log("");
-        } else {
           MessageService.updateMessage(value._id, {
             readBy: [...(value?.readBy || []), me.id],
-          });
+          }).then(() =>
+            dispatch(
+              pushChatPool({
+                message: {
+                  ...value,
+                  readBy: [
+                    ...(value?.readBy || []),
+                    {
+                      _id: me.id,
+                    },
+                  ],
+                },
+              })
+            )
+          );
         }
       }
     });
