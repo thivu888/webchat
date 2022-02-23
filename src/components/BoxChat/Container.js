@@ -1,10 +1,8 @@
 import { Box } from "@mui/system";
-import ChatFooter from "./ChatFooter";
 import ChatType from "./ChatType";
 import ChatHeader from "./ChatHeader";
 import ChatPool from "./ChatPool/Container";
-import { sendMessage } from "../../actions/socket";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import Welcome from "../ContentRight/Welcome";
 const Index = () => {
   const { conversationId } = useSelector((state) => state.chatControl);

@@ -8,6 +8,7 @@ import { sendMessage } from "../../../actions/socket";
 import { useDispatch, useSelector } from "react-redux";
 import { MessageTypes } from "../../../constant/types";
 import InputFile from "./InputFile";
+import Emoji from "../../Emoji";
 
 const ContainerWraper = styled("div")((props) => ({
   position: "fixed",
@@ -36,11 +37,16 @@ const ContainerWraper = styled("div")((props) => ({
 const Container = () => {
   const { focusContentRight } = useSelector((state) => state.main);
   const isDesktop = useMediaQuery("(min-width:800px)");
+  const [isShowEmoji, setIsShowEmoji] = useState(false);
 
   const dispatch = useDispatch();
 
   const classes = useStyle();
   const [state, setstate] = useState("");
+
+  const handleShowEmoji = () => {
+    setIsShowEmoji(!isShowEmoji);
+  };
 
   const onChangeInput = (e) => {
     setstate(e.target.value);
@@ -64,7 +70,10 @@ const Container = () => {
       handleSendMessage();
     }
   };
-
+  const handleChosenEmoji = (emojiData) => {
+    const emoji = emojiData;
+    setstate(state + emoji.native);
+  };
   return (
     <ContainerWraper
       isDesktop={isDesktop}
@@ -80,12 +89,18 @@ const Container = () => {
             value={state}
             onKeyPress={onKeyPress}
           />
-          <Box className={classes.iconSmileWraper}>
+          <Box className={classes.iconSmileWraper} onClick={handleShowEmoji}>
             <Typography
               className={classes.iconSmile + " " + classes.icon}
             ></Typography>
           </Box>
+          
         </Box>
+        {isShowEmoji &&
+      <Box sx={{height:200}}>
+        <Emoji chosenEmoji={handleChosenEmoji} />
+      </Box>
+      }
         <Box sx={{ mr: 2 }}>
           <Typography
             className={classes.iconMic + " " + classes.icon}
@@ -99,6 +114,7 @@ const Container = () => {
           </Box>
         </Box>
       </Box>
+      
     </ContainerWraper>
   );
 };

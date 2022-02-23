@@ -5,7 +5,17 @@ import Typography from '@mui/material/Typography';
 import { Avatar, Button } from '@mui/material';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import { Grid } from '@mui/material';
+import storage from '../../utils/storage';
+import UserService from '../../services/user';
 const AddFriendItem = ({user}) => {
+    const userInfo = storage.getUserInfo();
+    const handleRequestAddFriend = async () =>{
+        const res = await UserService.addFriend({
+            friend_id:user._id,
+            user_id:userInfo._id
+        })
+        console.log(res)
+    }
     return (
 
         <Grid item mobile={12} mobileplus={6} tablet={6}  desktop={4} desktopplus={3}>
@@ -17,7 +27,7 @@ const AddFriendItem = ({user}) => {
                 <Box>
                     <Typography sx={{fontSize:'16px', fontWeight:'600', height:'25px', mt:1, padding:'0 16px'}}>{user.username}</Typography>
                 </Box>
-                <Button sx={{mt:3}} variant="outlined">Kết bạn</Button>   
+                <Button sx={{mt:3}} variant="outlined" onClick={handleRequestAddFriend}>Kết bạn</Button>   
             </Card>
         </Grid>
         

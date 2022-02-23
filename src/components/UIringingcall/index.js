@@ -74,6 +74,7 @@ export default function AlertDialogSlide({ data }) {
             transform: "translateX(-50%)",
           }}
         >
+            <Link to="/call">
           <Box
             sx={{
               width: 60,
@@ -86,7 +87,6 @@ export default function AlertDialogSlide({ data }) {
             }}
             onClick={handleAccept}
           >
-            <Link to="/call">
               <LocalPhoneIcon
                 sx={{
                   position: "absolute",
@@ -96,8 +96,9 @@ export default function AlertDialogSlide({ data }) {
                   fontWeight: "bold",
                 }}
               />
-            </Link>
           </Box>
+          </Link>
+
           <Box
             sx={{
               width: 60,

@@ -8,6 +8,26 @@ const UserService = {
         return HttpRequest.get('/users').then(res=>res)
     },
 
+    async getFriends (id) {
+        return HttpRequest.get(`/users/friend/${id}`).then(res=>res)
+    },
+
+    async addFriend (data) {
+        return HttpRequest.post(`/friends`,data).then(res=>res)
+    },
+
+    async cancelAddFriend (userId,friendId) {
+        return HttpRequest.post(`/friend/cancel/${userId}/${friendId}`).then(res=>res)
+    },
+
+    async checkIsFriend(userId,friendId) {
+        return HttpRequest.post(`/users/friend/${userId}/${friendId}`).then(res=>res)
+    },
+
+    async getRequestFriends(id) {
+        return HttpRequest.post(`/users/friend-request/${id}`).then(res=>res)
+    },
+
     async findUsers (page = 0,limit = 10,search = ' ') {
         return HttpRequest.get(`/users/${page}/${limit}?search=${search}`).then(res=>res)
     },

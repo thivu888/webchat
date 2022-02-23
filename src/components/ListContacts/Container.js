@@ -13,7 +13,7 @@ import storage from "../../utils/storage";
 const Container = (props) => {
   const classes = useStyle();
   const dispatch = useDispatch();
-
+  const user = storage.getUserInfo();
   const [listUser, setListUser] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -23,10 +23,10 @@ const Container = (props) => {
 
   const handleCallAPI = async () => {
     setLoading(true);
-    UserService.getAllUsers()
+    UserService.getFriends(user._id)
       .then((res) => {
         setLoading(false);
-        setListUser([...res.users]);
+        setListUser([...res.friends]);
       })
       .catch((e) => console.log(e));
   };
@@ -34,11 +34,11 @@ const Container = (props) => {
   const getItem = () => {
     const user = storage.getUserInfo();
     let list = [];
-    list = listUser.filter((item) => item._id != user._id);
+    list = listUser.filter((item) => item._id !== user._id);
     list = list.map((item) => (
       <ContactsItem key={item._id} id={item._id} user={item} />
     ));
-    return list;
+    return list.length ? list : <p style={{textAlign:'center'}}>danh sách bạn bè trống</p>;
   };
 
   const handleRedirectContent = (targetContentRight) => {
@@ -56,7 +56,7 @@ const Container = (props) => {
             <Avatar src={avatarContacts} sx={{ width: 48, height: 48 }} />
           </Box>
           <Box>
-            <Typography>Danh sách kết bạn</Typography>
+            <Typography>Danh sách bạn bè</Typography>
           </Box>
         </Box>
         {/* 

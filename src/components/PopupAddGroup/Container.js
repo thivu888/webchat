@@ -5,37 +5,21 @@ import { useSelector } from "react-redux";
 import Popup from "../Common/Popup";
 import Header from "./Header";
 import {
-  Avatar,
   Button,
-  FormControl,
-  FormControlLabel,
   InputBase,
-  Typography,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
 import SearchIcon from "@mui/icons-material/Search";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import FaceIcon from "@mui/icons-material/Face";
-import TextField from "@mui/material/TextField";
-import RadioGroup from "@mui/material/RadioGroup";
-import Radio from "@mui/material/Radio";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
 import { useDispatch } from "react-redux";
-import validateTelephone from "../../constant/validateTelephone";
 import {
   updateFocusRight,
   updateShowAddGroup,
   updateTargetContentRight,
-  updateUserInfo,
 } from "../../actions/Main";
-import iconImg from "../../static/images/img_camera.png";
-import { useState, useEffect } from "react";
-import MediaService from "../../services/media";
+import { useState } from "react";
 import UserService from "../../services/user";
-import Loading from "../Loading";
 import { Backdrop } from "@mui/material";
 import AddFriendItem from "./AddFriendItem";
 import _ from "lodash";
