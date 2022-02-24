@@ -95,7 +95,7 @@ const Component = () => {
     }
     setMainStream(null);
     return;
-  }, [subscribers, streams]);
+  }, [subscribers, streams,mainStream]);
   useEffect(() => {
     let gridColSize = 1;
     let gridRowSize = 1;
@@ -124,7 +124,7 @@ const Component = () => {
     setGridColSize(gridColSize);
     setGridRowSize(gridRowSize);
   }, [numberSubscribe]);
-
+console.log(first)
   const onMicClick = (value) => {
     if (publisher.publisher) publisher.publisher.publishAudio(value);
   };
