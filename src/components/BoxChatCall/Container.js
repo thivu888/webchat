@@ -4,6 +4,7 @@ import useOpenTok from "react-use-opentok";
 import { useSelector } from "react-redux";
 import CallFooter from "./CallFooter";
 import "./style.css";
+import { sub } from "date-fns";
 var apiKey = "47402891";
 const SubscriberComponent = styled("div")((props) => {
   const { number, gridColSize, gridRowSize,visibility } = props;
@@ -25,6 +26,7 @@ const Component = () => {
   // STEP 1: get utilities from useOpenTok;
   const [opentokProps, opentokMethods] = useOpenTok();
   const [numberSubscribe, setNumberSubscriber] = useState(0);
+  const [subcribeCurrent, setSubcribeCurrent] = useState([]);
   const [gridColSize, setGridColSize] = useState(1);
   const [gridRowSize, setGridRowSize] = useState(1);
   const [mainStream, setMainStream] = useState(null);
@@ -84,8 +86,13 @@ const Component = () => {
     }
   }, [session]);
 
+  useEffect(()=>{
+    const list = subscribers.filter((subscriber) => (subscriber.id !== null && subscriber.streamId !== null && subscriber.stream!==null ));
+    setSubcribeCurrent(list)
+  },[subscribers])
+
   useEffect(() => {
-    const list = subscribers.filter((subscriber) => subscriber.id !== null);
+    const list = subcribeCurrent.filter((subscriber) => (subscriber.id !== null && subscriber.streamId !== null && subscriber.stream!==null ));
     setNumberSubscriber(list.length);
     for (let i = 0; i < streams.length; i++) {
       if (streams[i].videoType === "screen") {
@@ -95,7 +102,8 @@ const Component = () => {
     }
     setMainStream(null);
     return;
-  }, [subscribers, streams,mainStream]);
+  }, [subcribeCurrent, streams]);
+
   useEffect(() => {
     let gridColSize = 1;
     let gridRowSize = 1;
@@ -124,13 +132,15 @@ const Component = () => {
     setGridColSize(gridColSize);
     setGridRowSize(gridRowSize);
   }, [numberSubscribe]);
-console.log(first)
+
   const onMicClick = (value) => {
     if (publisher.publisher) publisher.publisher.publishAudio(value);
   };
 
   const onScreenClick = (value) => {
     if (publisher.publishershare) {
+      const list = subscribers.filter((subscriber) => (subscriber.streamId !== mainStream.id));
+      setSubcribeCurrent(list)
       unpublish({ name: "publishershare" });
       setMainStream(null);
     } else {
