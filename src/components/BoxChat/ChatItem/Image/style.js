@@ -1,7 +1,7 @@
 import { makeStyles} from '@mui/styles';
 
 
-const useStyle = makeStyles(({theme}) => ({
+const useStyle = makeStyles(() => ({
     container: {
        width:150,
        height:180,

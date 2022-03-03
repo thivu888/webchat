@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import AuthService from "../../services/authentication";
 import UserService from "../../services/user";
@@ -13,12 +13,18 @@ import {
   setShowIncomming,
   resetDataCall,
 } from "../../actions/call";
+import { useSelector } from "react-redux";
 import history from "../../utils/history";
 import connectSocket from "../../utils/socket-io";
 import _ from "lodash";
+import audioMessager from "../../static/audio/audiomessager.ogg";
+import audioCall from "../../static/audio/audioCall.ogg";
 let conversationIdCurrent = "";
-let HandleUpdateConversationsS = null;
+export let HandleUpdateConversationsS = null;
 const Socket = (props) => {
+  const audioMessRef = useRef();
+  const audioCallRef = useRef();
+  const { isShowIncomingCall } = useSelector((state) => state.tokbox);
   useEffect(() => {
     reloadData();
 
@@ -68,7 +74,11 @@ const Socket = (props) => {
     socket.emit("JOIN_ROOM", currentUser._id);
 
     socket.on("getMessage", (data) => {
-      handleUpdateConversations();
+      const user = storage.getUserInfo();
+      if (user._id !== data.userId._id) {
+        audioMessRef.current && audioMessRef.current.play();
+      }
+      HandleUpdateConversationsS();
       if (data.roomId === conversationIdCurrent) {
         props.pushChatPool(data);
       }
@@ -98,26 +108,44 @@ const Socket = (props) => {
           data: data,
         });
       } else {
+        audioCallRef.current && audioCallRef.current.play();
         props.setShowIncomming({
           sessionId: data.sessionId,
           token: data.token,
           data: data,
         });
       }
-
-      // window.history.pushState({
-      //     sessionId: data.sessionId,
-      //     token: data.token,
-      // }, 'callPage', '/call');
-      // HandleUpdateConversationsS();
     });
   };
+
+  useEffect(() => {
+    if (isShowIncomingCall) {
+      audioCallRef.current && audioCallRef.current.play();
+    } else {
+      audioCallRef.current && audioCallRef.current.pause();
+    }
+  }, [isShowIncomingCall]);
 
   const handleRedirectLogin = () => {
     history.push("/login");
   };
 
-  return <></>;
+  return (
+    <>
+      <audio controls ref={audioMessRef} style={{ display: "none" }}>
+        <source src={audioMessager} type="audio/ogg" />
+      </audio>
+      <audio
+        ref={audioCallRef}
+        controls
+        autoplay
+        loop
+        style={{ display: "none" }}
+      >
+        <source src={audioCall} type="audio/ogg" />
+      </audio>
+    </>
+  );
 };
 
 const mapStateToProps = (state) => ({

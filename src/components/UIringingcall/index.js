@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import { Backdrop } from "@mui/material";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import PhoneDisabledIcon from "@mui/icons-material/PhoneDisabled";
+import { setShowIncomming } from "../../actions/call";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -26,17 +27,17 @@ export default function AlertDialogSlide({ data }) {
   };
 
   const handleAccept = () => {
+    dispatch(setShowIncomming(null));
     dispatch(
       tranferCallData({
         ...data,
       })
     );
   };
-
   const handleReject = () => {
+    dispatch(setShowIncomming(null));
     dispatch(resetDataCall());
   };
-  console.log(data);
   return (
     <Backdrop sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }} open={true}>
       <Box
@@ -44,7 +45,7 @@ export default function AlertDialogSlide({ data }) {
           width: 470,
           height: 655,
           position: "relative",
-          backgroundImage: `url(${data?.data.data.roomAvatar[0]})`,
+          backgroundImage: `url(${data?.data.data.userId.avatar})`,
           backgroundPosition: "center center",
           backgroundSize: "cover",
         }}
@@ -59,7 +60,7 @@ export default function AlertDialogSlide({ data }) {
           }}
         >
           <p style={{ fontWeight: 900, fontSize: 20, color: "#000" }}>
-            {data?.data.data.roomName}
+            {data?.data.data.userId.username}
           </p>
         </Box>
         <Box
@@ -73,6 +74,7 @@ export default function AlertDialogSlide({ data }) {
             transform: "translateX(-50%)",
           }}
         >
+            <Link to="/call">
           <Box
             sx={{
               width: 60,
@@ -85,7 +87,6 @@ export default function AlertDialogSlide({ data }) {
             }}
             onClick={handleAccept}
           >
-            <Link to="/call">
               <LocalPhoneIcon
                 sx={{
                   position: "absolute",
@@ -95,8 +96,9 @@ export default function AlertDialogSlide({ data }) {
                   fontWeight: "bold",
                 }}
               />
-            </Link>
           </Box>
+          </Link>
+
           <Box
             sx={{
               width: 60,

@@ -1,5 +1,4 @@
 import isObject from 'lodash/isObject';
-import User from '../entities/User';
 
 const _get = (key) => {
     const value = localStorage.getItem(key);

@@ -3,8 +3,9 @@ import { Grid, GridItem } from '@mui/material'
 import AddFriendItem from './AddFriendItem'
 import UserService from '../../services/user'
 import { CircularProgress } from '@mui/material';
+import storage from '../../utils/storage';
 export const ListFriendAdd = () => {
-
+    const user = storage.getUserInfo()
     const [listUser,setListUser] = useState([])
     const [loading,setLoading] = useState(false)
 

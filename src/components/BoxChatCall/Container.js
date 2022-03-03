@@ -4,14 +4,13 @@ import useOpenTok from "react-use-opentok";
 import { useSelector } from "react-redux";
 import CallFooter from "./CallFooter";
 import "./style.css";
+import { sub } from "date-fns";
 var apiKey = "47402891";
-const SESSION_ID =
-  "2_MX40NzQwMjg5MX5-MTYzOTQwNzUwNjg0MH55bzI5cnJxTjVkSmEzSjdlTktKaWlqN0p-fg";
-const TOKEN =
-  "T1==cGFydG5lcl9pZD00NzQwMjg5MSZzaWc9ZjhiNGQwNzc0ZDllZWUyNGY2MmNkMDdmNTlkZDcwNjU3NjM2MjYzMTpzZXNzaW9uX2lkPTJfTVg0ME56UXdNamc1TVg1LU1UWXpPVFF3TnpVd05qZzBNSDU1YnpJNWNuSnhUalZrU21FelNqZGxUa3RLYVdscU4wcC1mZyZjcmVhdGVfdGltZT0xNjM5NDA3NTI3Jm5vbmNlPTAuOTI2NzUwNDQyNDk0NjcwNCZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNjQxOTk5NTI1JmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9";
 const SubscriberComponent = styled("div")((props) => {
-  const { number, gridColSize, gridRowSize } = props;
+  const { number, gridColSize, gridRowSize,visibility } = props;
   return {
+    visibility:`${visibility}`,
+    position:`${visibility === 'hidden'? 'absolute': 'unset'}`,
     display: "grid",
     gridGap: "10px",
     padding: "10px",
@@ -27,6 +26,7 @@ const Component = () => {
   // STEP 1: get utilities from useOpenTok;
   const [opentokProps, opentokMethods] = useOpenTok();
   const [numberSubscribe, setNumberSubscriber] = useState(0);
+  const [subcribeCurrent, setSubcribeCurrent] = useState([]);
   const [gridColSize, setGridColSize] = useState(1);
   const [gridRowSize, setGridRowSize] = useState(1);
   const [mainStream, setMainStream] = useState(null);
@@ -34,7 +34,7 @@ const Component = () => {
   const { isSessionConnected, session, streams, subscribers, publisher } =
     opentokProps;
 
-  const { initSessionAndConnect, publish, subscribe, unpublish } =
+  const { initSessionAndConnect, publish, subscribe, unpublish, } =
     opentokMethods;
   useEffect(() => {
     initSessionAndConnect({
@@ -78,6 +78,7 @@ const Component = () => {
       });
 
       session.on("streamDestroyed", (event) => {
+        console.log("onEvent");
         if (streams.length < 2 || subscribers.length < 1) {
           window.socket.emit("Endcall");
         }
@@ -85,8 +86,13 @@ const Component = () => {
     }
   }, [session]);
 
+  useEffect(()=>{
+    const list = subscribers.filter((subscriber) => (subscriber.id !== null && subscriber.streamId !== null && subscriber.stream!==null ));
+    setSubcribeCurrent(list)
+  },[subscribers])
+
   useEffect(() => {
-    const list = subscribers.filter((subscriber) => subscriber.id !== null);
+    const list = subcribeCurrent.filter((subscriber) => (subscriber.id !== null && subscriber.streamId !== null && subscriber.stream!==null ));
     setNumberSubscriber(list.length);
     for (let i = 0; i < streams.length; i++) {
       if (streams[i].videoType === "screen") {
@@ -96,7 +102,7 @@ const Component = () => {
     }
     setMainStream(null);
     return;
-  }, [subscribers, streams]);
+  }, [subcribeCurrent, streams]);
 
   useEffect(() => {
     let gridColSize = 1;
@@ -132,40 +138,31 @@ const Component = () => {
   };
 
   const onScreenClick = (value) => {
-    if (publisher.publisher || publisher.publishershare) {
-      if (value) {
-        publish({
-          name: "publishershare",
-          element: "publisher",
-          options: {
-            insertMode: "append",
-            width: "180px",
-            height: "135px",
-            videoSource: "screen",
-          },
-        });
-        // unpublish({ name: "publisher" });
-      } else {
-        publish({
-          name: "publisher",
-          element: "publisher",
-          options: {
-            insertMode: "append",
-            width: "180px",
-            height: "135px",
-          },
-        }).catch((ex) => {
-          console.log(ex);
-        });
-        // unpublish({ name: "publishershare" });
-      }
+    if (publisher.publishershare) {
+      const list = subscribers.filter((subscriber) => (subscriber.streamId !== mainStream.id));
+      setSubcribeCurrent(list)
+      unpublish({ name: "publishershare" });
+      setMainStream(null);
+    } else {
+      publish({
+        name: "publishershare",
+        element: "publisher",
+        options: {
+          insertMode: "append",
+          width: "180px",
+          height: "135px",
+          videoSource: "screen",
+        },
+      }).catch((ex) => {
+        console.log(ex);
+      });
+      // unpublish({ name: "publishershare" });
     }
   };
 
   const onVideoClick = (value) => {
     if (publisher.publisher) publisher.publisher.publishVideo(value);
   };
-
   useEffect(() => {
     if (mainStream) {
       subscribe({
@@ -185,14 +182,13 @@ const Component = () => {
     token && (
       <div className="VideoContainer">
         <div id="publisher" style={{ width: "180px", height: "135px" }}></div>
-        {!mainStream && (
           <SubscriberComponent
+            visibility={ !mainStream ? 'visible' : 'hidden'}
             number={numberSubscribe}
             gridColSize={gridColSize}
             gridRowSize={gridRowSize}
             id="subscriber"
           />
-        )}
         {mainStream && (
           <div
             style={{ width: "100%", height: " calc( 100vh - 60px )" }}

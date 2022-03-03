@@ -6,15 +6,18 @@ import SearchIcon from "@mui/icons-material/Search";
 import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
 import VideocamOutlinedIcon from "@mui/icons-material/VideocamOutlined";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { Avatar, Typography, AvatarGroup } from "@mui/material";
+import { Avatar, Typography, AvatarGroup, useMediaQuery } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { updateFocusRight } from "../../../actions/Main";
+import { updateFocusRight, updateUserInfo } from "../../../actions/Main";
 import useStyle from "./style";
 import avatarAddFriend from "../../../static/images/avataraddfriend.png";
 import avatar_Group from "../../../static/images/avatarground.png";
+import { Theme } from "@mui/material/styles";
 import moment from "moment";
 import history from "../../../utils/history";
 import { Link } from "react-router-dom";
+import authentication from "../../../services/authentication";
+import User from "../../../entities/User";
 export const ContainerWraper = styled("div")((props) => {
   return {
     height: 68,
@@ -35,7 +38,9 @@ export const ContainerWraper = styled("div")((props) => {
 
 const Container = (props) => {
   const classes = useStyle();
-  const { isDesktop, focusContentRight, targetContentRight } = useSelector(
+  const isDesktop = useMediaQuery("(min-width:800px)");
+
+  const { focusContentRight, targetContentRight } = useSelector(
     (state) => state.main
   );
 
@@ -43,6 +48,10 @@ const Container = (props) => {
 
   const handleCloseConversation = () => {
     dispatch(updateFocusRight(false));
+  };
+
+  const handleOpenFocusRight = () => {
+    dispatch(updateFocusRight(true));
   };
 
   const { chat, addFriend, user, avatars, name, updatedAt, data } = props;
@@ -71,7 +80,15 @@ const Container = (props) => {
       .catch((er) => {
         console.log(er);
         alert(" Không tìm thấy thiết bị");
+        history.back();
       });
+  };
+
+  const handleShowInfo = async (id) => {
+    await authentication
+      .getUserInfo(id)
+      .then((res) => new User(res.data))
+      .then((user) => dispatch(updateUserInfo(user)));
   };
 
   return (
@@ -90,26 +107,32 @@ const Container = (props) => {
           <Box className={classes.avatarWraper}>
             <Avatar src={avatarAddFriend} />
           </Box>
-          <Typography sx={{ fontSize: 24, fontWeight: 600, ml: 2 }}>
+          <Typography
+            sx={{ fontSize: 24, fontWeight: 600, ml: 2 }}
+            onClick={handleOpenFocusRight}
+          >
             Danh sách kết bạn
           </Typography>
         </>
       )}
-      {addFriend && targetContentRight === "group" && (
+      {/* {addFriend && targetContentRight === "group" && (
         <>
           <Box className={classes.avatarWraper}>
             <Avatar src={avatar_Group} />
           </Box>
-          <Typography sx={{ fontSize: 24, fontWeight: 600, ml: 2 }}>
+          <Typography
+            sx={{ fontSize: 24, fontWeight: 600, ml: 2 }}
+            onClick={handleOpenFocusRight}
+          >
             Danh sách nhóm
           </Typography>
         </>
-      )}
+      )} */}
 
       {chat && (
         <>
           {avatars ? (
-            <AvatarGroup max={2}>
+            <AvatarGroup max={2} sx={{ ml: 1 }}>
               {avatars.map((item) => (
                 <Avatar src={item} />
               ))}
@@ -119,7 +142,6 @@ const Container = (props) => {
               <Avatar />
             </Box>
           )}
-
           <Box sx={{ ml: 2 }}>
             <Box className={classes.info}>
               <Typography className={classes.name}>{name}</Typography>
@@ -129,17 +151,6 @@ const Container = (props) => {
             </Box>
           </Box>
           <Box className={classes.IconWraper}>
-            <Box>
-              <GroupAddOutlinedIcon />
-            </Box>
-            <Box>
-              <SearchIcon onClick={() => console.log("/verify")} />
-            </Box>
-            <Link to="/call">
-              <Box>
-                <LocalPhoneOutlinedIcon onClick={onHandleRequestCall} />
-              </Box>
-            </Link>
             <Link to="/call">
               <Box>
                 <VideocamOutlinedIcon onClick={() => onHandleRequestCall()} />
