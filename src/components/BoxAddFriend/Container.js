@@ -9,7 +9,7 @@ import { GroupItem } from "./GroupItem";
 import BoxChat from "../BoxChat";
 import { ListGroupUser } from "./ListGroupUser";
 import { ListFriendAdd } from "./ListFriendAdd";
-const ContainerWraper = () => {
+const ContainerWraper = ({isSuggestFriend}) => {
   const classes = useStyle();
 
   const { targetContentRight } = useSelector((state) => state.main);
@@ -23,8 +23,7 @@ const ContainerWraper = () => {
           <Box sx={{ position: "relative" }}>
             <Box className={classes.container}>
               <Container maxWidth="desktop">
-                {targetContentRight === "group" && <ListGroupUser />}
-                {targetContentRight === "addfriend" && <ListFriendAdd />}
+                 <ListFriendAdd isSuggestFriend={isSuggestFriend} />
               </Container>
             </Box>
           </Box>

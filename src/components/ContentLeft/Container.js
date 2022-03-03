@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import Header from "./Header";
 import useStyle from "../ListConversation/style";
 import { ContactsItem } from "../ListContacts/ContactsItem";
-
+import ListNotify from '../ListNotify'
 const Container = styled("div")((props) => {
   return {
     position: "fixed",
@@ -63,6 +63,7 @@ const Index = (props) => {
         <Box>
           {targetContent === "message" && <ListConversation />}
           {targetContent === "contacts" && <ListContacts />}
+          {targetContent === "notify" && <ListNotify />}
         </Box>
       )}
     </Container>

@@ -23,7 +23,11 @@ const Index = () => {
       />
     ));
 
-    return list;
+    return list.length ? (
+      list
+    ) : (
+      <p style={{ textAlign: "center" }}>Không có cuộc trò chuyện nào</p>
+    );
   };
 
   return <Box className={classes.container}>{getListconverSations()}</Box>;

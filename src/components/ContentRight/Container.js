@@ -44,6 +44,7 @@ const Index = (props) => {
     <Container focus={focusContentRight}>
       {targetContent === "message" && <Boxchat />}
       {targetContent === "contacts" && <BoxAddFriend />}
+      {targetContent === "notify" && <BoxAddFriend isSuggestFriend={true} /> }
     </Container>
   );
 };
