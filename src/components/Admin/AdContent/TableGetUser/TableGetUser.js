@@ -79,7 +79,7 @@ export default function GetUser({deleteState, setDeleteState, createState, setCr
           <th 
             // style={{width: '150px'}}
           >Chặn</th>
-          <th >Xoá</th>
+          {/* <th >Xoá</th> */}
           {/* <th >Chi tiết</th> */}
         </tr>
       </thead>
@@ -112,7 +112,7 @@ export default function GetUser({deleteState, setDeleteState, createState, setCr
                 <BlockButton/>
                 </div>
               </td> */}
-              <td><DeleteButton deleteState={deleteState} setDeleteState={setDeleteState} _id={item._id} /></td>
+              {/* <td><DeleteButton deleteState={deleteState} setDeleteState={setDeleteState} _id={item._id} /></td> */}
               {/* <td><EditButton _id={item._id} editState={editState} setEditState={setEditState} /></td> */}
             </tr>
           )}

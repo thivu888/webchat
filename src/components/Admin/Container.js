@@ -9,6 +9,10 @@ import AdMenu from './AdMenu/AdMenu.js'
 import { updateIsDesktop } from "../../actions/Main";
 import storage from "../../utils/storage"
 import {handleUserClick} from "./AdMenu/AdMenu"
+
+const token = JSON.parse(localStorage.getItem("_token"));
+console.log(token)
+
 const Admin=()=>{
     const [menuSelected, setMenuSelected] = useState(1)
     const dispatch = useDispatch()
@@ -39,5 +43,5 @@ const Admin=()=>{
         </>
     )
 }
-
+export {token}
 export default Admin
