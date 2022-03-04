@@ -12,7 +12,8 @@ function AdMenu({menuSelected, setMenuSelected}) {
   // console.log("--Menu")
   function handleHomeClick() {
     console.log("handle home click")
-    window.location.href = "http://localhost:3000/";
+    window.location.href = window.location.origin;
+    console.log(window.location.origin);
   }
   // const directToHome =() => console.log("welcome Home!");
 
