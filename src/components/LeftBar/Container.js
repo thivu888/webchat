@@ -114,7 +114,7 @@ const Index = () => {
 
   const getRequestFriend = async () => {
     UserService.getRequestFriends(user._id).then((res) =>
-      setNumber(res.friends.length)
+      setNumber(res.friends.length || 0)
     );
   };
 
@@ -129,7 +129,11 @@ const Index = () => {
         variant="dot"
         onClick={handleRedirectInfoUser}
       >
-        <Avatar sx={{ width: 48, height: 48 }} src={user.avatar} />
+        <Avatar
+          sx={{ width: 48, height: 48 }}
+          src={user.avatar}
+          onClick={handleShowInfo}
+        />
       </StyledBadge>
       <Button
         sx={{ mt: 4 }}

@@ -87,7 +87,7 @@ const AddFriendItem = ({
         </Box>
         <Button sx={{ mt: 3 }} variant="outlined" onClick={handleOnclick}>
           {" "}
-          {isSentRequest ? "Hủy kết bạn" : "Kết bạn"}
+          {isSentRequest ? "Hủy yêu cầu kết bạn" : "Kết bạn"}
         </Button>
       </Card>
     </Grid>

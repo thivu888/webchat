@@ -66,10 +66,13 @@ export const ListFriendAdd = ({ isSuggestFriend = false }) => {
 
   useEffect(() => {
     let listUserOrigin = [];
-    listUserOrigin = listUser.filter((it) => it._id !== user._id);
-    listFriend.forEach((item) => {
-      listUserOrigin = listUser.filter((it) => it._id !== item._id);
+    listUser.forEach((item) => {
+      const check = listFriend.find((it) => it._id === item._id);
+      if (!check) {
+        listUserOrigin.push(item);
+      }
     });
+    listUserOrigin = listUserOrigin.filter((item) => item._id !== user._id);
     setListUser(listUserOrigin);
   }, [listFriend, listUser.length]);
   const checkSentRequest = (userCheck) => {

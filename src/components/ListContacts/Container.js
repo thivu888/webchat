@@ -36,9 +36,18 @@ const Container = (props) => {
     let list = [];
     list = listUser.filter((item) => item._id !== user._id);
     list = list.map((item) => (
-      <ContactsItem key={item._id} id={item._id} user={item} />
+      <ContactsItem
+        key={item._id}
+        setListUser={setListUser}
+        id={item._id}
+        user={item}
+      />
     ));
-    return list.length ? list : <p style={{textAlign:'center'}}>danh sách bạn bè trống</p>;
+    return list.length ? (
+      list
+    ) : (
+      <p style={{ textAlign: "center" }}>danh sách bạn bè trống</p>
+    );
   };
 
   const handleRedirectContent = (targetContentRight) => {
