@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import './AdContent.css'
 import TableGetUser from './TableGetUser/TableGetUser.js'
-import TableGetGroup from './TableGetGroup/TableGetGroup'
 import ModalAddUser from './ModalAddUser/ModalAddUser'
 
 function AdContent({menuSelected}) {
