@@ -15,7 +15,8 @@
   overflow: scroll;
   border: 20px;
   /* padding: 20px; */
-  display: flex; 
+  padding-left: 15px;
+  /* display: flex;  */
   justify-content: center;
 }
 

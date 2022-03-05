@@ -34,7 +34,7 @@ function AdContent({menuSelected}) {
           <div className='adminSearch'>
             <form>
               <label>
-                <input type="text" name="name" placeholder='Tên người dùng'
+                <input type="text" name="name" placeholder='Tên người dùng hoặc số điện thoại'
                   onChange={(e)=>{setSearchState(e.target.value)}}
                 />
               </label>
