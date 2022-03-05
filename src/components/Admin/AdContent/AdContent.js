@@ -15,7 +15,7 @@ function AdContent({menuSelected}) {
 
   // console.log("Backdrop content",backDrop)
   const handleRefreshData= function() {
-    console.log('Refresh Data ')
+    // console.log('Refresh Data ')
     setBackDrop(!backDrop)
     setReFreshState(!reFreshState)
   }

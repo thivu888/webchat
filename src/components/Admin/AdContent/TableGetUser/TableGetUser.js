@@ -33,7 +33,7 @@ export default function GetUser({deleteState, setDeleteState, createState, setCr
       const users = await axios.get(
         "https://chat-app-server-hero.herokuapp.com/api/v1/users"
       );
-      console.log(users);
+      // console.log(users);
       const allUsers = users.data.users;
       setUsersList(allUsers);
       setBackDrop(false)

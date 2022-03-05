@@ -9,12 +9,12 @@ import {token} from '../../Container'
 
 export default function BlockButton({isBlock, _id, blockState, setBlockState }) {
   const handleDeleteClick= function(userId) {
-    console.log('Da block ID: ', userId)
-    console.log(typeof(token));
+    // console.log('Da block ID: ', userId)
+    // console.log(typeof(token));
     const blockUserId = async () => {
       const resultBlock = await axios.put(`https://chat-app-server-hero.herokuapp.com/api/v1/users/${userId}`, {"isBlock": !isBlock},
       { headers: {"Authorization" : `Bearer ${token}`} } );
-      console.log("result block: ", resultBlock)
+      // console.log("result block: ", resultBlock)
       setBlockState(!blockState)
     };
     blockUserId()

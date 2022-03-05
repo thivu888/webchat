@@ -11,7 +11,7 @@ import storage from "../../utils/storage"
 import {handleUserClick} from "./AdMenu/AdMenu"
 
 const token = JSON.parse(localStorage.getItem("_token"));
-console.log(token)
+// console.log(token)
 
 const Admin=()=>{
     const [menuSelected, setMenuSelected] = useState(1)

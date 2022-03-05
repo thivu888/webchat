@@ -109,8 +109,8 @@ export default function ModalAddUser({createState, setCreateState}) {
     setOpen(false);
   };
   const handleCloseAfterSubmit = () => {
-    console.log(typeof(phoneNewUser), phoneNewUser)
-    console.log (dummyData.includes(phoneNewUser), dummyData)
+    // console.log(typeof(phoneNewUser), phoneNewUser)
+    // console.log (dummyData.includes(phoneNewUser), dummyData)
     if(nameNewUser=="" ||  phoneNewUser=="" || passwordNewUser=="" || confirmPassword=="") {
       alert("Không được để trống các trường!")
     }else if(!regExp.test(phoneNewUser)){
@@ -122,7 +122,7 @@ export default function ModalAddUser({createState, setCreateState}) {
     }else if(passwordNewUser !==confirmPassword){
       alert("Mật khẩu không thống nhất! Xin hãy nhập lại!")
     }else {
-      console.log(inforNewUser)
+      // console.log(inforNewUser)
       // const creatUser = async function(inforNewUser){
       //     console.log("đã tạo mới user")
       // }
@@ -130,7 +130,7 @@ export default function ModalAddUser({createState, setCreateState}) {
         const creatNewUser = await axios.post(
           "https://chat-app-server-hero.herokuapp.com/api/v1/users", inforNewUser
         );
-        console.log("đã tạo mới user")
+        // console.log("đã tạo mới user")
         setInforNewUser({});
         setCreateState(!createState)
         handleClose()

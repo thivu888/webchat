@@ -13,7 +13,7 @@ function InputUserInfor({open, nameNewUser, setNameNewUser,
        confirmPassword, setConfirmPassword,
        role, setRole, verified, setVerified
       }) {
-  {console.log (open)}
+//   {console.log (open)}
   const handleChangeAdmin = (event) => {
       console.log("Là quản trị viên: ",event.target.checked);
       // setChecked(event.target.checked);
