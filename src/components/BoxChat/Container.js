@@ -4,6 +4,8 @@ import ChatHeader from "./ChatHeader";
 import ChatPool from "./ChatPool/Container";
 import {  useSelector } from "react-redux";
 import Welcome from "../ContentRight/Welcome";
+import AudioRecord from "./AudioRecord";
+
 const Index = () => {
   const { conversationId } = useSelector((state) => state.chatControl);
   const { targetContentRight } = useSelector((state) => state.main);

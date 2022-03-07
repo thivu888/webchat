@@ -28,10 +28,10 @@ const useStyle = makeStyles((theme) => ({
     padding: "10px 12px",
   },
   item_content_wraper: {
-    width: "100%",
+    width: "calc( 100% - 88px )",
     paddingRight: "16px",
-    display: "flex",
-    flexDirection: "column",
+    // display: "flex",
+    // flexDirection: "column",
   },
   text_wraper: {
     width: "80%",
@@ -78,6 +78,11 @@ const useStyle = makeStyles((theme) => ({
   },
   noRead: {
     background: "#f4f5f7",
+  },
+  styleSubAvatar: {
+    position: "relative",
+    bottom: "4px",
+    right: "4px",
   },
 }));
 

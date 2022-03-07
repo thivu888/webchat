@@ -1,4 +1,5 @@
 import { Box, styled } from "@mui/system";
+import { Typography } from "@mui/material";
 import { Avatar } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
@@ -13,6 +14,7 @@ import { updateUserInfo } from "../../../actions/Main";
 import { useDispatch } from "react-redux";
 import authentication from "../../../services/authentication";
 import User from "../../../entities/User";
+import moment from "moment";
 const Container = styled("div")((props) => {
   const { isOwn } = props;
   return {
@@ -21,7 +23,6 @@ const Container = styled("div")((props) => {
     "& > div": {
       display: "flex",
       alignItems: "flex-start",
-      alignItems: "center",
       "& > svg": {
         marginRight: `${isOwn ? "12px" : "0px"}`,
         marginLeft: `${!isOwn ? "12px" : "0px"}`,
@@ -35,11 +36,11 @@ const Container = styled("div")((props) => {
     },
   };
 });
-
 const Index = (props) => {
   const dispatch = useDispatch();
   const classConversation = useStyleListConversation();
   const { me, you, isOwn, content, isRead, type, id, avatar } = props;
+
   const getItem = ({ isOwn, type, content, message }) => {
     if (MessageTypes.MESSAGE === type) {
       return <Text isOwn={isOwn} content={content} />;

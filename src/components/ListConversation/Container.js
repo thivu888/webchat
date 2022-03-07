@@ -8,6 +8,7 @@ const Index = () => {
   const user = storage.getUserInfo();
 
   const { listConversations } = useSelector((state) => state.chatControl);
+
   const getListconverSations = () => {
     const list = listConversations.map((item) => (
       <ConversationItem

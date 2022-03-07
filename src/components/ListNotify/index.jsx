@@ -5,7 +5,7 @@ import RequestFriendItem from "./RequestFriendItem";
 
 export default function Index() {
   const user = storage.getUserInfo();
-  const [data, setData] = useState([]);
+  const [data, setData] = useState();
 
   useEffect(() => {
     getRequestFriend();
@@ -16,6 +16,7 @@ export default function Index() {
   };
 
   const getListRequest = () => {
+    if (!data) return null;
     if (data.length) {
       return data.map((item) => (
         <RequestFriendItem key={item._id} user={item} setData={setData} />

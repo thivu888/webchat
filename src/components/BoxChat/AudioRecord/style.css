@@ -1,0 +1,52 @@
+.container {
+  position: absolute;
+  height: 80vh;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 55px;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  align-items: center;
+  background-color: white;
+  justify-content: space-around;
+  flex: 1;
+}
+
+.container .audio-recording-wave {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.container .audio-recording-icon {
+  width: 150px;
+  height: 150px;
+  background: url(../../../static/media/voice-recording.svg) no-repeat center
+    center;
+  background-size: cover;
+}
+
+.duration {
+  margin-top: 20px;
+  font-weight: 400;
+  font-size: 26px;
+  color: #42a5f5;
+}
+progress {
+  width: 80% !important;
+  height: 15px !important;
+  /* background: lightblue !important; */
+  border-radius: 10px;
+}
+
+progress::-webkit-progress-value {
+  border-radius: 10px;
+  background: #42a5f5;
+}
+
+progress::-webkit-progress-bar {
+  background: lightgray;
+  border-radius: 10px;
+}

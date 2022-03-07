@@ -39,6 +39,47 @@ const useStyle = makeStyles(({ theme }) => ({
     display: "flex",
     flexDirection: "column",
   },
+  input: {
+    width: "100%",
+    height: 36,
+    padding: "16px 8px 16px 16px",
+    borderRadius: 20,
+    border: "none",
+    background: "white",
+    fontSize: 14,
+    color: "#283754",
+    "& ::placeholder": {
+      color: "#9E9E9E",
+    },
+  },
+  containerInput: {
+    width: "100%",
+    border: "none",
+  },
+  container: {
+    width: "50%",
+    background: "#F5F8FC",
+    padding: " 12px 16px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    flex: "1",
+    "& .MuiInput-underline:after": {
+      border: "none",
+    },
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        border: "none",
+      },
+      "&:hover fieldset": {
+        border: "none",
+      },
+      "&.Mui-focused fieldset": {
+        border: "none",
+      },
+    },
+  },
 }));
 
 export default useStyle;

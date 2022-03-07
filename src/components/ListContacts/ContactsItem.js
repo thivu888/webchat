@@ -9,7 +9,7 @@ import { updateconversation } from "../../actions/socket";
 import storage from "../../utils/storage";
 import UserService from "../../services/user";
 
-export const ContactsItem = ({ id, user, setListUser }) => {
+export const ContactsItem = ({ id, user, setListUser, isUnfriend }) => {
   const classes = useStyle();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -67,17 +67,19 @@ export const ContactsItem = ({ id, user, setListUser }) => {
           </Box>
         </Box>
       </Box>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          "aria-labelledby": "basic-button",
-        }}
-      >
-        <MenuItem onClick={rejectRequest}>Hủy kết bạn</MenuItem>
-      </Menu>
+      {isUnfriend && (
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{
+            "aria-labelledby": "basic-button",
+          }}
+        >
+          <MenuItem onClick={rejectRequest}>Hủy kết bạn</MenuItem>
+        </Menu>
+      )}
     </>
   );
 };

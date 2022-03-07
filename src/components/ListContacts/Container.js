@@ -14,7 +14,7 @@ const Container = (props) => {
   const classes = useStyle();
   const dispatch = useDispatch();
   const user = storage.getUserInfo();
-  const [listUser, setListUser] = useState([]);
+  const [listUser, setListUser] = useState(undefined);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -34,9 +34,12 @@ const Container = (props) => {
   const getItem = () => {
     const user = storage.getUserInfo();
     let list = [];
-    list = listUser.filter((item) => item._id !== user._id);
+    if (!listUser) return null;
+
+    list = listUser?.filter((item) => item._id !== user._id);
     list = list.map((item) => (
       <ContactsItem
+        isUnfriend={true}
         key={item._id}
         setListUser={setListUser}
         id={item._id}

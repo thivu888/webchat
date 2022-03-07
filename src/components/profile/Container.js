@@ -39,7 +39,11 @@ const Container = () => {
   const [loading, setLoading] = useState(false);
 
   const handleOnChangeFile = (event) => {
+    if (!event.target.files.length) return;
     const targetFile = event.target.files[0];
+    if (!targetFile) {
+      return;
+    }
     const urlAvatarUpdate = URL.createObjectURL(targetFile);
     setState({ ...state, avatar: urlAvatarUpdate, file: targetFile });
   };
@@ -47,11 +51,11 @@ const Container = () => {
   const handleChangeInput = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    setState({ ...userInfo, [name]: value });
+    setState({ ...state, [name]: value });
   };
 
   const handleChangeDate = (e) => {
-    setState({ ...userInfo, dataOfBirth: e.getTime() });
+    setState({ ...state, dataOfBirth: e.getTime() });
   };
 
   const handleSubmit = async (e) => {

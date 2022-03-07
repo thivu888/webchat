@@ -20,6 +20,7 @@ import ViewFile from "../../ViewImage";
 import MessageService from "../../../services/message";
 import storage from "../../../utils/storage";
 import UserService from "../../../services/user";
+import AudioRecord from  '../AudioRecord'
 let pagecurrent = 0;
 const Container = () => {
   const dispatch = useDispatch();
@@ -44,6 +45,7 @@ const Container = () => {
     currentLastMessage,
     isSendingFile,
     isViewFile,
+    isStartRecordingAudio,
   } = useSelector((state) => state.chatControl);
 
   const handleOnScroll = (e) => {
@@ -213,18 +215,22 @@ const Container = () => {
       {isViewFile ? (
         <ViewFile content={isViewFile} open={!!isViewFile} />
       ) : null}
-      <Box
-        id="scrollableDiv"
-        className={classes.container}
-        onScroll={handleOnScroll}
-        ref={wraper}
-      >
-        {loading && <CircularProgress className={classes.iconLoading} />}
+      {!isStartRecordingAudio ? (
+        <Box
+          id="scrollableDiv"
+          className={classes.container}
+          onScroll={handleOnScroll}
+          ref={wraper}
+        >
+          {loading && <CircularProgress className={classes.iconLoading} />}
 
-        {getMessages(clientChain)}
+          {getMessages(clientChain)}
 
-        <Box ref={scroll} />
-      </Box>
+          <Box ref={scroll} />
+        </Box>
+      ) : (
+        <AudioRecord />
+      )}
     </>
   );
 };

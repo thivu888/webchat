@@ -1,4 +1,4 @@
-import { Box, Avatar, Typography } from "@mui/material";
+import { Box, Avatar, Typography, Badge } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 // import TimeAgo from 'react-time-ago'
 import { useDispatch, useSelector } from "react-redux";
@@ -9,14 +9,28 @@ import { updateconversation } from "../../actions/socket";
 import { updateConversations } from "../../actions/Chat";
 import moment from "moment";
 import clsx from "clsx";
+import { styled } from "@mui/system";
+import { useEffect, useState } from "react";
+import UserService from "../../services/user";
+import AuthService from "../../services/authentication";
+const SmallAvatar = styled(Avatar)(() => ({
+  width: 24,
+  height: 24,
+  position: "relative",
+  bottom: "4px",
+  right: "4px",
+  border: `2px solid #F5F8FC`,
+}));
+
 const Index = (props) => {
   const { value, isRead } = props;
   const { avatar, name, content, updatedAt } = value;
   const { listConversations } = useSelector((state) => state.chatControl);
   const user = storage.getUserInfo();
   const classes = useStyle();
-
   const dispatch = useDispatch();
+
+  const [smallAvatar, setSmallAvatar] = useState("");
 
   const handleFocusRight = () => {
     dispatch(
@@ -62,13 +76,30 @@ const Index = (props) => {
     return <Typography>{content}</Typography>;
   };
 
+  const badgeContent = () => {
+    if (avatar.length <= 1) return null;
+    return <SmallAvatar className={classes.styleSubAvatar} src={smallAvatar} />;
+  };
+
+  useEffect(() => {
+    AuthService.getUserInfo(value.sender._id).then((res) => {
+      setSmallAvatar(res.data.avatar);
+    });
+  }, [value]);
+
   return (
     <Box
       className={clsx(classes.item_wraper, !isRead ? classes.noRead : "")}
       onClick={handleFocusRight}
     >
       <Box className={classes.item_img_wraper}>
-        <Avatar sx={{ width: 48, height: 48 }} src={avatar} />
+        <Badge
+          overlap="circular"
+          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+          badgeContent={badgeContent()}
+        >
+          <Avatar sx={{ width: 48, height: 48 }} src={avatar[0]} />
+        </Badge>
       </Box>
       <Box className={classes.item_content_wraper}>
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
