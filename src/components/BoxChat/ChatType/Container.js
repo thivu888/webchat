@@ -48,8 +48,12 @@ const Container = () => {
   const { focusContentRight } = useSelector((state) => state.main);
   const isDesktop = useMediaQuery("(min-width:800px)");
   const [isShowEmoji, setIsShowEmoji] = useState(false);
-  const { isOpenRecordAudio, isStartRecordingAudio, isEndRecordingAudio } =
-    useSelector((state) => state.chatControl);
+  const {
+    isOpenRecordAudio,
+    isStartRecordingAudio,
+    isEndRecordingAudio,
+    userMedia,
+  } = useSelector((state) => state.chatControl);
   const dispatch = useDispatch();
   const classes = useStyle();
   const [state, setstate] = useState("");
@@ -102,6 +106,11 @@ const Container = () => {
   };
 
   const closeRecord = () => {
+    if (userMedia) {
+      userMedia.getTracks().forEach((track) => {
+        track.stop();
+      });
+    }
     dispatch(setIsRecord(false));
     dispatch(setIsStartRecord(false));
   };

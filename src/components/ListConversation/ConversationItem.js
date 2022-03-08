@@ -63,15 +63,21 @@ const Index = (props) => {
     const me = storage.getUserInfo();
     if (value.type === "image") {
       if (me._id == value.sender._id) {
-        return <Typography>Bạn đã gửi cho bạn một ảnh</Typography>;
+        return <Typography>Bạn đã gửi một ảnh</Typography>;
       }
       return <Typography>{name} đã gửi cho bạn một ảnh</Typography>;
     }
     if (value.type === "video") {
       if (me._id == value.sender._id) {
-        return <Typography>Bạn đã gửi cho bạn một video</Typography>;
+        return <Typography>Bạn đã gửi một video</Typography>;
       }
       return <Typography>{name} đã gửi cho bạn một video</Typography>;
+    }
+    if (value.type === "audio") {
+      if (me._id == value.sender._id) {
+        return <Typography>Bạn đã gửi một voice</Typography>;
+      }
+      return <Typography>{name} đã gửi cho bạn một voice</Typography>;
     }
     return <Typography>{content}</Typography>;
   };
