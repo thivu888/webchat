@@ -20,7 +20,7 @@ import ViewFile from "../../ViewImage";
 import MessageService from "../../../services/message";
 import storage from "../../../utils/storage";
 import UserService from "../../../services/user";
-import AudioRecord from  '../AudioRecord'
+import AudioRecord from "../AudioRecord";
 let pagecurrent = 0;
 const Container = () => {
   const dispatch = useDispatch();

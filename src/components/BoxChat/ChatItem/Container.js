@@ -1,20 +1,16 @@
 import { Box, styled } from "@mui/system";
-import { Typography } from "@mui/material";
 import { Avatar } from "@mui/material";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import Text from "./Text/Container";
 import VideoItem from "./Video";
 import ImageItem from "./Image";
-import { MessageTypes, FileTypes } from "../../../constant/types";
+import { MessageTypes } from "../../../constant/types";
 import useStyleListConversation from "../../ListConversation/style";
-import { DownLoad, GetUrlImg } from "../../../utils/download";
+import { GetUrlImg } from "../../../utils/download";
 import CallEndIcon from "@mui/icons-material/CallEnd";
 import { updateUserInfo } from "../../../actions/Main";
 import { useDispatch } from "react-redux";
-import authentication from "../../../services/authentication";
-import User from "../../../entities/User";
-import moment from "moment";
+import Audio from "./Audio";
 const Container = styled("div")((props) => {
   const { isOwn } = props;
   return {
@@ -82,6 +78,9 @@ const Index = (props) => {
       ));
     } else if (MessageTypes.CALL === type) {
       return <Text isOwn={isOwn} content={<CallEndIcon />} />;
+    } else if (MessageTypes.AUDIO === type) {
+      const item = JSON.parse(content)[0];
+      return <Audio src={item.url} duration={item.duration} />;
     }
   };
 

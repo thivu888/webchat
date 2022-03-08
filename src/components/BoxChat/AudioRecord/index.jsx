@@ -14,6 +14,7 @@ import { sendMessage } from "../../../actions/socket";
 let mediaRecorder;
 let intervalTime;
 const limitTime = 60000; // 60s
+let secondTime = 0;
 export default function Index() {
   const [durationRecord, setDurationRecord] = useState("");
   const [progress, setProgress] = useState(0);
@@ -38,17 +39,11 @@ export default function Index() {
       });
 
       mediaRecorder.addEventListener("stop", async () => {
-        if (mediaRecorder.isCancel) {
-          return;
-        }
-        const audioBlob = new Blob(audioChunks, { type: "audio/mp3" });
+        const audioBlob = new Blob(audioChunks, { type: "audio/mpeg" });
         const metadata = {
-          type: "audio/mp3",
+          type: "audio/mpeg",
         };
-        console.log(audioBlob);
-
         const file = new File([audioBlob], `audio.mp3`, metadata);
-        console.log(file);
         handleSendFile(file, MessageTypes.AUDIO);
       });
     };
@@ -61,21 +56,31 @@ export default function Index() {
   }, []);
 
   const handleSendFile = async (file, file_type) => {
-    dispatch(updateSendFile(true));
-    clearInterval(intervalTime);
-    const listContent = [];
-    const fileUpload = await mediaService.uploadFile(file, file_type);
-    listContent.push(fileUpload.url);
+    try {
+      dispatch(updateSendFile(true));
+      clearInterval(intervalTime);
+      const listContent = [];
+      const fileUpload = await mediaService.uploadFile(file, file_type);
+      listContent.push({
+        duration: secondTime,
+        url: fileUpload.url,
+      });
 
-    const message = {
-      type: file_type,
-      content: JSON.stringify(listContent),
-    };
-    dispatch(setIsEndRecord(false));
-    dispatch(setIsStartRecord(false));
-    dispatch(setIsRecord(false));
-    dispatch(updateSendFile(false));
-    dispatch(sendMessage(message));
+      const message = {
+        type: file_type,
+        content: JSON.stringify(listContent),
+      };
+      dispatch(setIsEndRecord(false));
+      dispatch(setIsStartRecord(false));
+      dispatch(setIsRecord(false));
+      dispatch(updateSendFile(false));
+      dispatch(sendMessage(message));
+    } catch (error) {
+      dispatch(setIsEndRecord(false));
+      dispatch(setIsStartRecord(false));
+      dispatch(setIsRecord(false));
+      dispatch(updateSendFile(false));
+    }
   };
 
   const clearAllAction = () => {
@@ -94,7 +99,6 @@ export default function Index() {
       if (isEndRecordingAudio) {
         mediaRecorder.isCancel = true;
       }
-
       mediaRecorder.stop();
     }
   }, [isEndRecordingAudio]);
@@ -108,6 +112,7 @@ export default function Index() {
         const miliSecond = Math.floor((currentMiliSecond % 1000) / 100);
         setDurationRecord(`${second < 10 ? "0" : ""}${second}:0${miliSecond}`);
         setProgress((value) => (value >= 100 ? 100 : value + (0.1 * 100) / 60));
+        secondTime = second;
       } else if (currentMiliSecond === limitTime) {
         mediaRecorder.stop();
       }

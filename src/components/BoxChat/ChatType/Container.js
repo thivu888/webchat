@@ -107,15 +107,12 @@ const Container = () => {
   };
 
   const handleStartRecord = () => {
-    console.log(isOpenRecordAudio);
-    console.log(isStartRecordingAudio);
     if (isOpenRecordAudio && !isStartRecordingAudio) {
       dispatch(setIsStartRecord(true));
     } else {
       dispatch(setIsEndRecord(true));
     }
   };
-  console.log(isEndRecordingAudio);
   return (
     <ContainerWraper
       isDesktop={isDesktop}
