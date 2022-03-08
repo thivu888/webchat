@@ -21,13 +21,11 @@ import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
 import "./class.css";
 const ContainerWraper = styled("div")((props) => ({
-  position: "fixed",
-  right: 0,
-  left: `${props.isDesktop ? "401px" : "64px"}`,
-  bottom: 0,
-  height: 56,
-  background: "#fff",
-
+  position: "relative",
+  display: "flex",
+  width: "100%",
+  justifyContent: "space-between",
+  alignItems: "center",
   "&>div": {
     display: "flex",
     alignItems: "center",
@@ -67,6 +65,12 @@ const Container = () => {
   };
 
   const handleSendMessage = () => {
+    const input = document.getElementById("chat-footer__input");
+    const content = state.trim();
+    if (!content) {
+      input.focus();
+      return;
+    }
     if (state.length > 0) {
       dispatch(
         sendMessage({
@@ -74,14 +78,14 @@ const Container = () => {
           type: MessageTypes.MESSAGE,
         })
       );
-
       setstate("");
     }
   };
 
   const onKeyPress = (event) => {
-    if (event.keyCode === 13 || event.which === 13) {
+    if ((event.keyCode === 13 || event.which === 13) && !event.shiftKey) {
       handleSendMessage();
+      return;
     }
   };
   const handleChosenEmoji = (emojiData) => {
@@ -127,7 +131,7 @@ const Container = () => {
       isDesktop={isDesktop}
       focusContentRight={focusContentRight}
     >
-      <Box>
+      <Box sx={{ position: "relative" }}>
         {isOpenRecordAudio ? (
           <Box
             sx={{
@@ -175,35 +179,48 @@ const Container = () => {
           </Box>
         ) : (
           <>
-            <InputFile />
-            <Box className={classes.InputWraper}>
+            <Box sx={{ mt: 1, alignSelf: "flex-end" }}>
+              <InputFile />
+            </Box>
+            <Box className={classes.chatFooterTypeWraper}>
               <InputBase
-                fullWidth
-                placeholder="Type ...."
-                onChange={onChangeInput}
+                id="chat-footer__input"
+                className={classes.chatFooterType}
+                multiline
+                maxRows={4}
+                minRows={1}
                 value={state}
+                onChange={onChangeInput}
                 onKeyPress={onKeyPress}
+                placeholder="typing..."
               />
-              <Box
-                className={classes.iconSmileWraper}
+              <Typography
+                sx={{ alignSelf: "flex-end", mb: 1, ml: 1 }}
+                className={classes.iconSmile + " " + classes.icon}
                 onClick={handleShowEmoji}
-              >
-                <Typography
-                  className={classes.iconSmile + " " + classes.icon}
-                ></Typography>
-              </Box>
+              ></Typography>
             </Box>
             {isShowEmoji && (
-              <Box sx={{ height: 200 }}>
+              <Box
+                sx={{
+                  height: 200,
+                  width: "100%",
+                  top: "-152px",
+                  position: "absolute",
+                }}
+              >
                 <Emoji chosenEmoji={handleChosenEmoji} />
               </Box>
             )}
-            <Box sx={{ mr: 2 }} onClick={handleClickRecord}>
+            <Box
+              sx={{ mr: 2, alignSelf: "flex-end" }}
+              onClick={handleClickRecord}
+            >
               <Typography
                 className={classes.iconMic + " " + classes.icon}
               ></Typography>
             </Box>
-            <Box>
+            <Box sx={{ alignSelf: "flex-end" }}>
               <Box className={classes.WrapSend} onClick={handleSendMessage}>
                 <Typography
                   className={classes.iconSend + " " + classes.icon}

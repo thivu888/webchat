@@ -54,7 +54,7 @@ const Index = ({ src, duration }) => {
   };
 
   return (
-    <Box>
+    <Box sx={{ ml: 1 }}>
       <Box onClick={handlePlay} sx={{ position: "relative" }}>
         <img
           style={{

@@ -34,7 +34,7 @@ import IconSearch from "../../../static/images/search_icon.svg";
 
 export const ContainerWraper = styled("div")((props) => {
   return {
-    height: 68,
+    minHeight: 55,
     background: "#fff",
     display: "flex",
     alignItems: "center",
@@ -45,7 +45,8 @@ export const ContainerWraper = styled("div")((props) => {
         return `${props.focus ? "flex" : "none"}`;
       },
     },
-    position: "relative",
+    position: "fixed",
+    zIndex: 100,
     borderBottom: "1px solid #dbdbdb",
   };
 });
