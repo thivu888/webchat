@@ -69,7 +69,7 @@ const Index = ({ src, duration }) => {
         />
         <Box
           sx={{
-            width: 250,
+            width: `${duration > 10 ? "250px" : "125px"}`,
             height: 34,
             borderRadius: "20px",
             background: "rgba(0, 132, 255,0.8)",
