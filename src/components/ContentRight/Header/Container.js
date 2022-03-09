@@ -6,9 +6,20 @@ import SearchIcon from "@mui/icons-material/Search";
 import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
 import VideocamOutlinedIcon from "@mui/icons-material/VideocamOutlined";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { Avatar, Typography, AvatarGroup, useMediaQuery } from "@mui/material";
+import {
+  Avatar,
+  Typography,
+  AvatarGroup,
+  useMediaQuery,
+  TextField,
+  InputAdornment,
+} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { updateFocusRight, updateUserInfo } from "../../../actions/Main";
+import {
+  setListUsers,
+  updateFocusRight,
+  updateUserInfo,
+} from "../../../actions/Main";
 import useStyle from "./style";
 import avatarAddFriend from "../../../static/images/avataraddfriend.png";
 import avatar_Group from "../../../static/images/avatarground.png";
@@ -18,9 +29,12 @@ import history from "../../../utils/history";
 import { Link } from "react-router-dom";
 import authentication from "../../../services/authentication";
 import User from "../../../entities/User";
+import { Image } from "@mui/icons-material";
+import IconSearch from "../../../static/images/search_icon.svg";
+
 export const ContainerWraper = styled("div")((props) => {
   return {
-    height: 68,
+    minHeight: 55,
     background: "#fff",
     display: "flex",
     alignItems: "center",
@@ -31,7 +45,8 @@ export const ContainerWraper = styled("div")((props) => {
         return `${props.focus ? "flex" : "none"}`;
       },
     },
-    position: "relative",
+    position: "fixed",
+    zIndex: 100,
     borderBottom: "1px solid #dbdbdb",
   };
 });
@@ -40,9 +55,8 @@ const Container = (props) => {
   const classes = useStyle();
   const isDesktop = useMediaQuery("(min-width:800px)");
 
-  const { focusContentRight, targetContentRight } = useSelector(
-    (state) => state.main
-  );
+  const { focusContentRight, targetContentRight, listUsers, listTempUsers } =
+    useSelector((state) => state.main);
 
   const dispatch = useDispatch();
 
@@ -54,6 +68,16 @@ const Container = (props) => {
     dispatch(updateFocusRight(true));
   };
 
+  const handleSearch = (e) => {
+    const listUser = [...listTempUsers];
+    dispatch(
+      setListUsers(
+        listUser.filter((item) =>
+          item.username.toLowerCase().includes(e.target.value.toLowerCase())
+        )
+      )
+    );
+  };
   const { chat, addFriend, user, avatars, name, updatedAt, data } = props;
 
   const onHandleRequestCall = () => {
@@ -113,6 +137,21 @@ const Container = (props) => {
           >
             Danh sách kết bạn
           </Typography>
+          <div className={classes.container}>
+            <TextField
+              className={classes.containerInput}
+              InputProps={{
+                className: classes.input,
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <img src={IconSearch} alt="icon" width={16} height={16} />
+                  </InputAdornment>
+                ),
+              }}
+              onChange={handleSearch}
+              {...props}
+            />
+          </div>
         </>
       )}
       {/* {addFriend && targetContentRight === "group" && (

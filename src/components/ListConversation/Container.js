@@ -8,6 +8,7 @@ const Index = () => {
   const user = storage.getUserInfo();
 
   const { listConversations } = useSelector((state) => state.chatControl);
+
   const getListconverSations = () => {
     const list = listConversations.map((item) => (
       <ConversationItem
@@ -23,7 +24,11 @@ const Index = () => {
       />
     ));
 
-    return list;
+    return list.length ? (
+      list
+    ) : (
+      <p style={{ textAlign: "center" }}>Không có cuộc trò chuyện nào</p>
+    );
   };
 
   return <Box className={classes.container}>{getListconverSations()}</Box>;

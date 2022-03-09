@@ -12,20 +12,32 @@ import PopupAddfriend from "../PopupAddfriend";
 import PopupAddGroup from "../PopupAddGroup";
 import AuthenService from "../../services/authentication";
 import { useEffect } from "react";
+import { resetDataCall } from "../../actions/call";
+import history from "../../utils/history";
 const Home = () => {
   const dispatch = useDispatch();
-  const { isShowIncomingCall } = useSelector((state) => state.tokbox);
+  const { isShowIncomingCall, sessionId, token } = useSelector(
+    (state) => state.tokbox
+  );
   const { showFindAddFriend, showFindAddGroup } = useSelector(
     (state) => state.main
   );
   const user = storage.getUserInfo();
-  //   useEffect(() => {
-  //     AuthenService.getUserInfo(user._id).then((data) => {
-  //       if (!data.data.verify) {
-  //         window.location.href = "/verify";
-  //       }
-  //     });
-  //   }, []);
+  useEffect(() => {
+    AuthenService.getUserInfo(user._id).then((data) => {
+      if (!data.data.verify) {
+        window.location.href = "/verify";
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!isShowIncomingCall && history.location.pathname !== "/") {
+      if (token | sessionId) {
+        dispatch(resetDataCall());
+      }
+    }
+  }, [isShowIncomingCall]);
 
   return (
     <Box sx={{ display: "flex" }}>

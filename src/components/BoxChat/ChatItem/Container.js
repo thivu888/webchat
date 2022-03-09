@@ -1,18 +1,16 @@
 import { Box, styled } from "@mui/system";
 import { Avatar } from "@mui/material";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import Text from "./Text/Container";
 import VideoItem from "./Video";
 import ImageItem from "./Image";
-import { MessageTypes, FileTypes } from "../../../constant/types";
+import { MessageTypes } from "../../../constant/types";
 import useStyleListConversation from "../../ListConversation/style";
-import { DownLoad, GetUrlImg } from "../../../utils/download";
+import { GetUrlImg } from "../../../utils/download";
 import CallEndIcon from "@mui/icons-material/CallEnd";
 import { updateUserInfo } from "../../../actions/Main";
 import { useDispatch } from "react-redux";
-import authentication from "../../../services/authentication";
-import User from "../../../entities/User";
+import Audio from "./Audio";
 const Container = styled("div")((props) => {
   const { isOwn } = props;
   return {
@@ -21,7 +19,6 @@ const Container = styled("div")((props) => {
     "& > div": {
       display: "flex",
       alignItems: "flex-start",
-      alignItems: "center",
       "& > svg": {
         marginRight: `${isOwn ? "12px" : "0px"}`,
         marginLeft: `${!isOwn ? "12px" : "0px"}`,
@@ -35,11 +32,11 @@ const Container = styled("div")((props) => {
     },
   };
 });
-
 const Index = (props) => {
   const dispatch = useDispatch();
   const classConversation = useStyleListConversation();
   const { me, you, isOwn, content, isRead, type, id, avatar } = props;
+
   const getItem = ({ isOwn, type, content, message }) => {
     if (MessageTypes.MESSAGE === type) {
       return <Text isOwn={isOwn} content={content} />;
@@ -81,6 +78,9 @@ const Index = (props) => {
       ));
     } else if (MessageTypes.CALL === type) {
       return <Text isOwn={isOwn} content={<CallEndIcon />} />;
+    } else if (MessageTypes.AUDIO === type) {
+      const item = JSON.parse(content)[0];
+      return <Audio src={item.url} duration={item.duration} />;
     }
   };
 
