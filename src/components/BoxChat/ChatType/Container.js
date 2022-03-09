@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Box } from "@mui/system";
 import { styled } from "@mui/styles";
 import InputBase from "@mui/material/InputBase";
@@ -46,6 +46,7 @@ const Container = () => {
   const { focusContentRight } = useSelector((state) => state.main);
   const isDesktop = useMediaQuery("(min-width:800px)");
   const [isShowEmoji, setIsShowEmoji] = useState(false);
+  const inputRef = useRef();
   const {
     isOpenRecordAudio,
     isStartRecordingAudio,
@@ -79,6 +80,7 @@ const Container = () => {
         })
       );
       setstate("");
+      inputRef.current.rows = 1;
     }
   };
 
@@ -184,6 +186,7 @@ const Container = () => {
             </Box>
             <Box className={classes.chatFooterTypeWraper}>
               <InputBase
+                ref={inputRef}
                 id="chat-footer__input"
                 className={classes.chatFooterType}
                 multiline

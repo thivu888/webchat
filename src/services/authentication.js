@@ -24,8 +24,12 @@ export default {
         const user = { ...response.user, ...data };
         window.token = response.token;
         storage.setToken(response.token);
-        window.location.href = "/";
         storage.setUserInfo(new User(response.user));
+        if (!response.user.verify) {
+          window.location.href = "/verify";
+        } else {
+          window.location.href = "/";
+        }
         return response;
       })
       .catch((err) => {
@@ -37,10 +41,9 @@ export default {
     return await login({ phone: userLogin, password });
   },
 
-  getUserInfo(id) {
-    return HttpRequest.get(`/users/${id}`).then((response) => {
-      return response;
-    });
+  async getUserInfo(id) {
+    const response = await HttpRequest.get(`/users/${id}`);
+    return response;
   },
 
   checkAuth() {

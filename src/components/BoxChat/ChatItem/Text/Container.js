@@ -9,7 +9,7 @@ const Index = (props) => {
     <>
       <Box className={classes.content}>
         <Box className={props.isOwn ? classes.content_me : classes.content_you}>
-          {typeof content === "string" ? (
+          {typeof props.content === "string" ? (
             <Typography
               dangerouslySetInnerHTML={{ __html: setURL(props.content || "") }}
               id="link-message"
