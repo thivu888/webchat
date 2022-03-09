@@ -46,7 +46,6 @@ const Container = () => {
   const { focusContentRight } = useSelector((state) => state.main);
   const isDesktop = useMediaQuery("(min-width:800px)");
   const [isShowEmoji, setIsShowEmoji] = useState(false);
-  const inputRef = useRef();
   const {
     isOpenRecordAudio,
     isStartRecordingAudio,
@@ -56,7 +55,6 @@ const Container = () => {
   const dispatch = useDispatch();
   const classes = useStyle();
   const [state, setstate] = useState("");
-
   const handleShowEmoji = () => {
     setIsShowEmoji(!isShowEmoji);
   };
@@ -79,11 +77,11 @@ const Container = () => {
           type: MessageTypes.MESSAGE,
         })
       );
-      setstate("");
-      inputRef.current.rows = 1;
+      setTimeout(() => {
+        setstate("");
+      }, 1);
     }
   };
-
   const onKeyPress = (event) => {
     if ((event.keyCode === 13 || event.which === 13) && !event.shiftKey) {
       handleSendMessage();
@@ -186,7 +184,6 @@ const Container = () => {
             </Box>
             <Box className={classes.chatFooterTypeWraper}>
               <InputBase
-                ref={inputRef}
                 id="chat-footer__input"
                 className={classes.chatFooterType}
                 multiline
