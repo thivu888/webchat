@@ -100,7 +100,7 @@ function Login() {
     <Container>
       <Box className={classes.title}>
         <Typography>
-          Đăng kí tài khoản Zalo để kết nối với ứng dụng Zalo Chat
+          Đăng kí tài khoản VnChat để kết nối với ứng dụng VnChat
         </Typography>
       </Box>
 
