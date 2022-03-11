@@ -4,6 +4,7 @@ import Register from '../components/Auth/Register'
 import Verify from '../components/Auth/Verify'
 import BoxChatCall from "../components/BoxChatCall";
 import Home from '../components/Home'
+import Admin from "../components/Admin";
 import PublicRoute from './PublicRoute';
 import PrivateRoute from './PrivateRoute'
 import PageLoader from './PageLoader'
@@ -18,6 +19,7 @@ function App() {
       <Suspense fallback={<PageLoader/>}>
         <Switch>
           <PrivateRoute exact  path="/call" component={BoxChatCall}/>
+          <PrivateRoute exact  path="/admin" component={Admin}/>
           <PublicRoute exact  path="/login" component={Login}/>
           <PublicRoute exact  path="/register" component={Register}/>
           <PrivateRoute exact  path="/verify" component={Verify}/>

@@ -1,0 +1,68 @@
+.adminMenu {
+  border-right: 1px solid black;
+  height: 100%;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 200px;
+}
+
+/* .adminListItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+} */
+
+.adminHrefToHome {
+  text-decoration: none;
+}
+.adminItem {
+  display: flex;
+  border-bottom: 1px solid black;
+  cursor: pointer;
+  height: 50px;
+  width: 100%;
+}
+.adminHrefTo:hover {
+  background-color: blueviolet;
+  color: white;
+}
+.adminItem:hover {
+  background-color: blueviolet;
+  color: white;
+}
+.adminItemIcon {
+  padding-right: 10px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 40px;
+  width: 40px;
+  margin: 5px;
+}
+
+.adminItem .home {
+  background-image:url(../../../static/adminIcon/home.png);
+}
+.adminItem .user {
+  background-image:url(../../../static/adminIcon/google-user-icon-15.jpg);
+}
+.adminItem .group {
+  background-image:url(../../../static/adminIcon/groups-icon-png-7.jpg);
+}
+.adminItem .logoutIcon {
+  background-image:url(../../../static/adminIcon/logout-icon-5-256.png);
+}
+.adminMenu .logout{
+ border-top: 1px solid black;
+}
+
+.adminItemContent {
+  margin: auto 10px;
+  font-weight: 700;
+}
+
+.active {
+  background-color: #2bc4e2;
+  color: white;
+}
