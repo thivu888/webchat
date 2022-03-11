@@ -18,7 +18,7 @@ let secondTime = 0;
 export default function Index() {
   const [durationRecord, setDurationRecord] = useState("");
   const [progress, setProgress] = useState(0);
-  const { userMedia, isEndRecordingAudio } = useSelector(
+  const { userMedia, isEndRecordingAudio, isOpenRecordAudio } = useSelector(
     (state) => state.chatControl
   );
   const dispatch = useDispatch();
@@ -39,6 +39,9 @@ export default function Index() {
       });
 
       mediaRecorder.addEventListener("stop", async () => {
+        if (mediaRecorder.isCancel) {
+          return;
+        }
         const audioBlob = new Blob(audioChunks, { type: "audio/mpeg" });
         const metadata = {
           type: "audio/mpeg",
@@ -96,12 +99,16 @@ export default function Index() {
 
   useEffect(() => {
     if (mediaRecorder && isEndRecordingAudio) {
-      if (isEndRecordingAudio) {
-        mediaRecorder.isCancel = true;
-      }
       mediaRecorder.stop();
     }
   }, [isEndRecordingAudio]);
+
+  useEffect(() => {
+    if (!isOpenRecordAudio) {
+      mediaRecorder.isCancel = true;
+      clearAllAction();
+    }
+  }, [isOpenRecordAudio]);
 
   useEffect(() => {
     let currentMiliSecond = 0;

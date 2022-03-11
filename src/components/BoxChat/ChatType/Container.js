@@ -110,13 +110,7 @@ const Container = () => {
   };
 
   const closeRecord = () => {
-    if (userMedia) {
-      userMedia.getTracks().forEach((track) => {
-        track.stop();
-      });
-    }
     dispatch(setIsRecord(false));
-    dispatch(setIsStartRecord(false));
   };
 
   const handleStartRecord = () => {
