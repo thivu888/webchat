@@ -2,7 +2,7 @@ import { Box } from "@mui/system";
 import ChatType from "./ChatType";
 import ChatHeader from "./ChatHeader";
 import ChatPool from "./ChatPool/Container";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Welcome from "../ContentRight/Welcome";
 import AudioRecord from "./AudioRecord";
 
@@ -15,7 +15,7 @@ const Index = () => {
   return (
     <Box sx={{ position: "relative", width: "100%" }}>
       <ChatHeader />
-      <Box sx={{ position: "relative" }}>
+      <Box sx={{ position: "relative", minHeight: "90vh" }}>
         <ChatPool />
       </Box>
       <ChatType />
