@@ -5,10 +5,11 @@ const useStyle = makeStyles(() => ({
         display:'flex',
         flexDirection:'column',
         position:'relative',
-        height:'84vh',
+        // height:'84vh',
         overflowY:'scroll',
         overflowX:'hidden',
-        padding:'0 40px 0 20px',
+        // padding:'0 40px 0 20px',
+        top: "70px",
         '&::-webkit-scrollbar':{
             width: 8,
             opacity: 0.8,

@@ -145,7 +145,7 @@ function Index({ register }) {
                 <>
                     <Box>
                         <Button sx={{ outline: 'none', border: 'none', pr: 1 }} size="small" variant='outlined' ><PersonOutlineIcon sx={{ mt: 2 }} /></Button>
-                        <TextField onKeyPress={handleOnPressKey} sx={{ width: '100%', ml: 1 }} name="username" label="Username" variant="standard" required value={dataForm.username} onChange={onChangeHandle} />
+                        <TextField onKeyPress={handleOnPressKey} sx={{ width: '100%', ml: 1 }} name="username" label="Tên người dùng" variant="standard" required value={dataForm.username} onChange={onChangeHandle} />
                     </Box>
                     <Box>
                         <Button sx={{ outline: 'none', border: 'none', pr: 1 }} size="small" variant='outlined' ><DateRangeOutlinedIcon sx={{ mt: 2 }} /></Button>
@@ -163,16 +163,16 @@ function Index({ register }) {
             )}
             <Box >
                 <Button sx={{ outline: 'none', border: 'none', mt: 2,  }} size="small" variant='outlined'> <PhoneIphoneOutlinedIcon /></Button>
-                <TextField onKeyPress={handleOnPressKey} error={!!dataForm.error.find(eror => eror.type == 'phone')} helperText={dataForm.error.find(er => er.type == 'phone')?.message} sx={{ width: '100%', ml: 1 }} name="phone" label="phone" variant="standard" required value={dataForm.phone} onChange={onChangeHandle} />
+                <TextField onKeyPress={handleOnPressKey} error={!!dataForm.error.find(eror => eror.type == 'phone')} helperText={dataForm.error.find(er => er.type == 'phone')?.message} sx={{ width: '100%', ml: 1 }} name="phone" label="Số điện thoại" variant="standard" required value={dataForm.phone} onChange={onChangeHandle} />
             </Box>
             <Box >
                 <Button sx={{ outline: 'none', border: 'none', pr: 1 }} size="small" variant='outlined' ><LockOutlinedIcon sx={{ mt: 2 }} /></Button>
-                <TextField onKeyPress={handleOnPressKey} sx={{ width: '100%', ml: 1 }} type="password" name="password" label="Password" variant="standard" value={dataForm.password} onChange={onChangeHandle} />
+                <TextField onKeyPress={handleOnPressKey} sx={{ width: '100%', ml: 1 }} type="password" name="password" label="Mật khẩu" variant="standard" value={dataForm.password} onChange={onChangeHandle} />
             </Box>
             {register &&
                 <Box >
                     <Button sx={{ outline: 'none', border: 'none', pr: 1 }} size="small" variant='outlined' ><LockOutlinedIcon sx={{ mt: 2 }} /></Button>
-                    <TextField onKeyPress={handleOnPressKey} sx={{ width: '100%', ml: 1 }} error={!!dataForm.error.find(eror => eror.type == 'confirmpassword')} helperText={dataForm.error.find(er => er.type == 'confirmpassword')?.message} type="password" name="confirmpassword" label="confirmpassword" variant="standard" required value={dataForm.confirmpassword} onChange={onChangeHandle} />
+                    <TextField onKeyPress={handleOnPressKey} sx={{ width: '100%', ml: 1 }} error={!!dataForm.error.find(eror => eror.type == 'confirmpassword')} helperText={dataForm.error.find(er => er.type == 'confirmpassword')?.message} type="password" name="confirmpassword" label="Xác nhận mật khẩu" variant="standard" required value={dataForm.confirmpassword} onChange={onChangeHandle} />
                 </Box>
             }
             {

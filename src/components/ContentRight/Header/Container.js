@@ -46,7 +46,7 @@ export const ContainerWraper = styled("div")((props) => {
       },
     },
     position: "fixed",
-    zIndex: 100,
+    zIndex: 1001,
     borderBottom: "1px solid #dbdbdb",
   };
 });

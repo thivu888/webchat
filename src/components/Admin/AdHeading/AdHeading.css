@@ -1,15 +1,17 @@
 .adminHeading {
-  border-bottom: 3px solid rgb(138, 27, 212);
+  border-bottom: 3px solid #cf3ef3;
   padding: 15px;
   display: flex;
   width: 100vw;
   height: 80px;
   font-style: italic;
-  color: #a23cc4;
+  color: #cf3ef3;
 }
 .adminLogo {
   font-size: 30px;
   font-weight: 800;
+  color: #cf3ef3;
+
 }
 .adminMemberOnline {
   position: absolute;
