@@ -25,11 +25,11 @@
   width: 100%;
 }
 .adminHrefTo:hover {
-  background-color: blueviolet;
+  background-color: #cf3ef3;
   color: white;
 }
 .adminItem:hover {
-  background-color: blueviolet;
+  background-color: #cf3ef3;
   color: white;
 }
 .adminItemIcon {
@@ -63,6 +63,6 @@
 }
 
 .active {
-  background-color: #2bc4e2;
+  background-color: #cf3ef3;
   color: white;
 }

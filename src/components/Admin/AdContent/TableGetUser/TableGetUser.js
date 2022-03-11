@@ -17,7 +17,8 @@ export default function GetUser({deleteState, setDeleteState, createState, setCr
   editState, setEditState, blockState, setBlockState, reFreshState, backDrop, setBackDrop,
   searchState, setSearchState
 }) {
-
+  const currentAdminId = JSON.parse(localStorage.getItem("_user_info"))._id;
+  console.log("Current Admin Id: ", currentAdminId);
   const [usersList, setUsersList] = useState([]);
   // const [backDrop, setBackDrop] = useState(true);
   const handleCloseBackDrop = () => {
@@ -86,10 +87,10 @@ export default function GetUser({deleteState, setDeleteState, createState, setCr
       <tbody>
         {usersList.filter((val)=>{
             if(searchState == ""){
-              return val
+              return !val._id.includes(currentAdminId)
             } else if (val.username.toLowerCase().includes(searchState.toLowerCase())
             || val.phone.toLowerCase().includes(searchState.toLowerCase())) {
-              return val
+              return !val._id.includes(currentAdminId)
             }
         }).map((item, index) => {
           return (

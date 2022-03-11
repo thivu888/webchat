@@ -26,7 +26,8 @@ const Container = styled("div")(({ theme }) => ({
   top: 0,
   left: 0,
   bottom: 0,
-  backgroundColor: theme.palette.primary.main,
+  // backgroundColor: theme.palette.primary.main,
+  backgroundColor: "#cf3ef3",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
@@ -42,7 +43,8 @@ const Container = styled("div")(({ theme }) => ({
       backgroundColor: "#ffffff40",
     },
     "&:focus": {
-      backgroundColor: theme.palette.primary.dark,
+      // backgroundColor: theme.palette.primary.dark,
+      backgroundColor: "#8a419d",
     },
     "&>svg": {
       display: "block",
@@ -188,7 +190,7 @@ const Index = () => {
           <Typography className={classes.menu_item_text}>Cài đặt</Typography>
         </MenuItem>
         <hr />
-        <MenuItem onClick={logOut}>Logout</MenuItem>
+        <MenuItem onClick={logOut}>Đăng Xuất</MenuItem>
       </Menu>
     </Container>
   );

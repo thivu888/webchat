@@ -29,18 +29,18 @@ function Login() {
         <Container>
             <Box className={classes.title}>
                 <Typography >
-                    Đăng nhập tài khoản vnChat
+                    Xác minh tài khoản VNChat
                     để kết nối với ứng dụng VNChat
                 </Typography>
             </Box>
             <Box className={classes.wraper} sx={{boxShadow:3}}>
                 <Box className={classes.header}>
                     <Box className={clsx(target==='maqr'&&classes.active)} onClick={()=>handleChangeTarget('maqr')}>
-                        <Typography  >Mã QR</Typography>
+                        <Typography  >VỚI MÃ QR</Typography>
                     </Box>
                     <Typography></Typography>
                     <Box className={clsx(target==='sdt'&&classes.active)} onClick={()=>handleChangeTarget('sdt')}>
-                        <Typography > Email or SĐT</Typography>
+                        <Typography > VỚI SỐ ĐIỆN THOẠI</Typography>
                     </Box>
                 </Box>
                 
@@ -53,7 +53,7 @@ function Login() {
                 </Box>
             </Box>
             <Box className={classes.title}>
-                <Typography>Bạn chưa có tài khoản?<Link href='/register'>Đăng kí ngay</Link></Typography>
+                <Typography>Bạn chưa có tài khoản?<Link href='/register'>Đăng kí ngay!</Link></Typography>
             </Box>
         </Container>
     );

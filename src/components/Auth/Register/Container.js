@@ -23,7 +23,7 @@ function Login() {
         <Container>
             <Box className={classes.title}>
                 <Typography >
-                    Đăng kí tài khoản vnChat
+                    Đăng kí tài khoản VNChat
                     để kết nối với ứng dụng VNChat
                 </Typography>
             </Box>

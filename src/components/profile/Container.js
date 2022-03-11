@@ -220,7 +220,7 @@ const Container = () => {
                 textAlign: "left",
               }}
             >
-              Ngày Sinh
+              Ngày sinh
             </Typography>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DesktopDatePicker
@@ -257,13 +257,13 @@ const Container = () => {
                   <FormControlLabel
                     value="female"
                     control={<Radio />}
-                    label="Female"
+                    label="Nữ"
                     disabled={user._id !== userInfo._id}
                   />
                   <FormControlLabel
                     value="male"
                     control={<Radio />}
-                    label="Male"
+                    label="Nam"
                     disabled={user._id !== userInfo._id}
                   />
                 </RadioGroup>

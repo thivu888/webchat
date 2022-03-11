@@ -43,7 +43,7 @@ function Login() {
         )}
       </Box>
       <Box>
-        <Typography>Quét mã QR bằng Zalo để đăng nhập</Typography>
+        <Typography>Quét mã QR bằng ứng dụng  VNChat để đăng nhập</Typography>
       </Box>
       {loading && <Loading open={loading} />}
     </Box>
