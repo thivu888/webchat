@@ -192,7 +192,7 @@ const Container = () => {
                 value={state}
                 onChange={onChangeInput}
                 onKeyPress={onKeyPress}
-                placeholder="typing..."
+                placeholder="Nhắn tin..."
               />
               <Typography
                 sx={{ alignSelf: "flex-end", mb: 1, ml: 1 }}

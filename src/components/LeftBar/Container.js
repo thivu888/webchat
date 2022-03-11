@@ -190,7 +190,7 @@ const Index = () => {
           <Typography className={classes.menu_item_text}>Cài đặt</Typography>
         </MenuItem>
         <hr />
-        <MenuItem onClick={logOut}>Logout</MenuItem>
+        <MenuItem onClick={logOut}>Đăng Xuất</MenuItem>
       </Menu>
     </Container>
   );
